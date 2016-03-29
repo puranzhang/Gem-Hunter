@@ -1,4 +1,4 @@
-# Final Project – Part 2
+# Game Database
 Puran, Robin, Kyong, Alex 
 
 We are designing a database for an arbitrary game (specifically RPG). The database is meant to be maintained/updated by the administrator of the game.There are some restrictions to the database that would make the design/implementation of the database simpler. For example, one user is limited to have just one character in the game.  Also, we will assume that each character will have only one (or no) weapon, instead of having an armor as well. 
