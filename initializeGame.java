@@ -25,13 +25,16 @@ public class game {
 					rs = stmt.excuteQuery(check);
         		} 
         		System.out.println("Welcome " + id);
+
         		// load character
+        		initializeCharacter(id, conn);
+
 			} else {
 				// create new user.
 				String id = createUser(stmt);
                 
                 // create new character.
-                
+                createChar(id);
 
 
 			}
@@ -127,17 +130,10 @@ public class game {
                     "DEBUG: Successfully inserted user.");
             }
 
-
             stmt.close();
 	    } catch (SQLException e) {
 	        System.err.println(e);
 	    }
 	}
-
-
-
-
-
-
 
 }
