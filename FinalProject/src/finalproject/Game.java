@@ -537,7 +537,6 @@ public class Game {
                     // receive user's choice of skill to use
                     Scanner scan = new Scanner(System.in);
                     String stringSkill = scan.nextLine().trim().toLowerCase();
-
                     // find the matching skill instance
                     Set<Skill> userSkills = user_char.getSkills();
                     Iterator<Skill> iter = userSkills.iterator();
@@ -548,9 +547,15 @@ public class Game {
                             break;
                         }
                     }
-
-                    required_mp = chosenSkill.getManaCost();
-                    hasChosen = true;
+                    boolean rightSkill = true;
+                    if(chosenSkill.getName() == null){
+                        System.out.println("Invalid skill. Please try again!");
+                        rightSkill = false;
+                    }
+                    if(rightSkill){
+                        required_mp = chosenSkill.getManaCost();
+                        hasChosen = true;
+                    }
                 }
                 System.out.println("");
 
