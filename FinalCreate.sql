@@ -11,7 +11,7 @@ drop table Task cascade constraints;
 drop table Game_User cascade constraints;
 
 create table Game_User (
-    id char(12) primary key,
+    id char(8) primary key,
     pw varchar(16) not null check(LENGTH(pw) >= 8),
     name varchar(16) not null,
     email varchar(32) not null check(email LIKE '%@%')
@@ -27,7 +27,7 @@ create table Profession (
 );
 
 create table Weapon (
-    name varchar(12) primary key,
+    name varchar(32) primary key,
     damage int not null check(damage > 0),
     lvl_req int not null check(lvl_req >= 0),
     accuracy float not null check(accuracy > 0 and accuracy <= 1),
@@ -37,14 +37,14 @@ create table Weapon (
 );
 
 create table Game_Char (
-    name varchar(16) unique not null,
-    user_id char(12) not null,
+    name varchar(32) unique not null,
+    user_id char(8) not null,
     hp int not null check(hp >= 0 and hp <= 100),
     mp int not null check(mp >= 0 and mp <= 100),
-    exp int not null check(exp >= 0 and exp <= 100),
-    lvl int not null check(lvl > 0),
+    exp int not null check(exp >= 0),
+    lvl int not null check(lvl > 0 and lvl <= 50),
     profession varchar(12) not null,
-    weapon varchar(12) not null,
+    weapon varchar(32) not null,
 
     primary key (name, user_id),
     foreign key (user_id) references Game_User,
@@ -53,8 +53,8 @@ create table Game_Char (
 );
 
 create table Needs_To_Complete (
-    user_id char(12),
-    char_name varchar(16),
+    user_id char(8),
+    char_name varchar(32),
     task_name varchar(16),
     deadline timestamp,
 
@@ -65,8 +65,8 @@ create table Needs_To_Complete (
 );
 
 create table Completed_By (
-    user_id char(12),
-    char_name varchar(16),
+    user_id char(8),
+    char_name varchar(32),
     task_name varchar(16),
 
     primary key (user_id, char_name, task_name),
@@ -77,7 +77,7 @@ create table Completed_By (
 
 create table Skill (
     name varchar(32) primary key,
-    damage int not null check(damage > 0 and damage <= 100),
+    damage int not null check(damage >= 0),
     mana_cost int not null check(mana_cost >= 0 and mana_cost <= 100),
     type varchar(6) not null check(type = 'Attack' or type = 'Heal'),
     lvl_req int not null check(lvl_req >= 0),
