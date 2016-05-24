@@ -75,16 +75,13 @@ a {
 </p>
 
 
-用户名： <input id="username" type="text">
+用户名： <input id="username" type="text" onkeydown="function2()">
 <br>
-密码： <input id="passcode" type="text">
+密码： <input id="passcode" type="text" onkeydown="function2()">
 
 
 
-<script id="source" language="javascript" type="text/javascript">
-
-	  
-	  
+<script id="source" language="javascript" type="text/javascript">  
 	function myFunction()
 	{	
 		var x=document.getElementById("username").value;
@@ -100,14 +97,20 @@ a {
 		      {
 		        result = data;
 			if(result == 1){
-				alert(result);
-				//self.location='home.html';
+				self.location='home.html';
 			} else{
 				alert("用户名或者密码不对= =");
 			}
 		        
 		      } 
 		});
+	}
+	
+	function function2() {
+	    var y = event.keyCode;
+	    if (y == 13) {
+	        myFunction();
+	    }
 	}
 </script>
 <p><button input id = "enter" type="button" onclick="myFunction()">点击进入</button></p>
