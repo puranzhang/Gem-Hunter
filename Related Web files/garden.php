@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Guanyu's garden</title>
-	<script language="javascript" type="text/javascript" src="jquery.js"></script>
+	<title>NEW GAME</title>
+	<script language="javascript" type="text/javascript" src="/home/guanyuchen/public_html/jquery.js"></script>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" >
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style type="text/css">
@@ -74,14 +74,14 @@ a {
 <br>
 </p>
 
-
+<!--
 用户名： <input id="username" type="text" onkeydown="function2()">
 <br>
-密码： <input id="passcode" type="text" onkeydown="function2()">
+密码： <input id="passcode" type="password" onkeydown="function2()">
+-->
 
-
-
-<script id="source" language="javascript" type="text/javascript">  
+<script id="source" language="javascript" type="text/javascript">
+	<!--放弃用ajax来call数据库
 	function myFunction()
 	{	
 		var x=document.getElementById("username").value;
@@ -97,14 +97,21 @@ a {
 		      {
 		        result = data;
 			if(result == 1){
-				self.location='home.html';
+				jump();
+				
 			} else{
 				alert("用户名或者密码不对= =");
 			}
 		        
 		      } 
 		});
+		
 	}
+	
+	function jump(){
+		var x=document.getElementById("username").value;
+		self.location='newgame.php?in1=' + x;
+	}-->
 	
 	function function2() {
 	    var y = event.keyCode;
@@ -113,7 +120,24 @@ a {
 	    }
 	}
 </script>
-<p><button input id = "enter" type="button" onclick="myFunction()">点击进入</button></p>
+<!--<p><button input id = "enter" type="button" onclick="myFunction()">点击进入</button></p>-->
+<br>
+
+<form method="post" action="process.php">  
+<div class="div">  
+    用户名:<input type="text" name="name" >  
+    密码:<input type="password" name="password">  
+    <div class="button">  
+    <input type="submit" value="提交">  
+    <input type="reset" value="清除">  
+    <a href="register.php">注  册</a>    
+    </div>  
+</div>  
+</form>
+
+
+<br>
+<img src="/taozhuang.jpg"  alt="极品装备" />
 <br>
 <script>
 document.write(Date());
