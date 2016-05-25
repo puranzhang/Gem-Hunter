@@ -11,19 +11,18 @@ $user_pw = mysql_real_escape_string($user_pw);
 session_start();
 $_SESSION["regName"] = "$user_pw";
 
-if($user_id == "" or $user_pw == ""){
-	//echo json_encode(2);
-	header('Location: garden.php');
 
-}
 
 $query = "SELECT pw FROM Game_User WHERE id = '$user_id'";
 $query = mysql_query($query);
 
 $r=mysql_fetch_row($query);
 $r=implode(" ",$r);
+if($user_id == "" or $user_pw == ""){
+	//echo json_encode(2);
+	header('Location: garden.php');
 
-if ($r == $user_pw) {
+}else if ($r == $user_pw) {
 	//echo json_encode(1);
 	
     	header('Location: newgame.php');
