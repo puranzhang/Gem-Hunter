@@ -19,15 +19,10 @@ $query = mysql_query($query);
 $r=mysql_fetch_row($query);
 $r=implode(" ",$r);
 if($user_id == "" or $user_pw == ""){
-	//echo json_encode(2);
-	header('Location: garden.php');
-
+	header('Location: login.html');
 }else if ($r == $user_pw) {
-	//echo json_encode(1);
-	
     	header('Location: newgame.php');
 } else {
-	//echo json_encode(2);
-    	header('Location: garden.php');
+    	header('Location: login.html');
 }
 ?>

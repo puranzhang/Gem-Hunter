@@ -65,6 +65,7 @@ $var_value = $_SESSION["regName"];
 echo "Your registration ID is: ".$_SESSION["regName"].".";
 session_unset();
 ?>
+
 <p id = "welcome" style="color:red;">这是你的超强英雄</p>
 <img src = "GameImage/champion.jpg" name = "pic" alt = "champion" style="width:323px;height:400px;">
 <br>
@@ -105,7 +106,7 @@ var userId = "<?php echo $var_value ?>";
 	}
 	
 	function Back(){
-		location = 'garden.php';
+		location = 'login.html';
 	}
 	
 myFunction();
