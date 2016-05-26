@@ -9,7 +9,7 @@ $user_pw = $_POST['password'];
 $user_pw = mysql_real_escape_string($user_pw);
 
 session_start();
-$_SESSION["regName"] = "$user_pw";
+$_SESSION["regName"] = "$user_id";
 
 
 

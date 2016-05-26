@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>NEW GAME</title>
-	<script language="javascript" type="text/javascript" src="/home/guanyuchen/public_html/jquery.js"></script>
+	<script language="javascript" type="text/javascript" src="jquery.js"></script>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" >
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style type="text/css">
@@ -74,14 +74,16 @@ a {
 <br>
 </p>
 
-<!--
+<!--弃用！！
+
+
 用户名： <input id="username" type="text" onkeydown="function2()">
 <br>
 密码： <input id="passcode" type="password" onkeydown="function2()">
--->
+
 
 <script id="source" language="javascript" type="text/javascript">
-	<!--放弃用ajax来call数据库
+	
 	function myFunction()
 	{	
 		var x=document.getElementById("username").value;
@@ -111,7 +113,7 @@ a {
 	function jump(){
 		var x=document.getElementById("username").value;
 		self.location='newgame.php?in1=' + x;
-	}-->
+	}
 	
 	function function2() {
 	    var y = event.keyCode;
@@ -120,7 +122,12 @@ a {
 	    }
 	}
 </script>
-<!--<p><button input id = "enter" type="button" onclick="myFunction()">点击进入</button></p>-->
+<p><button input id = "enter" type="button" onclick="myFunction()">点击进入</button></p>
+-->
+
+
+
+
 <br>
 
 <form method="post" action="process.php">  
@@ -135,17 +142,22 @@ a {
 </div>  
 </form>
 
-<p>下面是一个惟妙惟肖的假的捐款按钮，不信大家可以试一试，钱并不会被捐出去</p>
+<p>下面是一个惟妙惟肖的假的捐款按钮，不信大家可以试一试，并不会捐给我3美金</p>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
 ">
 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
 <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 </form>
 
+
 <br>
-<img src="/taozhuang.jpg"  alt="极品装备" />
+<img 
+ src="chuanqi.gif"  
+ alt="热血传奇">
+<br>
+<img src="taozhuang.jpg"  alt="极品装备">
 <br>
 <script>
 document.write(Date());
