@@ -126,18 +126,19 @@ a {
 -->
 
 
-
+<script>function register(){location = 'register.html'}</script>
 
 <br>
 
 <form method="post" action="process.php">  
 <div class="div">  
     用户名:<input type="text" name="name" >  
-    密码:<input type="password" name="password">  
+    密码:<input type="password" name="password">
+    
     <div class="button">  
     <input type="submit" value="提交">  
-    <input type="reset" value="清除">  
-    <a href="register.php">注  册</a>    
+    <input type="reset" value="清除">
+    <input type="button" value="注册" onclick = "register()">   
     </div>  
 </div>  
 </form>
