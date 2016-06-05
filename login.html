@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>NEW GAME</title>
+	<script language="javascript" type="text/javascript" src="jquery.js"></script>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" >
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script>
+	window.onbeforeunload = function(e){
+	if(window.event)
+	window.event.returnValue = "You sure you want to exit this amazing game?";
+	}
+	</script>
+	<style type="text/css">
+	body {
+	  background-color: #C6D7F2;
+	}
+	
+	body, h1, p {
+	  font-family: "Helvetica Neue", "Segoe UI", Segoe, Helvetica, Arial, "Lucida Grande", sans-serif;
+	  font-weight: normal;
+	  margin: 0;
+	  padding: 0;
+	  text-align: center;
+	}
+	
+	.container {
+	  margin-left:  auto;
+	  margin-right:  auto;
+	  margin-top: 177px;
+	  max-width: 1170px;
+	  padding-right: 15px;
+	  padding-left: 15px;
+	}
+	
+	.row:before, .row:after {
+	  display: table;
+	  content: " ";
+	}
+	
+	h1 {
+	  font-size: 48px;
+	  font-weight: 300;
+	  margin: 0 0 20px 0;
+	}
+	
+	.lead {
+	  font-size: 21px;
+	  font-weight: 200;
+	  margin-bottom: 20px;
+	}
+	
+	p {
+	  color: red;
+	  margin: 0 0 10px;
+	}
+	
+	a {
+	  color: #3282e6;
+	  text-decoration: none;
+	}
+	</style>
+</head>
+
+<body>
+
+
+<a href = "http://guanyuc.com/home.html"> go back to the home page</a>
+<br>
+
+<p>  
+极品装备，一秒刷爆
+<br>
+皇城PK，胜者为王
+<br>
+屠龙宝刀，点击就送
+<br>
+单挑BOSS，怒刷装备
+<br>
+1.76经典版，来这里找回曾经的兄弟！
+<br>
+</p>
+
+<script>function register(){location = 'register.html'}</script>
+
+<br>
+
+<form method="post" action="process.php">  
+<div class="div">  
+    用户名:<input type="text" name="name" >  
+    密码:<input type="password" name="password">
+    
+    <div class="button">  
+    <input type="submit" value="提交">  
+    <input type="reset" value="清除">
+    <input type="button" value="注册" onclick = "register()">   
+    </div>  
+</div>  
+</form>
+
+<p>下面是一个惟妙惟肖的假的捐款按钮，不信大家可以试一试，并不会捐给我3美金</p>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+
+
+<br>
+<img src="GameImage/chuanqi.gif" alt="热血传奇">
+<br>
+<img src="GameImage/taozhuang.jpg" alt="极品装备">
+<br>
+<script>
+document.write(Date());
+</script>
+
+</body>
+</html>
