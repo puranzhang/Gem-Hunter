@@ -87,8 +87,10 @@
 <script>
 var char = getCookie("charName");
 document.write(char);
-
+document.cookie = "charName=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 </script>
+
+<button input type = "button" onclick = "location = 'login.html'">You must click this to go back</button>
 
 </body>
 </html>

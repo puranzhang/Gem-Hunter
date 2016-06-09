@@ -20,7 +20,7 @@
 	}
 	
 	var userId = "<?php echo $var_value ?>";
-	var name;
+	var cName;
 	var hp;
 	var mp;
 	var exp;
@@ -38,7 +38,7 @@
 			      success: function(data)          //on recieve of reply
 			      {
 			        
-			        name = data[0];              //get id
+			        cName = data[0];              //get id
 	        		user_id = data[1]; 
 	        		hp = data[2]; 
 	        		mp = data[3]; 
@@ -48,7 +48,7 @@
 	        		weapon = data[7]; 
 	
 				
-				$('#info').html("<b>name: </b>"+name+"<b> user_id: </b>"+user_id+"<b> hp: </b>"+hp+"<b> mp: </b>"+mp+"<b> exp: </b>"+exp+"<b> lvl: </b>"+lvl+"<b> profession: </b>"+profession+"<b> weapon: </b>"+weapon);
+				$('#info').html("<b>name: </b>"+cName+"<b> user_id: </b>"+user_id+"<b> hp: </b>"+hp+"<b> mp: </b>"+mp+"<b> exp: </b>"+exp+"<b> lvl: </b>"+lvl+"<b> profession: </b>"+profession+"<b> weapon: </b>"+weapon);
 				}
 			});
 			
@@ -100,9 +100,10 @@
 		function Back(){
 			location = 'login.html';
 		}
-		
+	
 	fetchInfo();
-	setCookie("charName",name);
+	setCookie("charName",cName);
+	document.write("WATCH OUT NAME IS  " + cName);
 	</script>
 	
 	<style type="text/css">
