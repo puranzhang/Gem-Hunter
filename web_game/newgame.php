@@ -63,7 +63,7 @@
 				var x=userId;
 				$.ajax({                                      
 				      url: 'fetchSkills.php',                  //the script to call to get data       
-				      data: {profession:profession,lvl:lvl},                        //you can insert url argumnets here to pass to api.php
+				      data: {prof:profession,lv:lvl},                        //you can insert url argumnets here to pass to api.php
 				                                       //for example "id=5&parent=6"
 				      dataType: 'json',                //data format      
 				      success: function(data)          //on recieve of reply
@@ -83,10 +83,18 @@
 			} 
 		}
 		
-		function Switch(){
-			document.pic.src = "GameImage/lose.jpg";
-			$('#info').html("英雄请从头来过！");
-			$('#welcome').html("You die!");
+		function setCookie(cname, cvalue) {
+		    //var d = new Date();
+		    //d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		    //var expires = "expires="+ d.toUTCString();
+		    document.cookie = cname + "=" + cvalue;// + "; path=findEnemy.php";
+		}
+		
+		function findEnemy(){
+			location = 'findEnemy.php';
+			//document.pic.src = "GameImage/lose.jpg";
+			//$('#info').html("英雄请从头来过！");
+			//$('#welcome').html("You die!");
 		}
 		
 		function Back(){
@@ -94,6 +102,7 @@
 		}
 		
 	fetchInfo();
+	setCookie("charName",name);
 	</script>
 	
 	<style type="text/css">
@@ -162,7 +171,7 @@
 <br>
 
 <div id="info">this element will be accessed by jquery and this text replaced</div>
-<p><button input type="button" onclick="Switch()">Find enemies</button>
+<p><button input type="button" onclick="findEnemy()">Find enemies</button>
 <button input id="showskill" type="button" onclick="fetchSkills()">Show your skills</button>
 <button input type="button" onclick="Back()">Log out</button></p>
 

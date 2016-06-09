@@ -11,8 +11,6 @@ $user_pw = mysql_real_escape_string($user_pw);
 session_start();
 $_SESSION["regName"] = "$user_id";
 
-
-
 $query = "SELECT pw FROM Game_User WHERE id = '$user_id'";
 $query = mysql_query($query);
 
