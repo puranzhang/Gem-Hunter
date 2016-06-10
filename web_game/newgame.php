@@ -20,13 +20,6 @@
 	}
 	
 	var userId = "<?php echo $var_value ?>";
-	var cName;
-	var hp;
-	var mp;
-	var exp;
-	var lvl;
-	var profession;
-	var weapon;
 
 		function fetchInfo()
 		{	
@@ -46,7 +39,8 @@
 	        		lvl = data[5]; 
 	        		profession = data[6]; 
 	        		weapon = data[7]; 
-	
+				setCookie("charName",cName);
+				setCookie("level",lvl);
 				
 				$('#info').html("<b>name: </b>"+cName+"<b> user_id: </b>"+user_id+"<b> hp: </b>"+hp+"<b> mp: </b>"+mp+"<b> exp: </b>"+exp+"<b> lvl: </b>"+lvl+"<b> profession: </b>"+profession+"<b> weapon: </b>"+weapon);
 				}
@@ -91,7 +85,7 @@
 		}
 		
 		function findEnemy(){
-			location = 'findEnemy.php';
+			location = 'battle.php';
 			//document.pic.src = "GameImage/lose.jpg";
 			//$('#info').html("英雄请从头来过！");
 			//$('#welcome').html("You die!");
@@ -102,8 +96,6 @@
 		}
 	
 	fetchInfo();
-	setCookie("charName",cName);
-	document.write("WATCH OUT NAME IS  " + cName);
 	</script>
 	
 	<style type="text/css">
