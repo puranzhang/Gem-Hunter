@@ -19,9 +19,10 @@ $char_name = mysql_real_escape_string($char_name);
 $prof = $_POST['profession'];
 $prof = mysql_real_escape_string($prof);
 
+/*
 session_start();
 $_SESSION["regName"] = "$user_id";
-
+*/
 
 $user_query = "SELECT * FROM Game_User WHERE id = '$user_id'";
 $user_query = mysql_query($user_query);
@@ -57,11 +58,11 @@ if(user_r != null || char_r != null{
             break;
     }
 
-    // insert char into DB.
+    //insert char into DB.
 	$char_update = "INSERT INTO Game_Char " + "VALUES ('" + charName + "', '" + id + "', " + 100 + ", " + 100 + ", " + 0 + ", " + 1 + ", '" + prof + "', '" + weapon + "')";
-	int rows = stmt.executeUpdate(updateChar);
-
-    header('Location: login.html');
+	$char_update = mysql_query($char_update);
+    //kick to newgame
+    header('Location: newgame.php');
 }
 ?>
 
