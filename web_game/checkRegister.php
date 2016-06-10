@@ -30,6 +30,7 @@ $user_query = mysql_query($user_query);
 $char_query = "SELECT * FROM Game_Char WHERE name = '$char_name'";
 $char_query = mysql_query($char_query);
 
+//问题是不是出在这儿（收集SQL结果）？
 $user_r=mysql_fetch_row($user_query);
 $user_r=implode(" ",$user_r);
 
