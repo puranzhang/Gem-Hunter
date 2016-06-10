@@ -74,10 +74,8 @@ if($user_r != null || $char_r != null){
 
     //insert char into DB.
     $char_update = "INSERT INTO Game_Char " . "VALUES ('" . $char_name . "', '" . $user_id . "', " . 100 . ", " . 100 . ", " . 0 . ", " . 1 . ", '" . $prof . "', '" . $weapon . "')";
-
     mysql_query($char_update);
-    $message = "Registered!!";
-    echo "<script type='text/javascript'>alert('$message');</script>";
+
     //kick to login
     header('Location: login.html');
 }
