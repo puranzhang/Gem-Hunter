@@ -81,14 +81,42 @@
 </head>
 
 <body>
-
-<p>bbb</p>
-
 <script>
 var char = getCookie("charName");
-document.write(char);
+var lv = getCookie("level");
+document.write("Your name is " + char + " and lv is " + lv + "<br>");
+document.write("Available Enemies:");
+
 document.cookie = "charName=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+document.cookie = "level=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+
+function getEnemy(){	
+		$.ajax({                                      
+		      url: 'fetchEnemy.php',                  //the script to call to get data       
+		      data: {charName:char,charLv:lv},                        //you can insert url argumnets here to pass to api.php
+		                                       //for example "id=5&parent=6"
+		      dataType: 'json',                //data format      
+		      success: function(data)          //on recieve of reply
+		      {
+		        var result = data;
+			var length = result.length/5;
+			$('#enemyTable > tbody').append("<tr><td>Enemy</td><td>hp</td><td>mp</td><td>lvl</td><td>profession</td></tr>");
+			for(var i=0;i<length;i++){
+				$('#enemyTable > tbody').append("<tr><td>" +result[5*i] + "</td><td>" + result[5*i+1] + "</td><td>" + result[5*i+2] + "</td><td>" + result[5*i+3] + "</td><td>" + result[5*i+4] + "</td></tr>");
+			}
+		      }
+		});
+			
+}
+
+getEnemy();
 </script>
+
+<table id = "enemyTable" style="width:30%">
+<tbody>
+
+</tbody>
+</table>
 
 <button input type = "button" onclick = "location = 'login.html'">You must click this to go back</button>
 
