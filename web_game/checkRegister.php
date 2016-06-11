@@ -4,7 +4,7 @@ $conn = mysql_connect('localhost','guanyuchen123','cgy123824');
 mysql_select_db('gameguanyu',$conn);
 
 //grab typed infos
-$user_id = $_POST['name'];
+$user_id = $_POST['id'];
 $user_id = mysql_real_escape_string($user_id);
 
 $user_pw = $_POST['password'];
@@ -22,14 +22,11 @@ $char_name = mysql_real_escape_string($char_name);
 $prof = $_POST['profession'];
 $prof = mysql_real_escape_string($prof);
 
-<<<<<<< HEAD
-=======
 // session 在这里感觉暂时用不上，但是你其实可以考虑试一试用session传东西回界面
 // 比如说，无论register成功与否都回login，但是成功session一个东西，失败session
 // 另一个东西，然后login如果接到其中任何一个的话就蹦一个alert
 
 // 不过希望在正常进login界面的时候不会接到什么session然后蹦个alert之类的。。
->>>>>>> origin/master
 /*
 session_start();
 $_SESSION["regName"] = "$user_id";
@@ -70,13 +67,6 @@ if($user_r != null || $char_r != null){
             break;
     }
 
-<<<<<<< HEAD
-    //insert char into DB.
-	$char_update = "INSERT INTO Game_Char " + "VALUES ('" + charName + "', '" + id + "', " + 100 + ", " + 100 + ", " + 0 + ", " + 1 + ", '" + prof + "', '" + weapon + "')";
-	$char_update = mysql_query($char_update);
-    //kick to newgame
-    header('Location: newgame.php');
-=======
     $user_update = "INSERT INTO Game_User " . "VALUES ('" . $user_id . "', '" . $user_pw . "', '" . $user_name . "', '" . $user_email . "')";
     mysql_query($user_update);
 
@@ -88,7 +78,6 @@ if($user_r != null || $char_r != null){
 
     //kick to login
     header('Location: login.html');
->>>>>>> origin/master
 }
 ?>
 

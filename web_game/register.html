@@ -60,18 +60,24 @@
 
 <body>
 
-<form method="post" action="checkRegister.php">  
+<form name="form" method="post" action="checkRegister.php" onsubmit="event.preventDefault();check();">  
 <div class="div">  
     <div>USER INFORMATION:</div>
-    <div>*User ID:<input type="text" name="name" ></div> 
-    <div>*Password:<input type="password" name="password"></div>
-    <div>*Password Confirmation:<input type="text" name="passwordConf"></div>
+    <div>*User ID:<input type="number" id="userId" name="id" placeholder="请填写8位数字" required="required"></div> 
+    <div>*Password:<input type="password" name="password" placeholder="8至16位数字" required="required"></div>
+    <div>*Password Confirmation:<input type="text" name="passwordConf" required="required"></div>
+    <div>Your Name:<input type="text" name="username"></div>
     <div>Email:<input type="text" name="email"></div>
-    <div>User Name:<input type="text" name="username"></div>
+
     <br>
     <div>CHARACTER INFORMATION</div>
-    <div>*Character Name:<input type="text" name="charname"></div>
-    <div>*Profession:<input type="text" name="profession"></div>
+    <div>*Character Name:<input type="text" name="charname" placeholder="不多于32位字母或数字" required="required"></div>
+    <div>*Profession: <select name="profession" required="required">
+	<option value="Archer" selected="selected">Archer</option>
+	<option value="Thief">Thief</option>
+	<option value="Fighter">Fighter</option>
+	<option value="Magician">Magician</option>
+    </select></div>
 
     <div class="button">  
     <input type="submit" value="提交">  
@@ -79,6 +85,19 @@
     </div>  
 </div>  
 </form>
+
+<script>
+function check(){
+	var id = document.getElementById('userId').value;
+	if( id==null || id=='' || id.length!= 8 || id < 0){
+		alert("Please fill in 8-digit number as your user ID, your id length is: " + id.length);
+		return false;
+	}
+	
+	return true;
+}
+</script>
+
 
 <script>
 function Back(){
