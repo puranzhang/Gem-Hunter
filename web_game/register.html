@@ -64,14 +64,14 @@
 <div class="div">  
     <div>USER INFORMATION:</div>
     <div>*User ID:<input type="number" id="userId" name="id" placeholder="请填写8位数字" required="required"></div> 
-    <div>*Password:<input type="password" name="password" placeholder="8至16位数字" required="required"></div>
-    <div>*Password Confirmation:<input type="text" name="passwordConf" required="required"></div>
+    <div>*Password:<input type="password" id="password" name="password" placeholder="8至16位数字" required="required"></div>
+    <div>*Password Confirmation:<input type="password" id="passwordConf" name="passwordConf" required="required"></div>
     <div>Your Name:<input type="text" name="username"></div>
     <div>Email:<input type="text" name="email"></div>
 
     <br>
     <div>CHARACTER INFORMATION</div>
-    <div>*Character Name:<input type="text" name="charname" placeholder="不多于32位字母或数字" required="required"></div>
+    <div>*Character Name:<input type="text" id="charname" name="charname" placeholder="不多于32位字母或数字" required="required"></div>
     <div>*Profession: <select name="profession" required="required">
 	<option value="Archer" selected="selected">Archer</option>
 	<option value="Thief">Thief</option>
@@ -91,17 +91,21 @@ function check(){
 	var id = document.getElementById('userId').value;
 	var pw = document.getElementById('password').value;
 	var pwC = document.getElementById('passwordConf').value;
+	var char_name = document.getElementById('charname').value;
 
 	if( id==null || id=='' || id.length!= 8 || id < 0) {
 		alert("User ID应为8位数字！");
 		return false;
-	} else if ( pw.length <= 8 || pw.length >= 16) {
+	} else if ( pw.length < 8 || pw.length > 16) {
 		alert("密码应为8至16位数字！");
 		return false;
 	} else if ( pwC != pw) {
 		alert("两次输入密码不符！");
 		return false;
-	} 
+	} else if ( char_name.length > 32) {
+		alert("玩家名称不应超过32位！");
+		return false;
+	}
 	return true;
 }
 </script>
@@ -115,7 +119,6 @@ function Back(){
 
 </body>
 </html>
-
 
 
 
