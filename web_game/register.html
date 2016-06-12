@@ -63,25 +63,25 @@
 <form name="form" method="post" action="checkRegister.php" onsubmit="event.preventDefault();check();">  
 <div class="div">  
     <div>USER INFORMATION:</div>
-    <div>*User ID:<input type = "number" id = "userId" name = "id" placeholder = "请填写8位数字" required = "required"></div> 
-    <div>*Password:<input type = "password" id = "password" name = "password" placeholder = "8至16位数字" required = "required"></div>
-    <div>*Password Confirmation:<input type = "password" id = "passwordConf" name = "passwordConf" required = "required"></div>
-    <div>Your Name:<input type = "text" name = "username"></div>
-    <div>Email:<input type = "text" name = "email"></div>
+    <div>*User ID:<input type="number" id="userId" name="id" placeholder="8-digit number required" required="required"></div> 
+    <div>*Password:<input type="password" id="password" name="password" placeholder="8-16 digits required" required="required"></div>
+    <div>*Password Confirmation:<input type="password" id="passwordConf" name="passwordConf" required="required"></div>
+    <div>Your Name:<input type="text" name="username"></div>
+    <div>Email:<input type="text" name="email"></div>
 
     <br>
     <div>CHARACTER INFORMATION</div>
-    <div>*Character Name:<input type = "text" id = "charname" name = "charname" placeholder = "不多于32位字母或数字" required = "required"></div>
-    <div>*Profession: <select name = "profession" required = "required">
-	<option value = "Archer" selected = "selected">Archer</option>
-	<option value = "Thief">Thief</option>
-	<option value = "Fighter">Fighter</option>
-	<option value = "Magician">Magician</option>
+    <div>*Character Name:<input type="text" id="charname" name="charname" placeholder="less than 32 digits required" required="required"></div>
+    <div>*Profession: <select name="profession" required="required">
+	<option value="Archer" selected="selected">Archer</option>
+	<option value="Thief">Thief</option>
+	<option value="Fighter">Fighter</option>
+	<option value="Magician">Magician</option>
     </select></div>
 
-    <div class = "button">  
-    <input type = "submit" value = "提交">  
-    <input type = "button" value = "返回" onclick = "Back()">   
+    <div class="button">  
+    <input type="submit" value="Submit">  
+    <input type="button" value="Back" onclick = "Back()">   
     </div>  
 </div>  
 </form>
@@ -93,17 +93,17 @@ function check(){
 	var pwC = document.getElementById('passwordConf').value;
 	var char_name = document.getElementById('charname').value;
 
-	if(id == null || id == '' || id.length != 8 || id < 0) {
-		alert("User ID应为8位数字！");
+	if( id==null || id=='' || id.length!= 8 || id < 0) {
+		alert("Wrong user ID format！");
 		return false;
-	} else if (pw.length < 8 || pw.length > 16) {
-		alert("密码应为8至16位数字！");
+	} else if ( pw.length < 8 || pw.length > 16) {
+		alert("Wrong password format！");
 		return false;
-	} else if (pwC != pw) {
-		alert("两次输入密码不符！");
+	} else if ( pwC != pw) {
+		alert("Password doesn't match the confirmation！");
 		return false;
-	} else if (char_name.length > 32) {
-		alert("玩家名称不应超过32位！");
+	} else if ( char_name.length > 32) {
+		alert("Wrong character name format！");
 		return false;
 	}
 	return true;
