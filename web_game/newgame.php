@@ -3,6 +3,7 @@
 <head>
 	<title>Guanyu's garden</title>
 	<script language="javascript" type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript" src="gameFunction.js"></script>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" >
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
@@ -48,34 +49,7 @@
 			
 		}
 		
-		function fetchSkills()
-		{	
-			if($('#skillTable tr > td:contains("Name")').length > 0){
-				$("#skillTable tr").remove();
-				$('#showskill').html("Show your skills");
-			}else{
-				var x=userId;
-				$.ajax({                                      
-				      url: 'fetchSkills.php',                  //the script to call to get data       
-				      data: {prof:profession,lv:lvl},                        //you can insert url argumnets here to pass to api.php
-				                                       //for example "id=5&parent=6"
-				      dataType: 'json',                //data format      
-				      success: function(data)          //on recieve of reply
-				      {
-				        
-				        var result = data;
-					var length = result.length/3;
-						$('#skillTable > tbody').append("<tr><td>Name</td><td>Damage</td><td>Mana cost</td></tr>");
-						for(var i=0;i<length;i++){
-							$('#skillTable > tbody').append("<tr><td>" +result[3*i] + "</td><td>" + result[3*i+1] + "</td><td>" + result[3*i+2] + "</td></tr>");
-							
-						}
-					}
-				});
-				
-				$('#showskill').html("Hide your skills");
-			} 
-		}
+		
 		
 		function setCookie(cname, cvalue) {
 		    //var d = new Date();

@@ -78,10 +78,10 @@ if($user_r != null || $char_r != null){
 
     //kick to login
     header('Location: login.html');
-    
-    //comment
 }
 ?>
+
+
 
 
 

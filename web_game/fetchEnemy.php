@@ -9,10 +9,18 @@ $char_name = mysql_real_escape_string($char_name);
 $char_lv = $_GET['charLv'];
 $char_lv = mysql_real_escape_string($char_lv);
 
-$lv_limit = $char_lv+3;
+if($char_lv < 10){
+	$lv_limit = $char_lv+3;
+} else if($char_lv < 20){
+	$lv_limit = $char_lv+5;
+} else{
+	$lv_limit = $char_lv+8;
+}
 
 $query = "SELECT name,hp,mp,lvl,profession FROM Game_Char WHERE name != '$char_name' and lvl <= '$lv_limit'";
 $query = mysql_query($query);
+
+$upperBound = -1;
 
 $rows = Array();
 while($row = mysql_fetch_row($query)){
@@ -21,6 +29,17 @@ while($row = mysql_fetch_row($query)){
   array_push($rows, $row[2]);
   array_push($rows, $row[3]);
   array_push($rows, $row[4]);
+  $upperBound = $upperBound+1;
 }
-echo json_encode($rows);
+
+$random = rand(0,$upperBound);
+
+$result = Array();
+array_push($result,$rows[5*$random]);
+array_push($result,$rows[5*$random+1]);
+array_push($result,$rows[5*$random+2]);
+array_push($result,$rows[5*$random+3]);
+array_push($result,$rows[5*$random+4]);
+
+echo json_encode($result);
 ?>

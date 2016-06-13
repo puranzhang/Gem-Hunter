@@ -81,44 +81,64 @@
 </head>
 
 <body>
+
+<p id = "intro"></p>
+<p id = "intro2"></p>
+<table id = "enemyTable" style="width:30%">
+<tbody>
+</tbody>
+</table>
+
+
 <script>
 var char = getCookie("charName");
 var lv = getCookie("level");
-document.write("Your name is " + char + " and lv is " + lv + "<br>");
-document.write("Available Enemies:");
+document.getElementById("intro").innerHTML = "You are " + char + " and your lv is " + lv + "<br>";
+document.getElementById("intro2").innerHTML = "Enemy found!!";
 
 document.cookie = "charName=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "level=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 
-function getEnemy(){	
+var enemyInfo;
+
+function getEnemy(callback){
+
 		$.ajax({                                      
 		      url: 'fetchEnemy.php',                  //the script to call to get data       
 		      data: {charName:char,charLv:lv},                        //you can insert url argumnets here to pass to api.php
-		                                       //for example "id=5&parent=6"
+		      async: false,                                 //for example "id=5&parent=6"
 		      dataType: 'json',                //data format      
 		      success: function(data)          //on recieve of reply
-		      {
-		        var result = data;
-			var length = result.length/5;
-			$('#enemyTable > tbody').append("<tr><td>Enemy</td><td>hp</td><td>mp</td><td>lvl</td><td>profession</td></tr>");
-			for(var i=0;i<length;i++){
-				$('#enemyTable > tbody').append("<tr><td>" +result[5*i] + "</td><td>" + result[5*i+1] + "</td><td>" + result[5*i+2] + "</td><td>" + result[5*i+3] + "</td><td>" + result[5*i+4] + "</td></tr>");
-			}
+		      {	        
+			$('#enemyTable > tbody').html("<tr><td>Enemy</td><td>hp</td><td>mp</td><td>lvl</td><td>profession</td></tr><tr><td>" +data[0] + "</td><td>" + data[1] + "</td><td>" + data[2] + "</td><td>" + data[3] + "</td><td>" + data[4] + "</td></tr>");
+			callback(data);
 		      }
-		});
-			
+        	});
 }
 
-getEnemy();
+getEnemy(function(returnedData){ //anonymous callback function
+    enemyInfo = returnedData;
+ });
+
+document.write(enemyInfo[0]);
+
+
+
+// Amazing battle part
+var battleEnd = false;
+
+
+while(battleEnd == false){
+document.write("damn");
+battleEnd = true;
+}
+
+
 </script>
 
-<table id = "enemyTable" style="width:30%">
-<tbody>
 
-</tbody>
-</table>
 
 <button input type = "button" onclick = "location = 'login.html'">You must click this to go back</button>
-
+<button input type = "button" onclick = "getEnemy()">generate again</button>
 </body>
 </html>
