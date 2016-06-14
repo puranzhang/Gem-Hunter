@@ -42,6 +42,7 @@
 	        		weapon = data[7]; 
 				setCookie("charName",cName);
 				setCookie("level",lvl);
+				setCookie("charProf",profession);
 				
 				$('#info').html("<b>name: </b>"+cName+"<b> user_id: </b>"+user_id+"<b> hp: </b>"+hp+"<b> mp: </b>"+mp+"<b> exp: </b>"+exp+"<b> lvl: </b>"+lvl+"<b> profession: </b>"+profession+"<b> weapon: </b>"+weapon);
 				}

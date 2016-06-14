@@ -4,7 +4,6 @@ function fetchSkills()
 				$("#skillTable tr").remove();
 				$('#showskill').html("Show your skills");
 			}else{
-				var x=userId;
 				$.ajax({                                      
 				      url: 'fetchSkills.php',                  //the script to call to get data       
 				      data: {prof:profession,lv:lvl},                        //you can insert url argumnets here to pass to api.php

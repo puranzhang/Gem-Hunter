@@ -89,17 +89,28 @@
 </tbody>
 </table>
 
+<br>
+<p>Your Skills:</p>
+<table id = "skillTable" style="width:30%">
+<tbody>
+</tbody>
+</table>
+<p id = "forTest"><p>
 
 <script>
 var char = getCookie("charName");
 var lv = getCookie("level");
-document.getElementById("intro").innerHTML = "You are " + char + " and your lv is " + lv + "<br>";
+var charProf = getCookie("charProf");
+
+document.getElementById("intro").innerHTML = "You are " + char + " the " + charProf + " and your lv is " + lv + "<br>";
 document.getElementById("intro2").innerHTML = "Enemy found!!";
 
 document.cookie = "charName=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "level=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+document.cookie = "charProf=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 
 var enemyInfo;
+var yourSkills;
 
 function getEnemy(callback){
 
@@ -116,28 +127,74 @@ function getEnemy(callback){
         	});
 }
 
+function useSkill(skill){
+	document.getElementById("forTest").innerHTML = "The skill your are using: " + skill;
+}
+
+function availableSkills(callback){
+	$.ajax({                                      
+		      url: 'fetchSkills.php',                  //the script to call to get data       
+		      data: {prof:charProf,lv:lv},                        //you can insert url argumnets here to pass to api.php
+		      async: false,                                //for example "id=5&parent=6"
+		      dataType: 'json',                //data format      
+		      success: function(data)          //on recieve of reply
+		      {	     		
+			callback(data);
+		      }
+        	});
+}
+
+
+
+
 getEnemy(function(returnedData){ //anonymous callback function
     enemyInfo = returnedData;
  });
 
-document.write(enemyInfo[0]);
+var enemyName = enemyInfo[0];
+var enemyHp = enemyInfo[1];
+var enemyMp = enemyInfo[2];
+var enemyLv = enemyInfo[3];
+var enemyProf = enemyInfo[4];
+var enemyWeapon = enemyInfo[5];
 
 
 
 // Amazing battle part
-var battleEnd = false;
+var battleEnd = true;
+var playerTurn = 1;
+
+availableSkills(function(returnedData){ //anonymous callback function
+    yourSkills = returnedData;
+});
+
+
+
+var numOfSkills = yourSkills.length/4;
+$('#skillTable > tbody').append("<tr><td>Name</td><td>Damage</td><td>Mana cost</td><td>Type</td></tr>");
+for(var i=0;i<numOfSkills;i++){
+	var word = "<tr><td><button input type='button' onclick = 'useSkill(yourSkills[4*" + i + "])'>" +yourSkills[4*i] + "</button></td><td>" + yourSkills[4*i+1] + "</td><td>" + yourSkills[4*i+2] + "</td><td>" + yourSkills[4*i+3] + "</td></tr>";
+	$('#skillTable > tbody').append(word);
+}
+
 
 
 while(battleEnd == false){
-document.write("damn");
-battleEnd = true;
+	if(playerTurn == 1){
+		
+	
+	
+	}else{
+	
+	
+	}
 }
 
 
 </script>
 
 
-
+<br>
 <button input type = "button" onclick = "location = 'login.html'">You must click this to go back</button>
 <button input type = "button" onclick = "getEnemy()">generate again</button>
 </body>
