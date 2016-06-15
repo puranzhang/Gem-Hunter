@@ -17,7 +17,9 @@ if($char_lv < 10){
 	$lv_limit = $char_lv+8;
 }
 
-$query = "SELECT name,hp,mp,lvl,profession,weapon FROM Game_Char WHERE name != '$char_name' and lvl <= '$lv_limit'";
+$lv_base = $char_lv-5;
+
+$query = "SELECT name,hp,mp,lvl,profession,weapon FROM Game_Char WHERE name != '$char_name' and lvl <= '$lv_limit' and lvl > '$lv_base'";
 $query = mysql_query($query);
 
 $upperBound = -1;
