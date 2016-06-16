@@ -191,11 +191,11 @@ function useSkill(skill){
 	} else{
 		var randomHit = Math.random();
 		if(randomHit > charAcc){
-			document.getElementById("forTest").innerHTML = "Your attack Missed...";
+			document.getElementById("forTest").innerHTML = "You used the skill: <strong>" + skill + "</strong>, but your attack missed...";
 			enemyMove();
 		} else{
 			var finalDamage = (parseInt(charDmg) + parseInt(dmg))/2;
-			document.getElementById("forTest").innerHTML = "The skill your are using: " + skill + ", damage: (" + charDmg + "+" + dmg + ")/2=" + finalDamage;
+			document.getElementById("forTest").innerHTML = "You used the skill: <strong>" + skill + "</strong>, damage: (" + charDmg + "+" + dmg + ")/2=" + finalDamage;
 			enemyHp = parseInt(enemyHp)-finalDamage;
 			document.getElementById("ehp").innerHTML = enemyHp;
 			if((enemyHp) <= 0){
@@ -290,10 +290,10 @@ function enemyMove(){
 		
 		
 		if(eRandomHit > enemyAcc){
-			document.getElementById("enemyAct").innerHTML = "enemy's attack Missed...";
+			document.getElementById("enemyAct").innerHTML = "Enemy used the skill: <strong>" + enemySkills[4*enemyLuckyNum] + "</strong>, and enemy's attack missed...";
 		} else{
 			var finalDamage = (parseInt(enemyDmg) + parseInt(dmg))/2;
-			document.getElementById("enemyAct").innerHTML = "Enemy used skill: " + enemySkills[4*enemyLuckyNum] + ", damage: (" + enemyDmg + "+" + dmg + ")/2=" + finalDamage;
+			document.getElementById("enemyAct").innerHTML = "Enemy used the skill: <strong>" + enemySkills[4*enemyLuckyNum] + "</strong>, damage: (" + enemyDmg + "+" + dmg + ")/2=" + finalDamage;
 			charHp = charHp-finalDamage;
 			document.getElementById("chp").innerHTML = charHp;
 			if(charHp <= 0){
