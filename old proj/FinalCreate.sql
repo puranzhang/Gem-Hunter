@@ -12,9 +12,7 @@ drop table Game_User cascade constraints;
 
 create table Game_User (
     id char(8) primary key,
-    pw varchar(16) not null check(LENGTH(pw) >= 8),
-    name varchar(16) not null,
-    email varchar(32) not null check(email LIKE '%@%')
+    pw varchar(16) not null check(LENGTH(pw) >= 8)
 );
 
 create table Task (

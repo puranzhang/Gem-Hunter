@@ -55,68 +55,27 @@
 	  text-decoration: none;
 	}
 </style>
+	
 </head>
 
 <body>
-<form name="form" method="post" action="checkRegister.php" onsubmit="event.preventDefault();check();">  
+
+<form name="form" method="post" action="checkRegister.php" onsubmit="check();">  
 <div class="div">  
     <div>USER INFORMATION:</div>
-    <div>*User ID:
-    <input type="text" 
-    	onkeyup="this.value=this.value.replace(/\D/g,'')" 
-    	onafterpaste="this.value=this.value.replace(/\D/g,'')" 
-    	id="userId" 
-    	name="id" 
-    	placeholder="8-digit number required" 
-    	required="required">
-	</div> 
-
-    <div>*Password:
-    <input type="password" 
-    	onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" 
-    	id="password" 
-    	name="password" 
-    	placeholder="8-16 digits required" 
-    	required="required">
-	</div>
-
-    <div>*Password Confirmation:
-    <input type="password" 
-    	onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" 
-    	id="passwordConf" 
-    	name="passwordConf" 
-    	required="required">
-	</div>
-
-    <div>Your Name:
-    <input type="text" 
-    	name="username">
-	</div>
-
-    <div>Email:
-    <input type="text" 
-    	name="email">
-	</div>
+    <div>*User ID:<input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" id="userId" name="id" placeholder="8-digit number required" required="required"></div> 
+    <div>*Password:<input type="password" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" id="password" name="password" placeholder="8-16 digits required" required="required"></div>
+    <div>*Password Confirmation:<input type="password" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" id="passwordConf" name="passwordConf" required="required"></div>
 
     <br>
     <div>CHARACTER INFORMATION</div>
-    <div>*Character Name:
-    <input type="text" 
-    	onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" 
-    	id="charname" 
-    	name="charname" 
-    	placeholder="less than 32 digits required" 
-    	required="required">
-	</div>
-
-    <div>*Profession: 
-    <select name="profession" required="required">
-		<option value="Archer" selected="selected">Archer</option>
-		<option value="Thief">Thief</option>
-		<option value="Fighter">Fighter</option>
-		<option value="Magician">Magician</option>
-    </select>
-    </div>
+    <div>*Character Name:<input type="text" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" id="charname" name="charname" placeholder="less than 32 digits required" required="required"></div>
+    <div>*Profession: <select name="profession" required="required">
+	<option value="Archer" selected="selected">Archer</option>
+	<option value="Thief">Thief</option>
+	<option value="Fighter">Fighter</option>
+	<option value="Magician">Magician</option>
+    </select></div>
 
     <div class="button">  
     <input type="submit" value="Submit">  
@@ -134,20 +93,26 @@ function check(){
 
 	if( id==null || id=='' || id.length!= 8) {
 		alert("Wrong user ID format！");
+		event.preventDefault();
 		return false;
 	} else if ( pw.length < 8 || pw.length > 16) {
 		alert("Wrong password format！");
+		event.preventDefault();
 		return false;
 	} else if ( pwC != pw) {
 		alert("Password doesn't match the confirmation！");
+		event.preventDefault();
 		return false;
 	} else if ( char_name.length > 32) {
 		alert("Wrong character name format！");
+		event.preventDefault();
 		return false;
 	}
+	alert("right format!!");
 	return true;
 }
 </script>
+
 
 <script>
 function Back(){
