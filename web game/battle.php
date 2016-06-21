@@ -34,6 +34,7 @@
 </table>
 <p id = "forTest"></p>
 <p id = "enemyAct"></p>
+<p id = "getWeapon"></p>
 
 <script>
 
@@ -70,12 +71,47 @@ var enemySkills;
 // functions needed to be improved
 function win(){
 	alert("YOU WIN!!");
-	document.getElementById("enemyAct").innerHTML = "You win the battle, but gain nothing.";
+	if(lv == 50){
+		document.getElementById("enemyAct").innerHTML = "You have reached the highest level and cannot gain more exp!!!";
+	} else {
+		var expBonus = 0;
+		if (enemyLv > lv) {
+	                expBonus = (enemyLv - lv) * enemyLv + 10;
+	        }
+	        //expBonus = 9999;	//used when want to test the levelUp function
+	        var expUp = parseInt(Math.pow(1.1, lv) + 50 + expBonus);
+	        charExp = charExp + expUp;
+	        var levelNeeded = parseInt(20 * Math.pow(1.1, lv) + 100);
+	        if(charExp >= levelNeeded){
+	        	document.getElementById("enemyAct").innerHTML = "LEVEL UP!! You are now LV " + (lv+1) + "!!";
+	        	levelUp();
+	        } else{
+	        	document.getElementById("enemyAct").innerHTML = "You gain " + expUp + " exp, current exp: " + charExp + "/" + levelNeeded;
+	        }
+	}
+	saveCharInfo(char,charId,charHp,charMp,charExp,lv,charProf,charW);
 };
 
 function lose(){
 	alert("YOU LOSE!!");
+	charHp = 100;
+	charMp = 100;
+	saveCharInfo(char,charId,charHp,charMp,charExp,lv,charProf,charW);
 }
+
+function levelUp(){
+	var temp;
+	lv = lv + 1;
+	charExp = 0;
+	if(lv%10 == 0){
+		fetchWeaponName(charProf, lv, function(returnedData){
+		    charW = String(returnedData);
+		});
+		document.getElementById("getWeapon").innerHTML = "You get new weapon: " + charW + "!!!";
+	}
+};
+
+
 
 function useSkill(skill){
 	var dmg;

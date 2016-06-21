@@ -37,3 +37,28 @@ function availableSkills(charProf, lv, callback){
 	      }
 	});
 }
+
+function fetchWeaponName(charProf, lv, callback){
+	$.ajax({                                      
+	      url: 'fetchWeaponName.php',                  //the script to call to get data       
+	      data: {prof:charProf,lv:lv},                        //you can insert url argumnets here to pass to api.php
+	      async: false,                                //for example "id=5&parent=6"
+	      dataType: 'json',                //data format      
+	      success: function(data)          //on recieve of reply
+	      {	     		
+		callback(data);
+	      }
+	});
+}
+
+function saveCharInfo(char,charId,charHp,charMp,charExp,lv,charProf,charW){
+	$.ajax({                                      
+	      url: 'save.php',                  //the script to call to get data       
+	      data: {cN:char,cI:charId,cH:charHp,cM:charMp,cE:charExp,cL:lv,cP:charProf,cW:charW},
+	      dataType: 'json',                //data format      
+	      success: function(data)          //on recieve of reply
+	      {	     		
+
+	      }
+	});
+}
