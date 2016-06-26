@@ -1,7 +1,4 @@
--- cs325_final proj
--- Guanyu, Kyong, Alex, Puran
 
---PROFESSION
 insert into Profession 
     VALUES ('Archer');
 insert into Profession 
@@ -11,9 +8,7 @@ insert into Profession
 insert into Profession 
     VALUES ('Magician');
 
---All weapon damages are increased by 20 to speed up the game
 
---WEAPON
 insert into Weapon 
     VALUES ('Bow', 26, 1, 0.25, 'Archer');
 insert into Weapon 
@@ -67,7 +62,6 @@ insert into Weapon
     VALUES ('The Grail', 35, 50, 1, 'Magician');
 
 
--- Game Users and Characters
 insert into Game_User 
     VALUES ('11111111', '11111111');
 insert into Game_Char 
@@ -89,7 +83,6 @@ insert into Game_Char
     VALUES ('Alex', '44444444', 100, 100, 0, 50, 'Archer', 'Apolo');
 
 
---NPC Users and Characters
 insert into Game_User 
     VALUES ('00000000', '00000000');
 insert into Game_Char 
@@ -212,10 +205,6 @@ insert into Completed_By
     VALUES ('11111111', 'Guanyu', 'First Blood');
 
 
-
---All skill damage are increased by 10 to speed up the game
-
---SKILL
 insert into Skill 
     VALUES ('Shoot arrow', 14, 0, 'Attack', 1, 'Archer');
 insert into Skill 
