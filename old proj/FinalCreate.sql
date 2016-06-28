@@ -1,6 +1,3 @@
--- cs325_final proj
--- Guanyu, Kyong, Alex, Puran
-
 drop table Skill cascade constraints;
 drop table Completed_By cascade constraints;
 drop table Needs_To_Complete cascade constraints;
@@ -9,6 +6,8 @@ drop table Weapon cascade constraints;
 drop table Profession cascade constraints;
 drop table Task cascade constraints;
 drop table Game_User cascade constraints;
+drop table Item cascade constraints;
+drop table Armor cascade constraints;
 
 create table Game_User (
     id char(8) primary key,
@@ -22,6 +21,16 @@ create table Task (
 
 create table Profession (
     name varchar(12) primary key
+);
+
+create table Armor (
+    ar_name varchar(32) primary key,
+    --defence是什么？
+    defence varchar(32),
+    lvl_req int not null check(lvl_req >= 0),
+    profession varchar(12) not null,
+
+    foreign key (profession) references Profession
 );
 
 create table Weapon (
@@ -82,4 +91,13 @@ create table Skill (
     profession varchar(12) not null,
 
     foreign key (profession) references Profession
+);
+
+create table Item (
+    char_name varchar(32),
+    item_no varchar(4),
+    amount int,
+    type varchar(32),
+
+    foreign key (char_name) references Game_Char
 );
