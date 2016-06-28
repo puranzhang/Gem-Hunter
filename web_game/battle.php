@@ -78,7 +78,15 @@ var enemySkills;
 
 // functions needed to be improved
 
-
+function saveCharInfo(char,charId,charHp,charMhp,charMp,charMmp,charDef,charExp,lv,charW,charA){
+	$.ajax({                                      
+	      url: 'save.php',                  //the script to call to get data      
+	      data: {'cN':char,'cI':charId,'cH':charHp,'cMh':charMhp,'cM':charMp,'cMm':charMmp,'cD':charDef,'cE':charExp,'cL':lv,'cW':charW,'cA':charA}, 
+	      success: function(data)          //on recieve of reply
+	      {	     		
+	      }
+	});
+}
 
 function win(){
 	alert("YOU WIN!!");

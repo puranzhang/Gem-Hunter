@@ -12,7 +12,7 @@ $cI = mysql_real_escape_string($cI);
 $cH = $_GET['cH'];
 $cH = mysql_real_escape_string($cH);
 
-$cMh = $_GET['cH'];
+$cMh = $_GET['cMh'];
 $cMh = mysql_real_escape_string($cMh);
 
 $cM = $_GET['cM'];
