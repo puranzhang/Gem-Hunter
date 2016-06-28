@@ -30,22 +30,31 @@
 		        cName = data[0];              //get id
         		user_id = data[1]; 
         		hp = data[2]; 
-        		mp = data[3]; 
-        		exp = data[4]; 
-        		lvl = data[5]; 
-        		profession = data[6]; 
-        		weapon = data[7]; 
+        		maxHp = data[3];
+        		mp = data[4]; 
+        		maxMp = data[5];
+        		defence = data[6];
+        		exp = data[7]; 
+        		lvl = data[8]; 
+        		profession = data[9]; 
+        		weapon = data[10]; 
+        		armor = data[11]; 
 			setCookie("charName",cName);
 			setCookie("charId",user_id);
 			setCookie("charHp",hp);
+			setCookie("charMhp",maxHp);
 			setCookie("charMp",mp);
+			setCookie("charMmp",maxMp);
+			setCookie("charDef",defence);
+			setCookie("charHp",hp);
 			setCookie("charExp",exp);
 			setCookie("level",lvl);
 			setCookie("charProf",profession);
 			setCookie("charW",weapon);
+			setCookie("charA",armor);
 			
 			
-			$('#info').html("<b>name: </b>"+cName+"<b> user_id: </b>"+user_id+"<b> hp: </b>"+hp+"<b> mp: </b>"+mp+"<b> exp: </b>"+exp+"<b> lvl: </b>"+lvl+"<b> profession: </b>"+profession+"<b> weapon: </b>"+weapon);
+			$('#info').html("<b>name: </b>"+cName+"<b> user_id: </b>"+user_id+"<b> hp: </b>"+hp+"/"+maxHp+"<b> mp: </b>"+mp+"/"+maxMp+"<b> basic defence: </b>"+defence+"<br><b> exp: </b>"+exp+"<b> lvl: </b>"+lvl+"<b> profession: </b>"+profession+"<b> weapon: </b>"+weapon+"<b> armor: </b>" + armor);
 			}
 		});
 		

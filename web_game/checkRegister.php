@@ -22,7 +22,6 @@ $user_query = mysql_query($user_query);
 $char_query = "SELECT * FROM Game_Char WHERE name = '$char_name'";
 $char_query = mysql_query($char_query);
 
-//问题是不是出在这儿（收集SQL结果）？
 $user_r=mysql_fetch_row($user_query);
 $user_r=implode(" ",$user_r);
 
@@ -50,6 +49,8 @@ if($user_r != null || $char_r != null){
             $weapon = "Wand";
             break;
     }
+    
+    $armor = "Basic Armor";
 
     $user_update = "INSERT INTO Game_User " . "VALUES ('" . $user_id . "', '" . $user_pw ."')";
     mysql_query($user_update);
@@ -57,7 +58,7 @@ if($user_r != null || $char_r != null){
 
 
     //insert char into DB.
-    $char_update = "INSERT INTO Game_Char " . "VALUES ('" . $char_name . "', '" . $user_id . "', " . 100 . ", " . 100 . ", " . 0 . ", " . 1 . ", '" . $prof . "', '" . $weapon . "')";
+    $char_update = "INSERT INTO Game_Char " . "VALUES ('" . $char_name . "', '" . $user_id . "', " . 100 . ", " . 100 . ", " . 100 . ", " . 100 . ", " . 5 . ", " . 0 . ", " . 1 . ", '" . $prof . "', '" . $weapon . "', '" . $armor . "')";
     mysql_query($char_update);
 
     //kick to login

@@ -42,25 +42,33 @@
 var char = getCookie("charName");
 var charId = getCookie("charId");
 var charHp = parseInt(getCookie("charHp"));
+var charMhp = parseInt(getCookie("charMhp"));
 var charMp = parseInt(getCookie("charMp"));
+var charMmp = parseInt(getCookie("charMmp"));
+var charDef = parseInt(getCookie("charDef"));
 var charExp = parseInt(getCookie("charExp"));
 var lv = parseInt(getCookie("level"));
 var charProf = getCookie("charProf");
 var charW = getCookie("charW");
+var charA = getCookie("charA");
 
 document.getElementById("intro").innerHTML = "You are " + char + " the " + charProf + " and your lv is " + lv + "<br>";
 document.getElementById("intro2").innerHTML = "Enemy found!!";
 
-$('#charTable > tbody').html("<tr><td>Your Character</td><td>hp</td><td>mp</td><td>lvl</td><td>profession</td></tr><tr><td>" + char + "</td><td id = 'chp'>" + charHp + "</td><td id = 'cmp'>" + charMp + "</td><td>" + lv + "</td><td>" + charProf + "</td></tr>");
+$('#charTable > tbody').html("<tr><td>Your Character</td><td>hp</td><td>mp</td><td>lvl</td><td>profession</td></tr><tr><td>" + char + "</td><td id = 'chp'>" + charHp + "/" + charMhp + "</td><td id = 'cmp'>" + charMp + "/" + charMmp + "</td><td>" + lv + "</td><td>" + charProf + "</td></tr>");
 
 document.cookie = "charName=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "charId=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "charHp=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "charMp=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+document.cookie = "charMhp=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+document.cookie = "charMmp=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+document.cookie = "charDef=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "charExp=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "level=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "charProf=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "charW=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+document.cookie = "charA=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 
 var charWeaponInfo;
 var enemyWeaponInfo;
@@ -69,6 +77,9 @@ var yourSkills;
 var enemySkills;
 
 // functions needed to be improved
+
+
+
 function win(){
 	alert("YOU WIN!!");
 	if(lv == 50){
@@ -89,14 +100,14 @@ function win(){
 	        	document.getElementById("enemyAct").innerHTML = "You gain " + expUp + " exp, current exp: " + charExp + "/" + levelNeeded;
 	        }
 	}
-	saveCharInfo(char,charId,charHp,charMp,charExp,lv,charProf,charW);
-};
+	saveCharInfo(char,charId,charHp,charMhp,charMp,charMmp,charDef,charExp,lv,charW,charA);
+}
 
 function lose(){
 	alert("YOU LOSE!!");
 	charHp = 100;
 	charMp = 100;
-	saveCharInfo(char,charId,charHp,charMp,charExp,lv,charProf,charW);
+	saveCharInfo(char,charId,charHp,charMhp,charMp,charMmp,charDef,charExp,lv,charW,charA);
 }
 
 function levelUp(){
@@ -109,7 +120,7 @@ function levelUp(){
 		});
 		document.getElementById("getWeapon").innerHTML = "You get new weapon: " + charW + "!!!";
 	}
-};
+}
 
 
 
@@ -132,7 +143,7 @@ function useSkill(skill){
 			document.getElementById("forTest").innerHTML = "You used the skill: <strong>" + skill + "</strong>, but your attack missed...";
 			enemyMove();
 		} else{
-			var finalDamage = (parseInt(charDmg) + parseInt(dmg))/2;
+			var finalDamage = parseInt((parseInt(charDmg) + parseInt(dmg))/2);
 			document.getElementById("forTest").innerHTML = "You used the skill: <strong>" + skill + "</strong>, damage: (" + charDmg + "+" + dmg + ")/2=" + finalDamage;
 			enemyHp = parseInt(enemyHp)-finalDamage;
 			document.getElementById("ehp").innerHTML = enemyHp;
@@ -144,7 +155,7 @@ function useSkill(skill){
 			}
 		}
 		charMp = charMp-mana_req;
-		document.getElementById("cmp").innerHTML = charMp;
+		document.getElementById("cmp").innerHTML = charMp + "/" + charMmp;
 	}
 }
 
@@ -216,10 +227,10 @@ function enemyMove(){
 		if(eRandomHit > enemyAcc){
 			document.getElementById("enemyAct").innerHTML = "Enemy used the skill: <strong>" + enemySkills[4*enemyLuckyNum] + "</strong>, and enemy's attack missed...";
 		} else{
-			var finalDamage = (parseInt(enemyDmg) + parseInt(dmg))/2;
+			var finalDamage = parseInt((parseInt(enemyDmg) + parseInt(dmg))/2);
 			document.getElementById("enemyAct").innerHTML = "Enemy used the skill: <strong>" + enemySkills[4*enemyLuckyNum] + "</strong>, damage: (" + enemyDmg + "+" + dmg + ")/2=" + finalDamage;
 			charHp = charHp-finalDamage;
-			document.getElementById("chp").innerHTML = charHp;
+			document.getElementById("chp").innerHTML = charHp + "/" + charMhp;
 			if(charHp <= 0){
 				battleEnd = true;
 				lose();

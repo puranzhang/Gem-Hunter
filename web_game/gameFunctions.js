@@ -51,14 +51,13 @@ function fetchWeaponName(charProf, lv, callback){
 	});
 }
 
-function saveCharInfo(char,charId,charHp,charMp,charExp,lv,charProf,charW){
+function saveCharInfo(char,charId,charHp,charMhp,charMp,charMmp,charDef,charExp,lv,charW,charA){
 	$.ajax({                                      
-	      url: 'save.php',                  //the script to call to get data       
-	      data: {cN:char,cI:charId,cH:charHp,cM:charMp,cE:charExp,cL:lv,cP:charProf,cW:charW},
-	      dataType: 'json',                //data format      
+	      url: 'save.php',                  //the script to call to get data      
+	      data: {'cN':char,'cI':charId,'cH':charHp,'cMh':charMhp,'cM':charMp,'cMm':charMmp,'cD':charDef,'cE':charExp,'cL':lv,'cW':charW,'cA':charA}, 
 	      success: function(data)          //on recieve of reply
 	      {	     		
-
+		alert(data);
 	      }
 	});
 }

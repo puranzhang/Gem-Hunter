@@ -25,10 +25,10 @@ create table Profession (
 
 create table Armor (
     ar_name varchar(32) primary key,
-    --defence是什么？
     defence varchar(32),
     lvl_req int not null check(lvl_req >= 0),
-    profession varchar(12) not null,
+    profession varchar(12),
+    item_no char(3),
 
     foreign key (profession) references Profession
 );
@@ -39,6 +39,7 @@ create table Weapon (
     lvl_req int not null check(lvl_req >= 0),
     accuracy float not null check(accuracy > 0 and accuracy <= 1),
     profession varchar(12) not null,
+    item_no char(3),
 
     foreign key (profession) references Profession
 );
@@ -46,12 +47,16 @@ create table Weapon (
 create table Game_Char (
     name varchar(32) unique not null,
     user_id char(8) not null,
-    hp int not null check(hp >= 0 and hp <= 100),
-    mp int not null check(mp >= 0 and mp <= 100),
+    hp int not null check(hp > 0),
+    maxHp int not null check(maxHp > 0),
+    mp int not null check(mp >= 0),
+    maxMp int not null check(maxMp >= 0),
+    defence int not null check(defence >= 0),
     exp int not null check(exp >= 0),
     lvl int not null check(lvl > 0 and lvl <= 50),
     profession varchar(12) not null,
     weapon varchar(32) not null,
+    armor varchar(32) not null,
 
     primary key (name, user_id),
     foreign key (user_id) references Game_User,
@@ -95,7 +100,7 @@ create table Skill (
 
 create table Item (
     char_name varchar(32),
-    item_no varchar(4),
+    item_no char(3),
     amount int,
     type varchar(32),
 
