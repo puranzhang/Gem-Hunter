@@ -35,18 +35,33 @@ if($user_r != null || $char_r != null){
 } else {
 	//assign weapons.
     $weapon = "";
+    $hp = 0;
+    $mp = 0;
+    $defence = 0;
     switch ($prof) {
         case "Archer":
             $weapon = "Bow";
+            $hp = 200;
+	    $mp = 50;
+	    $defence = 5;
             break;
         case "Thief":
             $weapon = "Dagger";
+            $hp = 185;
+	    $mp = 55;
+	    $defence = 3;
             break;
         case "Fighter":
             $weapon = "Handguard";
+            $hp = 220;
+	    $mp = 40;
+	    $defence = 8;
             break;
         case "Magician":
             $weapon = "Wand";
+            $hp = 180;
+	    $mp = 60;
+	    $defence = 2;
             break;
     }
     
@@ -58,7 +73,7 @@ if($user_r != null || $char_r != null){
 
 
     //insert char into DB.
-    $char_update = "INSERT INTO Game_Char " . "VALUES ('" . $char_name . "', '" . $user_id . "', " . 100 . ", " . 100 . ", " . 100 . ", " . 100 . ", " . 5 . ", " . 0 . ", " . 1 . ", '" . $prof . "', '" . $weapon . "', '" . $armor . "')";
+    $char_update = "INSERT INTO Game_Char " . "VALUES ('" . $char_name . "', '" . $user_id . "', " . $hp . ", " . $hp . ", " . $mp . ", " . $mp . ", " . $defence . ", " . 0 . ", " . 1 . ", '" . $prof . "', '" . $weapon . "', '" . $armor . "')";
     mysql_query($char_update);
 
     //kick to login

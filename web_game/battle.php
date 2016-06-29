@@ -102,10 +102,21 @@ function win(){
 	        charExp = charExp + expUp;
 	        var levelNeeded = parseInt(20 * Math.pow(1.1, lv) + 100);
 	        if(charExp >= levelNeeded){
-	        	document.getElementById("enemyAct").innerHTML = "LEVEL UP!! You are now LV " + (lv+1) + "!!";
+	        	document.getElementById("enemyAct").innerHTML = "LEVEL UP!! You are now LV " + (lv+1) + "!! You are also fully cured.";
 	        	levelUp();
 	        } else{
-	        	document.getElementById("enemyAct").innerHTML = "You gain " + expUp + " exp, current exp: " + charExp + "/" + levelNeeded;
+	        	document.getElementById("enemyAct").innerHTML = "You gain " + expUp + " exp, current exp: " + charExp + "/" + levelNeeded + " You also recovered 10% health and mana.";
+	        	if(charHp < charMhp*0.9){
+	        		charHp = charHp + charMhp*0.1;
+	        	} else {
+	        		charHp = charMhp;
+	        	}
+	        	
+	        	if(charMp < charMmp*0.9){
+	        		charMp = charMp + charMmp*0.1;
+	        	} else {
+	        		charMp = charMmp;
+	        	}
 	        }
 	}
 	saveCharInfo(char,charId,charHp,charMhp,charMp,charMmp,charDef,charExp,lv,charW,charA);
@@ -122,6 +133,25 @@ function levelUp(){
 	var temp;
 	lv = lv + 1;
 	charExp = 0;
+	if(charProf == "Archer"){
+		charMhp = charMhp+20;
+		charMmp = charMmp+3;
+		charDef = charDef+2;
+	} else if(charProf == "Fighter"){
+		charMhp = charMhp+24;
+		charMmp = charMmp+2;
+		charDef = charDef+4;
+	} else if(charProf == "Thief"){
+		charMhp = charMhp+17;
+		charMmp = charMmp+4;
+		charDef = charDef+1;
+	} else{
+		charMhp = charMhp+15;
+		charMmp = charMmp+6;
+	} 
+	charHp = charMhp;
+	charMp = charMmp;
+	
 	if(lv%10 == 0){
 		fetchWeaponName(charProf, lv, function(returnedData){
 		    charW = String(returnedData);
