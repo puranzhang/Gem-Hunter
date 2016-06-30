@@ -57,6 +57,7 @@ document.getElementById("intro2").innerHTML = "Enemy found!!";
 
 $('#charTable > tbody').html("<tr><td>Your Character</td><td>hp</td><td>mp</td><td>lvl</td><td>profession</td></tr><tr><td>" + char + "</td><td id = 'chp'>" + charHp + "/" + charMhp + "</td><td id = 'cmp'>" + charMp + "/" + charMmp + "</td><td>" + lv + "</td><td>" + charProf + "</td></tr>");
 
+
 document.cookie = "charName=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "charId=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "charHp=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
@@ -69,6 +70,7 @@ document.cookie = "level=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "charProf=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "charW=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "charA=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+
 
 var charWeaponInfo;
 var enemyWeaponInfo;
@@ -86,6 +88,15 @@ function saveCharInfo(char,charId,charHp,charMhp,charMp,charMmp,charDef,charExp,
 	      {	     		
 	      }
 	});
+}
+
+// Need to modify
+function backOrContinue(){
+    if (confirm("Are you going to find another enemy?") == true) {
+
+    } else {
+
+    }
 }
 
 function win(){
@@ -120,13 +131,15 @@ function win(){
 	        }
 	}
 	saveCharInfo(char,charId,charHp,charMhp,charMp,charMmp,charDef,charExp,lv,charW,charA);
+	backOrContinue();
 }
 
 function lose(){
 	alert("YOU LOSE!!");
-	charHp = 100;
-	charMp = 100;
+	charHp = charMhp;
+	charMp = charMmp;
 	saveCharInfo(char,charId,charHp,charMhp,charMp,charMmp,charDef,charExp,lv,charW,charA);
+	backOrContinue();
 }
 
 function levelUp(){
@@ -197,6 +210,40 @@ function useSkill(skill){
 	}
 }
 
+function enemyMove(){
+		// Not an efficient way. Better way: find available skills first.
+		var enemyLuckyNum = Math.floor(Math.random()*numOfESkills);
+		var mana_req = parseInt(enemySkills[4*enemyLuckyNum+2]);
+
+		while(mana_req > enemyMp){
+			enemyLuckyNum = Math.floor(Maths.random()*numOfESkills);
+			mana_req = parseInt(enemySkills[4*enemyLuckyNum+2]);
+		}
+		
+		var dmg = enemySkills[4*enemyLuckyNum+1];
+		var type = enemySkills[4*enemyLuckyNum+3];
+		var eRandomHit = Math.random();
+		
+		
+		if(eRandomHit > enemyAcc){
+			document.getElementById("enemyAct").innerHTML = "Enemy used the skill: <strong>" + enemySkills[4*enemyLuckyNum] + "</strong>, and enemy's attack missed...";
+		} else{
+			var finalDamage = parseInt((parseInt(enemyDmg) + parseInt(dmg))/2);
+			document.getElementById("enemyAct").innerHTML = "Enemy used the skill: <strong>" + enemySkills[4*enemyLuckyNum] + "</strong>, damage: (" + enemyDmg + "+" + dmg + ")/2=" + finalDamage;
+			charHp = charHp-finalDamage;
+			document.getElementById("chp").innerHTML = charHp + "/" + charMhp;
+			if(charHp <= 0){
+				battleEnd = true;
+				lose();
+			}
+		}
+		enemyMp = enemyMp-mana_req;
+		document.getElementById("emp").innerHTML = enemyMp;
+}
+
+
+// RUN GAME
+
 getEnemy(function(returnedData){ //anonymous callback function
     enemyInfo = returnedData;
 });
@@ -244,39 +291,6 @@ for(var i=0;i<numOfSkills;i++){
 }
 
 
-var battleEnd = true;
-
-// skill type undefined
-function enemyMove(){
-		// Not an efficient way. Better way: find available skills first.
-		var enemyLuckyNum = Math.floor(Math.random()*numOfESkills);
-		var mana_req = parseInt(enemySkills[4*enemyLuckyNum+2]);
-
-		while(mana_req > enemyMp){
-			enemyLuckyNum = Math.floor(Maths.random()*numOfESkills);
-			mana_req = parseInt(enemySkills[4*enemyLuckyNum+2]);
-		}
-		
-		var dmg = enemySkills[4*enemyLuckyNum+1];
-		var type = enemySkills[4*enemyLuckyNum+3];
-		var eRandomHit = Math.random();
-		
-		
-		if(eRandomHit > enemyAcc){
-			document.getElementById("enemyAct").innerHTML = "Enemy used the skill: <strong>" + enemySkills[4*enemyLuckyNum] + "</strong>, and enemy's attack missed...";
-		} else{
-			var finalDamage = parseInt((parseInt(enemyDmg) + parseInt(dmg))/2);
-			document.getElementById("enemyAct").innerHTML = "Enemy used the skill: <strong>" + enemySkills[4*enemyLuckyNum] + "</strong>, damage: (" + enemyDmg + "+" + dmg + ")/2=" + finalDamage;
-			charHp = charHp-finalDamage;
-			document.getElementById("chp").innerHTML = charHp + "/" + charMhp;
-			if(charHp <= 0){
-				battleEnd = true;
-				lose();
-			}
-		}
-		enemyMp = enemyMp-mana_req;
-		document.getElementById("emp").innerHTML = enemyMp;
-}
 
 </script>
 
