@@ -52,11 +52,6 @@ var charProf = getCookie("charProf");
 var charW = getCookie("charW");
 var charA = getCookie("charA");
 
-document.getElementById("intro").innerHTML = "You are " + char + " the " + charProf + " and your lv is " + lv + "<br>";
-document.getElementById("intro2").innerHTML = "Enemy found!!";
-
-$('#charTable > tbody').html("<tr><td>Your Character</td><td>hp</td><td>mp</td><td>lvl</td><td>profession</td></tr><tr><td>" + char + "</td><td id = 'chp'>" + charHp + "/" + charMhp + "</td><td id = 'cmp'>" + charMp + "/" + charMmp + "</td><td>" + lv + "</td><td>" + charProf + "</td></tr>");
-
 
 document.cookie = "charName=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "charId=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
@@ -71,12 +66,30 @@ document.cookie = "charProf=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "charW=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "charA=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 
-
+// fields
 var charWeaponInfo;
 var enemyWeaponInfo;
 var enemyInfo;
 var yourSkills;
 var enemySkills;
+
+var enemyName;
+var enemyHp;
+var enemyMp;
+var enemyLv;
+var enemyProf;
+var enemyWeapon;
+
+var charDmg;
+var charAcc;
+var charTyp;
+
+var enemyDmg;
+var enemyAcc;
+var enemyTyp;
+
+var numOfESkills;
+var numOfSkills;
 
 // functions needed to be improved
 
@@ -93,9 +106,11 @@ function saveCharInfo(char,charId,charHp,charMhp,charMp,charMmp,charDef,charExp,
 // Need to modify
 function backOrContinue(){
     if (confirm("Are you going to find another enemy?") == true) {
-
+    	$("#skillTable tr").remove();
+	runGame();
     } else {
-
+    	document.cookie = "charId = " + charId;
+    	location = "newgame.php";
     }
 }
 
@@ -118,13 +133,13 @@ function win(){
 	        } else{
 	        	document.getElementById("enemyAct").innerHTML = "You gain " + expUp + " exp, current exp: " + charExp + "/" + levelNeeded + " You also recovered 10% health and mana.";
 	        	if(charHp < charMhp*0.9){
-	        		charHp = charHp + charMhp*0.1;
+	        		charHp = charHp + parseInt(charMhp*0.1);
 	        	} else {
 	        		charHp = charMhp;
 	        	}
 	        	
 	        	if(charMp < charMmp*0.9){
-	        		charMp = charMp + charMmp*0.1;
+	        		charMp = charMp + parseInt(charMmp*0.1);
 	        	} else {
 	        		charMp = charMmp;
 	        	}
@@ -243,53 +258,60 @@ function enemyMove(){
 
 
 // RUN GAME
+function runGame(){
+	getEnemy(function(returnedData){ //anonymous callback function
+	    enemyInfo = returnedData;
+	});
+	
+	// Attributes of Enemy
+	enemyName = enemyInfo[0];
+	enemyHp = parseInt(enemyInfo[1]);
+	enemyMp = parseInt(enemyInfo[2]);
+	enemyLv = parseInt(enemyInfo[3]);
+	enemyProf = enemyInfo[4];
+	enemyWeapon = enemyInfo[5];
+	
+	fetchWeaponInfo(charW,function(returnedData){ //anonymous callback function
+	    charWeaponInfo = returnedData;
+	});
+	
+	charDmg = parseFloat(charWeaponInfo[1]);
+	charAcc = parseFloat(charWeaponInfo[3]);
+	charTyp = charWeaponInfo[4];
+	
+	fetchWeaponInfo(enemyWeapon,function(returnedData){ //anonymous callback function
+	    enemyWeaponInfo = returnedData;
+	});
+	
+	enemyDmg = parseFloat(enemyWeaponInfo[1]);
+	enemyAcc = parseFloat(enemyWeaponInfo[3]);
+	enemyTyp = enemyWeaponInfo[4];
+	
+	
+	availableSkills(charProf, lv, function(returnedData){ //anonymous callback function
+	    yourSkills = returnedData;
+	});
+	
+	availableSkills(enemyProf, enemyLv, function(returnedData){
+	    enemySkills = returnedData;
+	});
+	
+	numOfESkills = enemySkills.length/4;
+	numOfSkills = yourSkills.length/4;
+	
+	document.getElementById("intro").innerHTML = "You are " + char + " the " + charProf + " and your lv is " + lv + "<br>";
+	document.getElementById("intro2").innerHTML = "Enemy found!!";
 
-getEnemy(function(returnedData){ //anonymous callback function
-    enemyInfo = returnedData;
-});
-
-// Attributes of Enemy
-var enemyName = enemyInfo[0];
-var enemyHp = parseInt(enemyInfo[1]);
-var enemyMp = parseInt(enemyInfo[2]);
-var enemyLv = parseInt(enemyInfo[3]);
-var enemyProf = enemyInfo[4];
-var enemyWeapon = enemyInfo[5];
-
-fetchWeaponInfo(charW,function(returnedData){ //anonymous callback function
-    charWeaponInfo = returnedData;
-});
-
-var charDmg = parseFloat(charWeaponInfo[1]);
-var charAcc = parseFloat(charWeaponInfo[3]);
-var charTyp = charWeaponInfo[4];
-
-fetchWeaponInfo(enemyWeapon,function(returnedData){ //anonymous callback function
-    enemyWeaponInfo = returnedData;
-});
-
-var enemyDmg = parseFloat(enemyWeaponInfo[1]);
-var enemyAcc = parseFloat(enemyWeaponInfo[3]);
-var enemyTyp = enemyWeaponInfo[4];
-
-
-availableSkills(charProf, lv, function(returnedData){ //anonymous callback function
-    yourSkills = returnedData;
-});
-
-availableSkills(enemyProf, enemyLv, function(returnedData){
-    enemySkills = returnedData;
-});
-
-var numOfESkills = enemySkills.length/4;
-
-var numOfSkills = yourSkills.length/4;
-$('#skillTable > tbody').append("<tr><td>Name</td><td>Damage</td><td>Mana cost</td><td>Type</td></tr>");
-for(var i=0;i<numOfSkills;i++){
-	var word = "<tr><td><button input type='button' onclick = 'useSkill(yourSkills[4*" + i + "])'>" +yourSkills[4*i] + "</button></td><td>" + yourSkills[4*i+1] + "</td><td>" + yourSkills[4*i+2] + "</td><td>" + yourSkills[4*i+3] + "</td></tr>";
-	$('#skillTable > tbody').append(word);
+	$('#charTable > tbody').html("<tr><td>Your Character</td><td>hp</td><td>mp</td><td>lvl</td><td>profession</td></tr><tr><td>" + char + "</td><td id = 'chp'>" + charHp + "/" + charMhp + "</td><td id = 'cmp'>" + charMp + "/" + charMmp + "</td><td>" + lv + "</td><td>" + charProf + "</td></tr>");
+	
+	$('#skillTable > tbody').append("<tr><td>Name</td><td>Damage</td><td>Mana cost</td><td>Type</td></tr>");
+	for(var i=0;i<numOfSkills;i++){
+		var word = "<tr><td><button input type='button' onclick = 'useSkill(yourSkills[4*" + i + "])'>" +yourSkills[4*i] + "</button></td><td>" + yourSkills[4*i+1] + "</td><td>" + yourSkills[4*i+2] + "</td><td>" + yourSkills[4*i+3] + "</td></tr>";
+		$('#skillTable > tbody').append(word);
+	}
 }
 
+runGame();
 
 
 </script>

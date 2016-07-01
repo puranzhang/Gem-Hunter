@@ -11,12 +11,18 @@
 	<?php
 	session_start();
 	$var_value = $_SESSION["regName"];
-	echo "Your registration ID is: ".$_SESSION["regName"].".";
 	session_unset();
 	?>
 	
 	<script>
 	var userId = "<?php echo $var_value ?>";
+	
+	if(userId == ""){
+		var temp = getCookie("charId");
+		document.cookie = "charId=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+		userId = temp;
+	}
+	
 	function fetchInfo()
 	{	
 		$.ajax({                                      
