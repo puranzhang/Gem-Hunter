@@ -11,7 +11,7 @@
 </head>
 
 <body>
-
+<p id = "temp"><p>
 <p id = "intro"></p>
 <p id = "intro2"></p>
 <br>
@@ -68,7 +68,9 @@ document.cookie = "charA=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 
 // fields
 var charWeaponInfo;
+var charArmorInfo;
 var enemyWeaponInfo;
+var enemyArmorInfo;
 var enemyInfo;
 var yourSkills;
 var enemySkills;
@@ -76,17 +78,21 @@ var enemySkills;
 var enemyName;
 var enemyHp;
 var enemyMp;
+var enemyDef;
 var enemyLv;
 var enemyProf;
-var enemyWeapon;
+var enemyW;
+var enemyA;
 
 var charDmg;
 var charAcc;
 var charTyp;
+var charAD;
 
 var enemyDmg;
 var enemyAcc;
 var enemyTyp;
+var enemyAD;
 
 var numOfESkills;
 var numOfSkills;
@@ -209,8 +215,9 @@ function useSkill(skill){
 			document.getElementById("forTest").innerHTML = "You used the skill: <strong>" + skill + "</strong>, but your attack missed...";
 			enemyMove();
 		} else{
-			var finalDamage = parseInt((parseInt(charDmg) + parseInt(dmg))/2);
-			document.getElementById("forTest").innerHTML = "You used the skill: <strong>" + skill + "</strong>, damage: (" + charDmg + "+" + dmg + ")/2=" + finalDamage;
+			var finalTrueDamage = (parseInt(charDmg) + parseInt(dmg))/2;
+			var finalDamage = parseInt(finalTrueDamage*100/(100+enemyDef+enemyAD));
+			document.getElementById("forTest").innerHTML = "You used the skill: <strong>" + skill + "</strong>, damage: (" + charDmg + "+" + dmg + ")/2=" + finalDamage + " enemyA: " + enemyDef + " + " + enemyAD;
 			enemyHp = parseInt(enemyHp)-finalDamage;
 			document.getElementById("ehp").innerHTML = enemyHp;
 			if((enemyHp) <= 0){
@@ -243,7 +250,8 @@ function enemyMove(){
 		if(eRandomHit > enemyAcc){
 			document.getElementById("enemyAct").innerHTML = "Enemy used the skill: <strong>" + enemySkills[4*enemyLuckyNum] + "</strong>, and enemy's attack missed...";
 		} else{
-			var finalDamage = parseInt((parseInt(enemyDmg) + parseInt(dmg))/2);
+			var finalTrueDamage = (parseInt(enemyDmg) + parseInt(dmg))/2;
+			var finalDamage = parseInt(finalTrueDamage*100/(100+charDef+charAD));
 			document.getElementById("enemyAct").innerHTML = "Enemy used the skill: <strong>" + enemySkills[4*enemyLuckyNum] + "</strong>, damage: (" + enemyDmg + "+" + dmg + ")/2=" + finalDamage;
 			charHp = charHp-finalDamage;
 			document.getElementById("chp").innerHTML = charHp + "/" + charMhp;
@@ -267,26 +275,39 @@ function runGame(){
 	enemyName = enemyInfo[0];
 	enemyHp = parseInt(enemyInfo[1]);
 	enemyMp = parseInt(enemyInfo[2]);
-	enemyLv = parseInt(enemyInfo[3]);
-	enemyProf = enemyInfo[4];
-	enemyWeapon = enemyInfo[5];
+	enemyDef = parseInt(enemyInfo[3]);
+	enemyLv = parseInt(enemyInfo[4]);
+	enemyProf = enemyInfo[5];
+	enemyW = enemyInfo[6];
+	enemyA = enemyInfo[7];
 	
 	fetchWeaponInfo(charW,function(returnedData){ //anonymous callback function
 	    charWeaponInfo = returnedData;
 	});
 	
-	charDmg = parseFloat(charWeaponInfo[1]);
+	charDmg = parseInt(charWeaponInfo[1]);
 	charAcc = parseFloat(charWeaponInfo[3]);
 	charTyp = charWeaponInfo[4];
 	
-	fetchWeaponInfo(enemyWeapon,function(returnedData){ //anonymous callback function
-	    enemyWeaponInfo = returnedData;
+	fetchArmorInfo(charA,function(returnedData){ //anonymous callback function
+	    charArmorInfo = returnedData;
 	});
 	
-	enemyDmg = parseFloat(enemyWeaponInfo[1]);
+	charAD = parseInt(charArmorInfo[1]);
+	
+	fetchWeaponInfo(enemyW,function(returnedData){ //anonymous callback function
+	    enemyWeaponInfo = returnedData;
+	});
+
+	enemyDmg = parseInt(enemyWeaponInfo[1]);
 	enemyAcc = parseFloat(enemyWeaponInfo[3]);
 	enemyTyp = enemyWeaponInfo[4];
 	
+	fetchArmorInfo(enemyA,function(returnedData){ //anonymous callback function
+	    enemyArmorInfo = returnedData;
+	});
+	
+	enemyAD = parseInt(enemyArmorInfo[1]);
 	
 	availableSkills(charProf, lv, function(returnedData){ //anonymous callback function
 	    yourSkills = returnedData;

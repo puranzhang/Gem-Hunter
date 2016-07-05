@@ -6,7 +6,7 @@ function getEnemy(callback){
 	      dataType: 'json',                //data format      
 	      success: function(data)          //on recieve of reply
 	      {	        
-		$('#enemyTable > tbody').html("<tr><td>Enemy</td><td>hp</td><td>mp</td><td>lvl</td><td>profession</td></tr><tr><td>" +data[0] + "</td><td id = 'ehp'>" + data[1] + "</td><td id = 'emp'>" + data[2] + "</td><td>" + data[3] + "</td><td>" + data[4] + "</td></tr>");
+		$('#enemyTable > tbody').html("<tr><td>Enemy</td><td>hp</td><td>mp</td><td>lvl</td><td>profession</td></tr><tr><td>" +data[0] + "</td><td id = 'ehp'>" + data[1] + "</td><td id = 'emp'>" + data[2] + "</td><td>" + data[4] + "</td><td>" + data[5] + "</td></tr>");
 		callback(data);
 	      }
 	});
@@ -16,6 +16,19 @@ function fetchWeaponInfo(weaponName,callback){
 	$.ajax({                                      
 	      url: 'fetchWeaponInfo.php',                  //the script to call to get data       
 	      data: {wName:weaponName},                        //you can insert url argumnets here to pass to api.php
+	      async: false,                                //for example "id=5&parent=6"
+	      dataType: 'json',                //data format      
+	      success: function(data)          //on recieve of reply
+	      {	     		
+		callback(data);
+	      }
+	});
+}
+
+function fetchArmorInfo(armorName,callback){
+	$.ajax({                                      
+	      url: 'fetchArmorInfo.php',                  //the script to call to get data       
+	      data: {aName:armorName},                        //you can insert url argumnets here to pass to api.php
 	      async: false,                                //for example "id=5&parent=6"
 	      dataType: 'json',                //data format      
 	      success: function(data)          //on recieve of reply
