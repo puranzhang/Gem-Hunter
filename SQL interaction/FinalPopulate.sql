@@ -1,4 +1,3 @@
-
 insert into Profession 
     VALUES ('Archer');
 insert into Profession 

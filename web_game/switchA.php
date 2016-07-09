@@ -6,10 +6,10 @@ mysql_select_db('gameguanyu',$conn);
 $char = $_GET['char'];
 $char = mysql_real_escape_string($char);
 
-$weapon = $_GET['weapon'];
-$weapon = mysql_real_escape_string($weapon);
+$armor = $_GET['armor'];
+$armor = mysql_real_escape_string($armor);
 
-$query = "UPDATE Game_Char SET weapon = '$weapon' WHERE name = '$char'";
+$query = "UPDATE Game_Char SET armor = '$armor' WHERE name = '$char'";
 $query = mysql_query($query);
 
 $rows = true;

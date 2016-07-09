@@ -17,6 +17,7 @@
 	<script>
 	var userId = "<?php echo $var_value ?>";
 	var availableWeapons;
+	var availableArmors;
 	
 	if(userId == ""){
 		var temp = getCookie("charId");
@@ -61,7 +62,7 @@
 			setCookie("charA",armor);
 			
 			
-			$('#info').html("<b>name: </b>"+cName+"<b> user_id: </b>"+user_id+"<b> hp: </b>"+hp+"/"+maxHp+"<b> mp: </b>"+mp+"/"+maxMp+"<b> basic defence: </b>"+defence+"<br><b> exp: </b>"+exp+"<b> lvl: </b>"+lvl+"<b> profession: </b>"+profession+"<b> weapon: </b>"+ "<b id = 'weap'>" + weapon +"</b><b> armor: </b>" + armor);
+			$('#info').html("<b>name: </b>"+cName+"<b> user_id: </b>"+user_id+"<b> hp: </b>"+hp+"/"+maxHp+"<b> mp: </b>"+mp+"/"+maxMp+"<b> basic defence: </b>"+defence+"<br><b> exp: </b>"+exp+"<b> lvl: </b>"+lvl+"<b> profession: </b>"+profession+"<b> weapon: </b><b id = 'weap'>" + weapon +"</b><b> armor: </b><b id = 'armo'>" + armor + "</b>");
 			}
 		});
 		
@@ -69,10 +70,17 @@
 	
 	function fetchSkills()
 	{	
-		if($('#skillTable tr > td:contains("Name")').length > 0){
-			$("#skillTable tr").remove();
-			$('#showskill').html("Show your skills");
-		}else{				
+		if($('#eventTable tr > td:contains("Mana cost")').length > 0){
+			$("#eventTable tr").remove();
+			$('#showSkill').html("Show your skills");
+		}else{	
+			if($('#eventTable tr > td:contains("Accuracy")').length > 0){
+				$("#eventTable tr").remove();
+				$('#showWeapon').html("Show your weapons");
+			}else if($('#eventTable tr > td:contains("Defence")').length > 0){
+				$("#eventTable tr").remove();
+				$('#showArmor').html("Show your armors");
+			}	
 			$.ajax({                                      
 			      url: 'fetchSkills.php',                  //the script to call to get data       
 			      data: {prof:profession,lv:lvl},                        //you can insert url argumnets here to pass to api.php
@@ -83,15 +91,15 @@
 			        
 			        var result = data;
 				var length = result.length/4;
-					$('#skillTable > tbody').append("<tr><td>Name</td><td>Damage</td><td>Mana cost</td><td>Type</td></tr>");
+					$('#eventTable > tbody').append("<tr><td>Name</td><td>Damage</td><td>Mana cost</td><td>Type</td></tr>");
 					for(var i=0;i<length;i++){
-						$('#skillTable > tbody').append("<tr><td>" +result[4*i] + "</td><td>" + result[4*i+1] + "</td><td>" + result[4*i+2] + "</td><td>" + result[4*i+3] + "</td></tr>");
+						$('#eventTable > tbody').append("<tr><td>" +result[4*i] + "</td><td>" + result[4*i+1] + "</td><td>" + result[4*i+2] + "</td><td>" + result[4*i+3] + "</td></tr>");
 						
 					}
 				}
 			});
 			
-			$('#showskill').html("Hide your skills");
+			$('#showSkill').html("Hide your skills");
 		} 
 	}
 	
@@ -105,16 +113,32 @@
 		      	document.getElementById("weap").innerHTML = targetW;
 		      }
 		});
-		
-		
+	}
 	
+	function switchA(targetA){
+		$.ajax({                                      
+		      url: 'switchA.php',                  //the script to call to get data      
+		      data: {'char':cName,'armor':targetA}, 
+		      success: function(data)          //on recieve of reply
+		      {	     
+		      	alert("Your armor has been changed to " + targetA + " !!");
+		      	document.getElementById("armo").innerHTML = targetA;
+		      }
+		});
 	}
 	
 	function changeWeapon(callback){
-		if($('#weaponTable tr > td:contains("Name")').length > 0){
-			$("#weaponTable tr").remove();
-			$('#showskill').html("Show your weapons");
-		}else{				
+		if($('#eventTable tr > td:contains("Accuracy")').length > 0){
+			$("#eventTable tr").remove();
+			$('#showWeapon').html("Show your weapons");
+		}else{	
+			if($('#eventTable tr > td:contains("Mana cost")').length > 0){
+				$("#eventTable tr").remove();
+				$('#showSkill').html("Show your skills");
+			}else if($('#eventTable tr > td:contains("Defence")').length > 0){
+				$("#eventTable tr").remove();
+				$('#showArmor').html("Show your armors");
+			}		
 			$.ajax({                                      
 			      url: 'fetchWeaponsFromItem.php',                  //the script to call to get data       
 			      data: {cN:cName},                        //you can insert url argumnets here to pass to api.php
@@ -125,17 +149,50 @@
 			        callback(data);
 			        var result = data;
 				var length = result.length/4;
-					$('#weaponTable > tbody').append("<tr><td>Name</td><td>Damage</td><td>Accuracy</td><td>Level Required</td></tr>");
+					$('#eventTable > tbody').append("<tr><td>Name</td><td>Damage</td><td>Accuracy</td><td>Level Required</td></tr>");
 					for(var i=0;i<length;i++){
-						$('#weaponTable > tbody').append("<tr><td><button input type='button' onclick = 'switchW(availableWeapons[4*" + i + "])'>" +result[4*i] + "</button></td><td>" + result[4*i+1] + "</td><td>" + result[4*i+2] + "</td><td>" + result[4*i+3] + "</td></tr>");
+						$('#eventTable > tbody').append("<tr><td><button input type='button' onclick = 'switchW(availableWeapons[4*" + i + "])'>" +result[4*i] + "</button></td><td>" + result[4*i+1] + "</td><td>" + result[4*i+2] + "</td><td>" + result[4*i+3] + "</td></tr>");
 						
 					}
 				}
 			});
 			
-			$('#showskill').html("Hide your skills");
+			$('#showWeapon').html("Hide your weapons");
 		} 
-
+	}
+	
+	function changeArmor(callback){
+		if($('#eventTable tr > td:contains("Defence")').length > 0){
+			$("#eventTable tr").remove();
+			$('#showArmor').html("Show your armors");
+		}else{	
+			if($('#eventTable tr > td:contains("Mana cost")').length > 0){
+				$("#eventTable tr").remove();
+				$('#showSkill').html("Show your skills");
+			}else if($('#eventTable tr > td:contains("Accuracy")').length > 0){
+				$("#eventTable tr").remove();
+				$('#showWeapon').html("Show your weapons");
+			}			
+			$.ajax({                                      
+			      url: 'fetchArmorsFromItem.php',                  //the script to call to get data       
+			      data: {cN:cName},                        //you can insert url argumnets here to pass to api.php
+			                                       //for example "id=5&parent=6"
+			      dataType: 'json',                //data format      
+			      success: function(data)          //on recieve of reply
+			      {
+			        callback(data);
+			        var result = data;
+				var length = result.length/3;
+					$('#eventTable > tbody').append("<tr><td>Name</td><td>Defence</td><td>Level Required</td></tr>");
+					for(var i=0;i<length;i++){
+						$('#eventTable > tbody').append("<tr><td><button input type='button' onclick = 'switchA(availableArmors[3*" + i + "])'>" +result[3*i] + "</button></td><td>" + result[3*i+1] + "</td><td>" + result[3*i+2] +"</td></tr>");
+						
+					}
+				}
+			});
+			
+			$('#showArmor').html("Hide your armors");
+		} 
 	}
 	
 	function findEnemy(){
@@ -157,19 +214,16 @@
 
 <div id="info">this element will be accessed by jquery and this text replaced</div>
 <p><button input type="button" onclick="findEnemy()">Find enemies</button>
-<button input id="showskill" type="button" onclick="fetchSkills()">Show your skills</button>
+<button input id="showSkill" type="button" onclick="fetchSkills()">Show your skills</button>
 <button input id="showWeapon" type="button" onclick="changeWeapon(function(returnedData){availableWeapons = returnedData;});">Show your weapons</button>
+<button input id="showArmor" type="button" onclick="changeArmor(function(returnedData){availableArmors = returnedData;});">Show your armors</button>
 <button input type="button" onclick="Back()">Log out</button></p>
 
-<table id = "skillTable" style="width:30%">
+<table id = "eventTable" style="width:30%">
 <tbody>
 </tbody>
 </table>
 
-<table id = "weaponTable" style="width:30%">
-<tbody>
-</tbody>
-</table>
 
 </body>
 </html>
