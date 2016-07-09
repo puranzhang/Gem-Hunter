@@ -63,6 +63,8 @@ insert into Weapon
 
 insert into Armor 
     VALUES ('Basic Armor', 10, 1, null, '101');
+insert into Armor 
+    VALUES ('Archer Advanced Armor', 15, 1, 'Archer', '102');
 
 
 insert into Game_User 
@@ -97,9 +99,21 @@ insert into Game_User
 insert into Game_Char 
     VALUES ('Alex', '44444444', 100, 100, 100, 100, 5, 0, 50, 'Archer', 'Apolo', 'Basic Armor');
 insert into Item 
+    VALUES ('Alex', '001', 1, 'W');
+insert into Item 
+    VALUES ('Alex', '002', 1, 'W');
+insert into Item 
+    VALUES ('Alex', '003', 1, 'W');
+insert into Item 
+    VALUES ('Alex', '004', 1, 'W');
+insert into Item 
+    VALUES ('Alex', '005', 1, 'W');
+insert into Item 
     VALUES ('Alex', '006', 1, 'W');
 insert into Item 
     VALUES ('Alex', '101', 1, 'A');
+insert into Item 
+    VALUES ('Alex', '102', 1, 'A');
 
 
 insert into Game_User 
