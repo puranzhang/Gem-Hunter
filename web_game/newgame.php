@@ -16,6 +16,7 @@
 	
 	<script>
 	var userId = "<?php echo $var_value ?>";
+	var availableWeapons;
 	
 	if(userId == ""){
 		var temp = getCookie("charId");
@@ -60,7 +61,7 @@
 			setCookie("charA",armor);
 			
 			
-			$('#info').html("<b>name: </b>"+cName+"<b> user_id: </b>"+user_id+"<b> hp: </b>"+hp+"/"+maxHp+"<b> mp: </b>"+mp+"/"+maxMp+"<b> basic defence: </b>"+defence+"<br><b> exp: </b>"+exp+"<b> lvl: </b>"+lvl+"<b> profession: </b>"+profession+"<b> weapon: </b>"+weapon+"<b> armor: </b>" + armor);
+			$('#info').html("<b>name: </b>"+cName+"<b> user_id: </b>"+user_id+"<b> hp: </b>"+hp+"/"+maxHp+"<b> mp: </b>"+mp+"/"+maxMp+"<b> basic defence: </b>"+defence+"<br><b> exp: </b>"+exp+"<b> lvl: </b>"+lvl+"<b> profession: </b>"+profession+"<b> weapon: </b>"+ "<b id = 'weap'>" + weapon +"</b><b> armor: </b>" + armor);
 			}
 		});
 		
@@ -94,6 +95,49 @@
 		} 
 	}
 	
+	function switchW(targetW){
+		$.ajax({                                      
+		      url: 'switchW.php',                  //the script to call to get data      
+		      data: {'char':cName,'weapon':targetW}, 
+		      success: function(data)          //on recieve of reply
+		      {	     
+		      	alert("Your weapon has been changed to " + targetW + " !!");
+		      	document.getElementById("weap").innerHTML = targetW;
+		      }
+		});
+		
+		
+	
+	}
+	
+	function changeWeapon(callback){
+		if($('#weaponTable tr > td:contains("Name")').length > 0){
+			$("#weaponTable tr").remove();
+			$('#showskill').html("Show your weapons");
+		}else{				
+			$.ajax({                                      
+			      url: 'fetchWeaponsFromItem.php',                  //the script to call to get data       
+			      data: {cN:cName},                        //you can insert url argumnets here to pass to api.php
+			                                       //for example "id=5&parent=6"
+			      dataType: 'json',                //data format      
+			      success: function(data)          //on recieve of reply
+			      {
+			        callback(data);
+			        var result = data;
+				var length = result.length/4;
+					$('#weaponTable > tbody').append("<tr><td>Name</td><td>Damage</td><td>Accuracy</td><td>Level Required</td></tr>");
+					for(var i=0;i<length;i++){
+						$('#weaponTable > tbody').append("<tr><td><button input type='button' onclick = 'switchW(availableWeapons[4*" + i + "])'>" +result[4*i] + "</button></td><td>" + result[4*i+1] + "</td><td>" + result[4*i+2] + "</td><td>" + result[4*i+3] + "</td></tr>");
+						
+					}
+				}
+			});
+			
+			$('#showskill').html("Hide your skills");
+		} 
+
+	}
+	
 	function findEnemy(){
 		location = 'battle.php';
 	}
@@ -114,9 +158,15 @@
 <div id="info">this element will be accessed by jquery and this text replaced</div>
 <p><button input type="button" onclick="findEnemy()">Find enemies</button>
 <button input id="showskill" type="button" onclick="fetchSkills()">Show your skills</button>
+<button input id="showWeapon" type="button" onclick="changeWeapon(function(returnedData){availableWeapons = returnedData;});">Show your weapons</button>
 <button input type="button" onclick="Back()">Log out</button></p>
 
 <table id = "skillTable" style="width:30%">
+<tbody>
+</tbody>
+</table>
+
+<table id = "weaponTable" style="width:30%">
 <tbody>
 </tbody>
 </table>
