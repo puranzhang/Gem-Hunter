@@ -111,8 +111,13 @@
 		      {	     
 		      	alert("Your weapon has been changed to " + targetW + " !!");
 		      	document.getElementById("weap").innerHTML = targetW;
+		      	weapon = targetW;
+		      	setCookie("charW",weapon);
+		      	$("#eventTable tr").remove();
+		      	changeWeapon(function(returnedData){availableWeapons = returnedData;});
 		      }
 		});
+		
 	}
 	
 	function switchA(targetA){
@@ -123,6 +128,10 @@
 		      {	     
 		      	alert("Your armor has been changed to " + targetA + " !!");
 		      	document.getElementById("armo").innerHTML = targetA;
+		      	armor = targetA;
+		      	setCookie("charA",armor);
+		      	$("#eventTable tr").remove();
+		      	changeArmor(function(returnedData){availableArmors = returnedData;});
 		      }
 		});
 	}
@@ -149,9 +158,14 @@
 			        callback(data);
 			        var result = data;
 				var length = result.length/4;
-					$('#eventTable > tbody').append("<tr><td>Name</td><td>Damage</td><td>Accuracy</td><td>Level Required</td></tr>");
+					$('#eventTable > tbody').append("<tr><td>Name</td><td>Damage</td><td>Accuracy</td><td>Level Required</td><td>Equip</td></tr>");
 					for(var i=0;i<length;i++){
-						$('#eventTable > tbody').append("<tr><td><button input type='button' onclick = 'switchW(availableWeapons[4*" + i + "])'>" +result[4*i] + "</button></td><td>" + result[4*i+1] + "</td><td>" + result[4*i+2] + "</td><td>" + result[4*i+3] + "</td></tr>");
+						if(availableWeapons[4*i] == weapon){
+							$('#eventTable > tbody').append("<tr><td>" +result[4*i] + "</td><td>" + result[4*i+1] + "</td><td>" + result[4*i+2] + "</td>Equiped<td>" + result[4*i+3] + "</td><td>E</td></tr>");
+						} else{
+							$('#eventTable > tbody').append("<tr><td><button input type='button' onclick = 'switchW(availableWeapons[4*" + i + "])'>" +result[4*i] + "</button></td><td>" + result[4*i+1] + "</td><td>" + result[4*i+2] + "</td><td>" + result[4*i+3] + "</td><td></td></tr>");
+						}
+						
 						
 					}
 				}
@@ -183,10 +197,13 @@
 			        callback(data);
 			        var result = data;
 				var length = result.length/3;
-					$('#eventTable > tbody').append("<tr><td>Name</td><td>Defence</td><td>Level Required</td></tr>");
+					$('#eventTable > tbody').append("<tr><td>Name</td><td>Defence</td><td>Level Required</td><td>Equip</td></tr>");
 					for(var i=0;i<length;i++){
-						$('#eventTable > tbody').append("<tr><td><button input type='button' onclick = 'switchA(availableArmors[3*" + i + "])'>" +result[3*i] + "</button></td><td>" + result[3*i+1] + "</td><td>" + result[3*i+2] +"</td></tr>");
-						
+						if(availableArmors[3*i] == armor){
+							$('#eventTable > tbody').append("<tr><td>" +result[3*i] + "</td><td>" + result[3*i+1] + "</td><td>" + result[3*i+2] +"</td><td>E</td></tr>");
+						}else{
+							$('#eventTable > tbody').append("<tr><td><button input type='button' onclick = 'switchA(availableArmors[3*" + i + "])'>" +result[3*i] + "</button></td><td>" + result[3*i+1] + "</td><td>" + result[3*i+2] +"</td><td></td></tr>");
+						}	
 					}
 				}
 			});
@@ -219,7 +236,7 @@
 <button input id="showArmor" type="button" onclick="changeArmor(function(returnedData){availableArmors = returnedData;});">Show your armors</button>
 <button input type="button" onclick="Back()">Log out</button></p>
 
-<table id = "eventTable" style="width:30%">
+<table id = "eventTable" style="width:40%">
 <tbody>
 </tbody>
 </table>
