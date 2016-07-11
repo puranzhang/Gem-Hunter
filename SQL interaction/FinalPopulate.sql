@@ -63,7 +63,15 @@ insert into Weapon
 insert into Armor 
     VALUES ('Basic Armor', 10, 1, null, '101');
 insert into Armor 
-    VALUES ('Archer Advanced Armor', 15, 1, 'Archer', '102');
+    VALUES ('clothe Armor', 15, 10, 'Archer', '102');
+insert into Armor 
+    VALUES ('Light Steel Armor', 20, 20, 'Archer', '103');
+insert into Armor 
+    VALUES ('Steel Armor', 25, 30, 'Archer', '104');
+insert into Armor 
+    VALUES ('Archer Advanced Armor', 30, 40, 'Archer', '105');
+insert into Armor 
+    VALUES ('Archer Ultimate Set', 35, 50, 'Archer', '106');
 
 
 insert into Game_User 
