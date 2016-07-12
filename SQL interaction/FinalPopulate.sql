@@ -61,17 +61,17 @@ insert into Weapon
     VALUES ('The Grail', 35, 50, 1, 'Magician','024');
 
 insert into Armor 
-    VALUES ('Basic Armor', 10, 1, null, '101');
+    VALUES ('Ragged Cloth', 1, 1, null, '101');
 insert into Armor 
-    VALUES ('clothe Armor', 15, 10, 'Archer', '102');
+    VALUES ('clothe Armor', 5, 10, 'Archer', '102');
 insert into Armor 
-    VALUES ('Light Steel Armor', 20, 20, 'Archer', '103');
+    VALUES ('Light Steel Armor', 7, 20, 'Archer', '103');
 insert into Armor 
-    VALUES ('Steel Armor', 25, 30, 'Archer', '104');
+    VALUES ('Steel Armor', 10, 30, 'Archer', '104');
 insert into Armor 
-    VALUES ('Archer Advanced Armor', 30, 40, 'Archer', '105');
+    VALUES ('Archer Advanced Armor', 15, 40, 'Archer', '105');
 insert into Armor 
-    VALUES ('Archer Ultimate Set', 35, 50, 'Archer', '106');
+    VALUES ('Archer Ultimate Set', 20, 50, 'Archer', '106');
 
 
 insert into Game_User 
