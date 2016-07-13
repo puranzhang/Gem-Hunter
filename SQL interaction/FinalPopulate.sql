@@ -62,8 +62,9 @@ insert into Weapon
 
 insert into Armor 
     VALUES ('Ragged Cloth', 1, 1, null, '101');
+
 insert into Armor 
-    VALUES ('clothe Armor', 5, 10, 'Archer', '102');
+    VALUES ('Cloth', 5, 10, 'Archer', '102');
 insert into Armor 
     VALUES ('Light Steel Armor', 7, 20, 'Archer', '103');
 insert into Armor 
