@@ -28,7 +28,7 @@
 	function fetchInfo()
 	{	
 		$.ajax({                                      
-		      url: 'fetchInfo.php',                  //the script to call to get data       
+		      url: 'phpAjax/fetchInfo.php',                  //the script to call to get data       
 		      data: {id:userId},                        //you can insert url argumnets here to pass to api.php
 		                                       //for example "id=5&parent=6"
 		      dataType: 'json',                //data format      
@@ -47,6 +47,7 @@
         		profession = data[9]; 
         		weapon = data[10]; 
         		armor = data[11]; 
+        		money = data[12];
 			setCookie("charName",cName);
 			setCookie("charId",user_id);
 			setCookie("charHp",hp);
@@ -60,9 +61,10 @@
 			setCookie("charProf",profession);
 			setCookie("charW",weapon);
 			setCookie("charA",armor);
+			setCookie("charM",money);
 			
 			
-			$('#info').html("<b>name: </b>"+cName+"<b> user_id: </b>"+user_id+"<b> hp: </b>"+hp+"/"+maxHp+"<b> mp: </b>"+mp+"/"+maxMp+"<b> basic defence: </b>"+defence+"<br><b> exp: </b>"+exp+"<b> lvl: </b>"+lvl+"<b> profession: </b>"+profession+"<b> weapon: </b><b id = 'weap'>" + weapon +"</b><b> armor: </b><b id = 'armo'>" + armor + "</b>");
+			$('#info').html("<b>name: </b>"+cName+"<b> user_id: </b>"+user_id+"<b> hp: </b>"+hp+"/"+maxHp+"<b> mp: </b>"+mp+"/"+maxMp+"<b> basic defence: </b>"+defence+"<br><b> exp: </b>"+exp+"<b> lvl: </b>"+lvl+"<b> profession: </b>"+profession+"<b> weapon: </b><b id = 'weap'>" + weapon +"</b><b> armor: </b><b id = 'armo'>" + armor + "</b><b> money: </b>" + money);
 			}
 		});
 		
@@ -82,7 +84,7 @@
 				$('#showArmor').html("Show your armors");
 			}	
 			$.ajax({                                      
-			      url: 'fetchSkills.php',                  //the script to call to get data       
+			      url: 'phpAjax/fetchSkills.php',                  //the script to call to get data       
 			      data: {prof:profession,lv:lvl},                        //you can insert url argumnets here to pass to api.php
 			                                       //for example "id=5&parent=6"
 			      dataType: 'json',                //data format      
@@ -105,7 +107,7 @@
 	
 	function switchW(targetW){
 		$.ajax({                                      
-		      url: 'switchW.php',                  //the script to call to get data      
+		      url: 'phpAjax/switchW.php',                  //the script to call to get data      
 		      data: {'char':cName,'weapon':targetW}, 
 		      success: function(data)          //on recieve of reply
 		      {	     
@@ -122,7 +124,7 @@
 	
 	function switchA(targetA){
 		$.ajax({                                      
-		      url: 'switchA.php',                  //the script to call to get data      
+		      url: 'phpAjax/switchA.php',                  //the script to call to get data      
 		      data: {'char':cName,'armor':targetA}, 
 		      success: function(data)          //on recieve of reply
 		      {	     
@@ -149,7 +151,7 @@
 				$('#showArmor').html("Show your armors");
 			}		
 			$.ajax({                                      
-			      url: 'fetchWeaponsFromItem.php',                  //the script to call to get data       
+			      url: 'phpAjax/fetchWeaponsFromItem.php',                  //the script to call to get data       
 			      data: {cN:cName},                        //you can insert url argumnets here to pass to api.php
 			                                       //for example "id=5&parent=6"
 			      dataType: 'json',                //data format      
@@ -188,7 +190,7 @@
 				$('#showWeapon').html("Show your weapons");
 			}			
 			$.ajax({                                      
-			      url: 'fetchArmorsFromItem.php',                  //the script to call to get data       
+			      url: 'phpAjax/fetchArmorsFromItem.php',                  //the script to call to get data       
 			      data: {cN:cName},                        //you can insert url argumnets here to pass to api.php
 			                                       //for example "id=5&parent=6"
 			      dataType: 'json',                //data format      

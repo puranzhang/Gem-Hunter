@@ -73,7 +73,7 @@ if($user_r != null || $char_r != null){
 
 
     //insert char into DB.
-    $char_update = "INSERT INTO Game_Char " . "VALUES ('" . $char_name . "', '" . $user_id . "', " . $hp . ", " . $hp . ", " . $mp . ", " . $mp . ", " . $defence . ", " . 0 . ", " . 1 . ", '" . $prof . "', '" . $weapon . "', '" . $armor . "')";
+    $char_update = "INSERT INTO Game_Char " . "VALUES ('" . $char_name . "', '" . $user_id . "', " . $hp . ", " . $hp . ", " . $mp . ", " . $mp . ", " . $defence . ", " . 0 . ", " . 1 . ", '" . $prof . "', '" . $weapon . "', '" . $armor . "'," . 100 .")";
     mysql_query($char_update);
 
     //kick to login

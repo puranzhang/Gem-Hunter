@@ -1,6 +1,6 @@
 function getEnemy(callback){
 	$.ajax({                                      
-	      url: 'fetchEnemy.php',                  //the script to call to get data       
+	      url: 'phpAjax/fetchEnemy.php',                  //the script to call to get data       
 	      data: {charName:char,charLv:lv},                        //you can insert url argumnets here to pass to api.php
 	      async: false,                                 //for example "id=5&parent=6"
 	      dataType: 'json',                //data format      
@@ -14,7 +14,7 @@ function getEnemy(callback){
 
 function fetchWeaponInfo(weaponName,callback){
 	$.ajax({                                      
-	      url: 'fetchWeaponInfo.php',                  //the script to call to get data       
+	      url: 'phpAjax/fetchWeaponInfo.php',                  //the script to call to get data       
 	      data: {wName:weaponName},                        //you can insert url argumnets here to pass to api.php
 	      async: false,                                //for example "id=5&parent=6"
 	      dataType: 'json',                //data format      
@@ -27,7 +27,7 @@ function fetchWeaponInfo(weaponName,callback){
 
 function fetchArmorInfo(armorName,callback){
 	$.ajax({                                      
-	      url: 'fetchArmorInfo.php',                  //the script to call to get data       
+	      url: 'phpAjax/fetchArmorInfo.php',                  //the script to call to get data       
 	      data: {aName:armorName},                        //you can insert url argumnets here to pass to api.php
 	      async: false,                                //for example "id=5&parent=6"
 	      dataType: 'json',                //data format      
@@ -40,7 +40,7 @@ function fetchArmorInfo(armorName,callback){
 
 function availableSkills(charProf, lv, callback){     
 	$.ajax({                                      
-	      url: 'fetchSkills.php',                  //the script to call to get data       
+	      url: 'phpAjax/fetchSkills.php',                  //the script to call to get data       
 	      data: {prof:charProf,lv:lv},                        //you can insert url argumnets here to pass to api.php
 	      async: false,                                //for example "id=5&parent=6"
 	      dataType: 'json',                //data format      
@@ -53,7 +53,7 @@ function availableSkills(charProf, lv, callback){
 
 function fetchWeaponName(charProf, lv, callback){
 	$.ajax({                                      
-	      url: 'fetchWeaponName.php',                  //the script to call to get data       
+	      url: 'phpAjax/fetchWeaponName.php',                  //the script to call to get data       
 	      data: {prof:charProf,lv:lv},                        //you can insert url argumnets here to pass to api.php
 	      async: false,                                //for example "id=5&parent=6"
 	      dataType: 'json',                //data format      

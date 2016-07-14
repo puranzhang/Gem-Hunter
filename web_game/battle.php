@@ -51,6 +51,7 @@ var lv = parseInt(getCookie("level"));
 var charProf = getCookie("charProf");
 var charW = getCookie("charW");
 var charA = getCookie("charA");
+var charM = getCookie("charM");
 
 
 document.cookie = "charName=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
@@ -65,6 +66,7 @@ document.cookie = "level=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "charProf=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "charW=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 document.cookie = "charA=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+document.cookie = "charM=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 
 // fields
 var charWeaponInfo;
@@ -101,7 +103,7 @@ var numOfSkills;
 
 function saveCharInfo(char,charId,charHp,charMhp,charMp,charMmp,charDef,charExp,lv,charW,charA){
 	$.ajax({                                      
-	      url: 'save.php',                  //the script to call to get data      
+	      url: 'phpAjax/save.php',                  //the script to call to get data      
 	      data: {'cN':char,'cI':charId,'cH':charHp,'cMh':charMhp,'cM':charMp,'cMm':charMmp,'cD':charDef,'cE':charExp,'cL':lv,'cW':charW,'cA':charA}, 
 	      success: function(data)          //on recieve of reply
 	      {	     		
@@ -122,6 +124,7 @@ function backOrContinue(){
 
 function win(){
 	alert("YOU WIN!!");
+	document.getElementById("forTest").innerHTML = "";
 	if(lv == 50){
 		document.getElementById("enemyAct").innerHTML = "You have reached the highest level and cannot gain more exp!!!";
 	} else {
@@ -157,6 +160,7 @@ function win(){
 
 function lose(){
 	alert("YOU LOSE!!");
+	document.getElementById("forTest").innerHTML = "";
 	charHp = charMhp;
 	charMp = charMmp;
 	saveCharInfo(char,charId,charHp,charMhp,charMp,charMmp,charDef,charExp,lv,charW,charA);
@@ -340,6 +344,6 @@ runGame();
 
 <br>
 <button input type = "button" onclick = "location = 'login.html'">You must click this to go back</button>
-<button input type = "button" onclick = "getEnemy()">generate again</button>
+
 </body>
 </html>

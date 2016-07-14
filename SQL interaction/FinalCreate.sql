@@ -57,6 +57,7 @@ create table Game_Char (
     profession varchar(12) not null,
     weapon varchar(32) not null,
     armor varchar(32) not null,
+    money int not null check(money >= 0),
 
     primary key (name, user_id),
     foreign key (user_id) references Game_User,
