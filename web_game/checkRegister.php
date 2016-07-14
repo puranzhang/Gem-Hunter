@@ -43,7 +43,7 @@ if($user_r != null || $char_r != null){
             $weapon = "Bow";
             $hp = 200;
 	    $mp = 50;
-	    $defence = 5;
+	    $defence = 2;
             break;
         case "Thief":
             $weapon = "Dagger";

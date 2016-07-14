@@ -173,19 +173,19 @@ function levelUp(){
 	charExp = 0;
 	if(charProf == "Archer"){
 		charMhp = charMhp+20;
-		charMmp = charMmp+3;
-		charDef = charDef+2;
-	} else if(charProf == "Fighter"){
-		charMhp = charMhp+24;
-		charMmp = charMmp+2;
-		charDef = charDef+4;
-	} else if(charProf == "Thief"){
-		charMhp = charMhp+17;
 		charMmp = charMmp+4;
-		charDef = charDef+1;
+		charDef = charDef+3;
+	} else if(charProf == "Fighter"){
+		charMhp = charMhp+23;
+		charMmp = charMmp+2;
+		charDef = charDef+5;
+	} else if(charProf == "Thief"){
+		charMhp = charMhp+18;
+		charMmp = charMmp+5;
+		charDef = charDef+2;
 	} else{
-		charMhp = charMhp+15;
-		charMmp = charMmp+6;
+		charMhp = charMhp+16;
+		charMmp = charMmp+8;
 	} 
 	charHp = charMhp;
 	charMp = charMmp;
@@ -220,7 +220,7 @@ function useSkill(skill){
 			enemyMove();
 		} else{
 			var finalTrueDamage = (parseInt(charDmg) + parseInt(dmg))/2;
-			var finalDamage = parseInt(finalTrueDamage*100/(100+enemyDef+enemyAD));
+			var finalDamage = parseInt(finalTrueDamage*200/(200+enemyDef+enemyAD));
 			document.getElementById("forTest").innerHTML = "You used the skill: <strong>" + skill + "</strong>, damage: (" + charDmg + "+" + dmg + ")/2=" + finalDamage + " enemyA: " + enemyDef + " + " + enemyAD;
 			enemyHp = parseInt(enemyHp)-finalDamage;
 			document.getElementById("ehp").innerHTML = enemyHp;
@@ -255,7 +255,7 @@ function enemyMove(){
 			document.getElementById("enemyAct").innerHTML = "Enemy used the skill: <strong>" + enemySkills[4*enemyLuckyNum] + "</strong>, and enemy's attack missed...";
 		} else{
 			var finalTrueDamage = (parseInt(enemyDmg) + parseInt(dmg))/2;
-			var finalDamage = parseInt(finalTrueDamage*100/(100+charDef+charAD));
+			var finalDamage = parseInt(finalTrueDamage*200/(200+charDef+charAD));
 			document.getElementById("enemyAct").innerHTML = "Enemy used the skill: <strong>" + enemySkills[4*enemyLuckyNum] + "</strong>, damage: (" + enemyDmg + "+" + dmg + ")/2=" + finalDamage;
 			charHp = charHp-finalDamage;
 			document.getElementById("chp").innerHTML = charHp + "/" + charMhp;
