@@ -77,6 +77,9 @@ insert into Armor
 insert into Armor 
     VALUES ('Archer Ultimate Set', 20, 50, 'Archer', '106');
 
+insert into Armor 
+    VALUES ('Light Cloth', 3, 10, 'Thief', '107');
+
 
 insert into Game_User 
     VALUES ('11111111', '11111111');
