@@ -79,6 +79,14 @@ insert into Armor
 
 insert into Armor 
     VALUES ('Light Cloth', 3, 10, 'Thief', '107');
+insert into Armor 
+    VALUES ('Battle Suit', 5, 20, 'Thief', '108');
+insert into Armor 
+    VALUES ('Thief Armor', 8, 30, 'Thief', '109');
+insert into Armor 
+    VALUES ('Ninja Suit', 10, 40, 'Thief', '110');
+insert into Armor 
+    VALUES ('Ninja Suit Ultra', 15, 50, 'Thief', '111');
 
 
 insert into Game_User 
