@@ -3,7 +3,7 @@ $conn = mysql_connect('localhost','guanyuchen123','cgy123824');
 
 mysql_select_db('gameguanyu',$conn);
 
-$user_id = $_POST['name'];
+$user_id = $_POST['username'];
 $user_id = mysql_real_escape_string($user_id);
 $user_pw = $_POST['password'];
 $user_pw = mysql_real_escape_string($user_pw);

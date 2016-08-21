@@ -1,0 +1,149 @@
+/* CSS Document */
+
+/*
+ * IMporting the font
+*/	
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab|Roboto);
+
+/*
+ * General styling
+ */
+body {
+	padding:0;
+	margin:0;
+	background-color:#ecf0f1;
+	}
+	
+.clear {
+	clear:both;
+	width:100%;
+	}	
+	
+h1{
+	margin:40px auto;
+	padding:0;
+	font-family: 'Roboto Slab', serif;
+	font-size:100px;
+	font-weight:1000;
+	color:#2980b9;
+	text-align:center;
+	}	
+
+p{
+	font-family: 'Roboto Slab', serif;
+	font-size:11px;
+	}
+
+/*
+ * Styling the container for the login form.
+ */
+
+.login {
+	width:350px;
+	padding:25px;
+	margin:50px auto;
+	background-color:#2c3e50;
+	}
+/*
+ * Styling the Lables and checkbox font
+ */
+		
+label {
+	font-size:24px;
+	font-family: 'Roboto Slab', serif;
+	color:#fff;
+	}
+	
+.check {
+	font-size:15px;
+	font-family: 'Roboto Slab', serif;}		
+
+/*
+ * General Input Style
+ */
+		
+input[type="text"],
+input[type="password"],
+input[type="submit"],
+input[type="button"]  {
+	width: calc(100% - 33px);
+	margin:10px 0 10px 0;
+	padding:15px;
+	border: solid 1px #ccc;
+	font-size:20px;
+	background-color:#ecf0f1;
+	}	
+
+/*
+ * Styling the Buttons
+ */
+		
+input[type="submit"],
+input[type="button"] {
+	position:relative;
+	width:calc(50% - 13px);
+	background-color:#3498db;
+	border:none;
+	color:#FFF;
+	
+	-webkit-transition: all 0.1s;
+	-moz-transition: all 0.1s;
+	transition: all 0.1s;
+	
+	-webkit-box-shadow: 0px 9px 0px #2980b9;
+    -moz-box-shadow: 0px 9px 0px #2980b9;
+    box-shadow: 0px 9px 0px #2980b9;
+	}
+	
+input[type="submit"]:active,
+input[type="button"]:active{
+	
+	-webkit-transition: all 0.1s;
+	-moz-transition: all 0.1s;
+	transition: all 0.1s;
+	
+    position:relative;
+    top:7px;
+	
+    -webkit-box-shadow: 0px 2px 0px #16a085;
+    -moz-box-shadow: 0px 2px 0px #16a085;
+    box-shadow: 0px 2px 0px #16a085;
+}	
+	
+input[type="submit"] {
+	float:right;
+	}	
+
+/*
+ * Styling the checkbox
+ */
+		
+input[type="checkbox"] {
+	-webkit-appearance: none;
+	background-color: #fafafa;
+	border: 1px solid #cacece;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+	padding: 9px;
+	border-radius: 3px;
+	position: relative;
+}
+
+input[type="checkbox"]:active, .input[type="checkbox"]:checked:active {
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+input[type="checkbox"]:checked {
+	background-color: #e9ecee;
+	border: 1px solid #adb8c0;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+	color: #99a1a7;
+}
+
+input[type="checkbox"]:checked:after {
+	content: '\2714';
+	font-size: 14px;
+	position: absolute;
+	top: 0px;
+	left: 3px;
+	color: #99a1a7;
+}
