@@ -65,7 +65,8 @@ label {
 input[type="text"],
 input[type="password"],
 input[type="submit"],
-input[type="button"]  {
+input[type="button"],
+select  {
 	width: calc(100% - 33px);
 	margin:10px 0 10px 0;
 	padding:15px;
