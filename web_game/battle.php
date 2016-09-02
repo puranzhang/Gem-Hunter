@@ -126,7 +126,17 @@ function win(){
 	alert("YOU WIN!!");
 	document.getElementById("forTest").innerHTML = "";
 	if(lv == 50){
-		document.getElementById("enemyAct").innerHTML = "You have reached the highest level and cannot gain more exp!!!";
+		document.getElementById("enemyAct").innerHTML = "You have reached the highest level and cannot gain more exp!!! You also recovered 10% health and mana.";
+		if(charHp < charMhp*0.9){
+        		charHp = charHp + parseInt(charMhp*0.1);
+        	} else {
+        		charHp = charMhp;
+        	}
+        	if(charMp < charMmp*0.9){
+        		charMp = charMp + parseInt(charMmp*0.1);
+        	} else {
+        		charMp = charMmp;
+        	}
 	} else {
 		var expBonus = 0;
 		if (enemyLv > lv) {
