@@ -37,6 +37,7 @@
 <p id = "getWeapon"></p>
 
 <script>
+var round = 1;
 
 // Character Attributes
 var char = getCookie("charName");
@@ -51,7 +52,7 @@ var lv = parseInt(getCookie("level"));
 var charProf = getCookie("charProf");
 var charW = getCookie("charW");
 var charA = getCookie("charA");
-var charM = getCookie("charM");
+var charM = parseInt(getCookie("charM"));
 
 
 document.cookie = "charName=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
@@ -79,7 +80,9 @@ var enemySkills;
 
 var enemyName;
 var enemyHp;
+var enemyMhp;
 var enemyMp;
+var enemyMmp;
 var enemyDef;
 var enemyLv;
 var enemyProf;
@@ -101,10 +104,10 @@ var numOfSkills;
 
 // functions needed to be improved
 
-function saveCharInfo(char,charId,charHp,charMhp,charMp,charMmp,charDef,charExp,lv,charW,charA){
+function saveCharInfo(char,charId,charHp,charMhp,charMp,charMmp,charDef,charExp,lv,charW,charA,charM){
 	$.ajax({                                      
 	      url: 'phpAjax/save.php',                  //the script to call to get data      
-	      data: {'cN':char,'cI':charId,'cH':charHp,'cMh':charMhp,'cM':charMp,'cMm':charMmp,'cD':charDef,'cE':charExp,'cL':lv,'cW':charW,'cA':charA}, 
+	      data: {'cN':char,'cI':charId,'cH':charHp,'cMh':charMhp,'cM':charMp,'cMm':charMmp,'cD':charDef,'cE':charExp,'cL':lv,'cW':charW,'cA':charA,'cMo':charM}, 
 	      success: function(data)          //on recieve of reply
 	      {	     		
 	      }
@@ -122,11 +125,12 @@ function backOrContinue(){
     }
 }
 
-function win(){
-	alert("YOU WIN!!");
+function win(){	
+	var message = 0;
 	document.getElementById("forTest").innerHTML = "";
+	document.getElementById("enemyAct").innerHTML = "";
 	if(lv == 50){
-		document.getElementById("enemyAct").innerHTML = "You have reached the highest level and cannot gain more exp!!! You also recovered 10% health and mana.";
+		message = 1;
 		if(charHp < charMhp*0.9){
         		charHp = charHp + parseInt(charMhp*0.1);
         	} else {
@@ -147,10 +151,10 @@ function win(){
 	        charExp = charExp + expUp;
 	        var levelNeeded = parseInt(20 * Math.pow(1.1, lv) + 100);
 	        if(charExp >= levelNeeded){
-	        	document.getElementById("enemyAct").innerHTML = "LEVEL UP!! You are now LV " + (lv+1) + "!! You are also fully cured.";
+	        	message = 2;
 	        	levelUp();
 	        } else{
-	        	document.getElementById("enemyAct").innerHTML = "You gain " + expUp + " exp, current exp: " + charExp + "/" + levelNeeded + " You also recovered 10% health and mana.";
+	        	message = 3;
 	        	if(charHp < charMhp*0.9){
 	        		charHp = charHp + parseInt(charMhp*0.1);
 	        	} else {
@@ -164,18 +168,26 @@ function win(){
 	        	}
 	        }
 	}
-	saveCharInfo(char,charId,charHp,charMhp,charMp,charMmp,charDef,charExp,lv,charW,charA);
+	if(message == 1){
+		alert("YOU WIN!! \n" + "You have reached the highest level and cannot gain more exp!!! You also recovered 10% health and mana.");
+	} else if(message == 2){
+		alert("YOU WIN!! \n" + "LEVEL UP!! You are now LV " + (lv+1) + "!! You are also fully cured.");
+	} else{
+		alert("YOU WIN!! \n" + "You gain " + expUp + " exp, current exp: " + charExp + "/" + levelNeeded + " You also recovered 10% health and mana.");
+	}
+	charM = charM + 100;
+	saveCharInfo(char,charId,charHp,charMhp,charMp,charMmp,charDef,charExp,lv,charW,charA,charM);
+
 	backOrContinue();
 }
 
 function lose(){
-	alert("YOU LOSE!!");
-	document.getElementById("forTest").innerHTML = "";
 	charHp = charMhp;
 	charMp = charMmp;
-	saveCharInfo(char,charId,charHp,charMhp,charMp,charMmp,charDef,charExp,lv,charW,charA);
+	saveCharInfo(char,charId,charHp,charMhp,charMp,charMmp,charDef,charExp,lv,charW,charA,charM);
+	alert("YOU LOSE!! Now you have been fully cured.");
 	backOrContinue();
-}
+}	
 
 function levelUp(){
 	var temp;
@@ -224,55 +236,85 @@ function useSkill(skill){
 	if(parseInt(mana_req) > parseInt(charMp)){
 		document.getElementById("forTest").innerHTML = "No enough Mana!!";
 	} else{
-		var randomHit = Math.random();
-		if(randomHit > charAcc){
-			document.getElementById("forTest").innerHTML = "You used the skill: <strong>" + skill + "</strong>, but your attack missed...";
-			enemyMove();
-		} else{
-			var finalTrueDamage = (parseInt(charDmg) + parseInt(dmg))/2;
-			var finalDamage = parseInt(finalTrueDamage*200/(200+enemyDef+enemyAD));
-			document.getElementById("forTest").innerHTML = "You used the skill: <strong>" + skill + "</strong>, damage: (" + charDmg + "+" + dmg + ")/2=" + finalDamage + " enemyA: " + enemyDef + " + " + enemyAD;
-			enemyHp = parseInt(enemyHp)-finalDamage;
-			document.getElementById("ehp").innerHTML = enemyHp;
-			if((enemyHp) <= 0){
-				battleEnd = true;
-				win();
-			} else{
+		if(type == "Attack"){
+			var randomHit = Math.random();
+			if(randomHit > charAcc){
+				document.getElementById("forTest").innerHTML = "round" + round +". You used the skill: <strong>" + skill + "</strong>, but your attack missed...";
+				charMp = charMp-mana_req;
+				document.getElementById("cmp").innerHTML = charMp + "/" + charMmp;	
+				round = round + 1;
 				enemyMove();
+			} else{
+				var finalTrueDamage = (parseInt(charDmg) + parseInt(dmg))/2;
+				var finalDamage = parseInt(finalTrueDamage*200/(200+enemyDef+enemyAD));
+				document.getElementById("forTest").innerHTML = "round" + round +". You used the skill: <strong>" + skill + "</strong>, damage: (" + charDmg + "+" + dmg + ")/2=" + finalDamage + " enemyA: " + enemyDef + " + " + enemyAD;
+				enemyHp = parseInt(enemyHp)-finalDamage;
+				document.getElementById("ehp").innerHTML = enemyHp;
+				if((enemyHp) <= 0){
+					win();
+				} else{
+					charMp = charMp-mana_req;
+					document.getElementById("cmp").innerHTML = charMp + "/" + charMmp;	
+					round = round + 1;
+					enemyMove();
+				}
 			}
+		} else if(type == "Heal"){
+			document.getElementById("forTest").innerHTML = "round" + round +". You used the skill: <strong>" + skill + "</strong>, heal: " + dmg;
+			charHp = charHp + parseInt(dmg);
+			if(charHp > charMhp){
+				charHp = charMhp;
+			}
+			document.getElementById("chp").innerHTML = charHp + "/" + charMhp;
+			charMp = charMp-mana_req;
+			document.getElementById("cmp").innerHTML = charMp + "/" + charMmp;	
+			round = round + 1;
+			enemyMove();
+			
 		}
-		charMp = charMp-mana_req;
-		document.getElementById("cmp").innerHTML = charMp + "/" + charMmp;
 	}
 }
 
-function enemyMove(){
+function enemyMove(){	
 		// Not an efficient way. Better way: find available skills first.
-		var enemyLuckyNum = Math.floor(Math.random()*numOfESkills);
-		var mana_req = parseInt(enemySkills[4*enemyLuckyNum+2]);
-
-		while(mana_req > enemyMp){
-			enemyLuckyNum = Math.floor(Maths.random()*numOfESkills);
-			mana_req = parseInt(enemySkills[4*enemyLuckyNum+2]);
-		}
-		
-		var dmg = enemySkills[4*enemyLuckyNum+1];
-		var type = enemySkills[4*enemyLuckyNum+3];
-		var eRandomHit = Math.random();
-		
-		
-		if(eRandomHit > enemyAcc){
-			document.getElementById("enemyAct").innerHTML = "Enemy used the skill: <strong>" + enemySkills[4*enemyLuckyNum] + "</strong>, and enemy's attack missed...";
-		} else{
-			var finalTrueDamage = (parseInt(enemyDmg) + parseInt(dmg))/2;
-			var finalDamage = parseInt(finalTrueDamage*200/(200+charDef+charAD));
-			document.getElementById("enemyAct").innerHTML = "Enemy used the skill: <strong>" + enemySkills[4*enemyLuckyNum] + "</strong>, damage: (" + enemyDmg + "+" + dmg + ")/2=" + finalDamage;
-			charHp = charHp-finalDamage;
-			document.getElementById("chp").innerHTML = charHp + "/" + charMhp;
-			if(charHp <= 0){
-				battleEnd = true;
-				lose();
+		var availableESkillsNow = [];
+		var countOfAvailables = 0;
+		for(var i = 0; i < numOfESkills; i ++){
+			if(enemySkills[4*i+2] <= enemyMp){
+				availableESkillsNow[4*countOfAvailables] = enemySkills[4*i];
+				availableESkillsNow[4*countOfAvailables+1] = enemySkills[4*i+1];
+				availableESkillsNow[4*countOfAvailables+2] = enemySkills[4*i+2];
+				availableESkillsNow[4*countOfAvailables+3] = enemySkills[4*i+3];
+				countOfAvailables = countOfAvailables + 1;
 			}
+		}
+		var enemyLuckyNum = Math.floor(Math.random()*countOfAvailables);
+		
+		var mana_req = parseInt(availableESkillsNow[4*enemyLuckyNum+2]);
+		
+		var dmg = availableESkillsNow[4*enemyLuckyNum+1];
+		var type = availableESkillsNow[4*enemyLuckyNum+3];
+		var eRandomHit = Math.random();
+		if(type == "Attack"){	
+			if(eRandomHit > enemyAcc){
+				document.getElementById("enemyAct").innerHTML = "round" + (round-1) + ". Enemy used the skill: <strong>" + availableESkillsNow[4*enemyLuckyNum] + "</strong>, and enemy's attack missed...";
+			} else{
+				var finalTrueDamage = (parseInt(enemyDmg) + parseInt(dmg))/2;
+				var finalDamage = parseInt(finalTrueDamage*200/(200+charDef+charAD));
+				document.getElementById("enemyAct").innerHTML = "round" + (round-1) + ". Enemy used the skill: <strong>" + availableESkillsNow[4*enemyLuckyNum] + "</strong>, damage: (" + enemyDmg + "+" + dmg + ")/2=" + finalDamage;
+				charHp = charHp-finalDamage;
+				document.getElementById("chp").innerHTML = charHp + "/" + charMhp;
+				if(charHp <= 0){
+					lose();
+				}
+			}
+		} else if(type == "Heal"){
+			document.getElementById("enemyAct").innerHTML = "round" + round +". Enemy used the skill: <strong>" + availableESkillsNow[4*enemyLuckyNum] + "</strong>, heal: " + dmg;
+			enemyHp = enemyHp + parseInt(dmg);
+			if(enemyHp > enemyMhp){
+				enemyHp = enemyMhp;
+			}
+			document.getElementById("ehp").innerHTML = enemyHp;
 		}
 		enemyMp = enemyMp-mana_req;
 		document.getElementById("emp").innerHTML = enemyMp;
@@ -281,6 +323,10 @@ function enemyMove(){
 
 // RUN GAME
 function runGame(){
+	round = 1;
+	document.getElementById("forTest").innerHTML = "";
+	document.getElementById("enemyAct").innerHTML = "";
+	
 	getEnemy(function(returnedData){ //anonymous callback function
 	    enemyInfo = returnedData;
 	});
@@ -288,7 +334,9 @@ function runGame(){
 	// Attributes of Enemy
 	enemyName = enemyInfo[0];
 	enemyHp = parseInt(enemyInfo[1]);
+	enemyMhp = enemyHp;
 	enemyMp = parseInt(enemyInfo[2]);
+	enemyMmp = enemyMp;
 	enemyDef = parseInt(enemyInfo[3]);
 	enemyLv = parseInt(enemyInfo[4]);
 	enemyProf = enemyInfo[5];

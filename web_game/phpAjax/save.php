@@ -36,9 +36,12 @@ $cW = mysql_real_escape_string($cW);
 $cA = $_GET['cA'];
 $cA = mysql_real_escape_string($cA);
 
+$cMo = $_GET['cMo'];
+$cMo = mysql_real_escape_string($cMo);
 
 
-$query = "UPDATE Game_Char SET hp = '$cH', maxHp = '$cMh', mp = '$cM', maxMp = '$cMm', defence = '$cD', exp = '$cE', lvl = '$cL', weapon = '$cW', armor = '$cA' WHERE name = '$cN' AND user_id = '$cI'";
+
+$query = "UPDATE Game_Char SET hp = '$cH', maxHp = '$cMh', mp = '$cM', maxMp = '$cMm', defence = '$cD', exp = '$cE', lvl = '$cL', weapon = '$cW', armor = '$cA', money = '$cMo' WHERE name = '$cN' AND user_id = '$cI'";
 
 $query = mysql_query($query);
 
