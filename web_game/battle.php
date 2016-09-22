@@ -168,14 +168,18 @@ function win(){
 	        	}
 	        }
 	}
+	
+	bonusMoney = 20 + parseInt(Math.pow(enemyLv,2)/10) + parseInt(Math.random()*enemyLv);
+	charM = charM + bonusMoney;
+	
 	if(message == 1){
-		alert("YOU WIN!! \n" + "You have reached the highest level and cannot gain more exp!!! You also recovered 10% health and mana.");
+		alert("YOU WIN!! \n" + "You have reached the highest level and cannot gain more exp!!! You also recovered 10% health and mana. \n" + "Your earned " + bonusMoney + " coins!");
 	} else if(message == 2){
-		alert("YOU WIN!! \n" + "LEVEL UP!! You are now LV " + (lv+1) + "!! You are also fully cured.");
+		alert("YOU WIN!! \n" + "LEVEL UP!! You are now LV " + (lv+1) + "!! You are also fully cured. \n" + "Your earned " + bonusMoney + " coins!");
 	} else{
-		alert("YOU WIN!! \n" + "You gain " + expUp + " exp, current exp: " + charExp + "/" + levelNeeded + " You also recovered 10% health and mana.");
+		alert("YOU WIN!! \n" + "You gain " + expUp + " exp, current exp: " + charExp + "/" + levelNeeded + " You also recovered 10% health and mana. \n" + "Your earned " + bonusMoney + " coins!");
 	}
-	charM = charM + 100;
+	
 	saveCharInfo(char,charId,charHp,charMhp,charMp,charMmp,charDef,charExp,lv,charW,charA,charM);
 
 	backOrContinue();
