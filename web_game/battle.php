@@ -1,39 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Guanyu's garden</title>
+	<title>Guanyu's Cabinet</title>
 	<script type="text/javascript" src="jquery.js"></script>
 	<script type="text/javascript" src="cookieFunctions.js"></script>
 	<script type="text/javascript" src="gameFunctions.js"></script>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" >
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="basic.css" rel="stylesheet"/>
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-black.css">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+	<style>
+		body {
+		  background-color: #C6D7F2;
+		}
+	</style>
+	
 </head>
 
 <body>
-<p id = "temp"><p>
 <p id = "intro"></p>
-<p id = "intro2"></p>
 <br>
-<p>Your Info:</p>
-<table id = "charTable" style="width:30%">
-<tbody>
-</tbody>
-</table>
-<br>
-<p>Enemy Info:</p>
-<table id = "enemyTable" style="width:30%">
-<tbody>
-</tbody>
-</table>
-<br>
-<p>Your Skills:</p>
-<table id = "skillTable" style="width:30%">
-<tbody>
-</tbody>
-</table>
-<p id = "forTest"></p>
+<div class="w3-row w3-border" >
+  <div class="w3-third w3-container " style="width:100% text-align: left;">
+	<p>Your Info:</p>
+	<table id = "charTable" style="width:40% text-align: left;">
+	<tbody>
+	</tbody>
+	</table>
+	<br>
+	<p>Enemy Info:</p>
+	<table id = "enemyTable" style="width:40% text-align: left;">
+	<tbody>
+	</tbody>
+	</table>
+  </div>
+  <div class="w3-quarter w3-container " style="width:30% text-align: left;">
+	<button input type = "button" onclick = "getSkillTable()">Attack</button><br>
+	<button input type = "button" onclick = "defend()">Defend</button><br>
+	<button input type = "button" onclick = "getItemTable()">Item</button><br>
+  </div>
+  <div class="w3-third w3-container " style="width:80% text-align: left;">
+	<p id = "yourSkills"></p>
+	<table id = "skillTable" style="width:40% text-align: left;">
+	<tbody>
+	</tbody>
+	</table>
+  </div>
+</div>
+  
+  
+<p id = "playerAct"></p>
+<p id = "ifParry"></p>
 <p id = "enemyAct"></p>
+
 <p id = "getWeapon"></p>
 
 <script>
@@ -127,7 +147,8 @@ function backOrContinue(){
 
 function win(){	
 	var message = 0;
-	document.getElementById("forTest").innerHTML = "";
+	document.getElementById("playerAct").innerHTML = "";
+	document.getElementById("ifParry").innerHTML = "";
 	document.getElementById("enemyAct").innerHTML = "";
 	if(lv == 50){
 		message = 1;
@@ -194,7 +215,6 @@ function lose(){
 }	
 
 function levelUp(){
-	var temp;
 	lv = lv + 1;
 	charExp = 0;
 	if(charProf == "Archer"){
@@ -238,20 +258,20 @@ function useSkill(skill){
 		}
 	}
 	if(parseInt(mana_req) > parseInt(charMp)){
-		document.getElementById("forTest").innerHTML = "No enough Mana!!";
+		document.getElementById("playerAct").innerHTML = "No enough Mana!!";
 	} else{
 		if(type == "Attack"){
 			var randomHit = Math.random();
 			if(randomHit > charAcc){
-				document.getElementById("forTest").innerHTML = "round" + round +". You used the skill: <strong>" + skill + "</strong>, but your attack missed...";
+				document.getElementById("playerAct").innerHTML = "Your round" + round +": You used the skill: <strong>" + skill + "</strong>, but your attack missed...";
 				charMp = charMp-mana_req;
 				document.getElementById("cmp").innerHTML = charMp + "/" + charMmp;	
 				round = round + 1;
-				enemyMove();
+				enemyMove(false);
 			} else{
 				var finalTrueDamage = (parseInt(charDmg) + parseInt(dmg))/2;
 				var finalDamage = parseInt(finalTrueDamage*200/(200+enemyDef+enemyAD));
-				document.getElementById("forTest").innerHTML = "round" + round +". You used the skill: <strong>" + skill + "</strong>, damage: (" + charDmg + "+" + dmg + ")/2=" + finalDamage + " enemyA: " + enemyDef + " + " + enemyAD;
+				document.getElementById("playerAct").innerHTML = "Your round" + round +": You used the skill: <strong>" + skill + "</strong>, damage: (" + charDmg + "+" + dmg + ")/2=" + finalDamage + " enemyA: " + enemyDef + " + " + enemyAD;
 				enemyHp = parseInt(enemyHp)-finalDamage;
 				document.getElementById("ehp").innerHTML = enemyHp;
 				if((enemyHp) <= 0){
@@ -260,11 +280,11 @@ function useSkill(skill){
 					charMp = charMp-mana_req;
 					document.getElementById("cmp").innerHTML = charMp + "/" + charMmp;	
 					round = round + 1;
-					enemyMove();
+					enemyMove(false);
 				}
 			}
 		} else if(type == "Heal"){
-			document.getElementById("forTest").innerHTML = "round" + round +". You used the skill: <strong>" + skill + "</strong>, heal: " + dmg;
+			document.getElementById("playerAct").innerHTML = "Your round" + round +": You used the skill: <strong>" + skill + "</strong>, heal: " + dmg;
 			charHp = charHp + parseInt(dmg);
 			if(charHp > charMhp){
 				charHp = charMhp;
@@ -273,13 +293,15 @@ function useSkill(skill){
 			charMp = charMp-mana_req;
 			document.getElementById("cmp").innerHTML = charMp + "/" + charMmp;	
 			round = round + 1;
-			enemyMove();
+			enemyMove(false);
 			
 		}
 	}
+	$("#yourSkills").html("");
+	$("#skillTable tr").remove();
 }
 
-function enemyMove(){	
+function enemyMove(parry){	
 		// Not an efficient way. Better way: find available skills first.
 		var availableESkillsNow = [];
 		var countOfAvailables = 0;
@@ -299,13 +321,18 @@ function enemyMove(){
 		var dmg = availableESkillsNow[4*enemyLuckyNum+1];
 		var type = availableESkillsNow[4*enemyLuckyNum+3];
 		var eRandomHit = Math.random();
+		document.getElementById("ifParry").innerHTML = "";
 		if(type == "Attack"){	
 			if(eRandomHit > enemyAcc){
-				document.getElementById("enemyAct").innerHTML = "round" + (round-1) + ". Enemy used the skill: <strong>" + availableESkillsNow[4*enemyLuckyNum] + "</strong>, and enemy's attack missed...";
+				document.getElementById("enemyAct").innerHTML = "Enemy round" + (round-1) + ": Enemy used the skill: <strong>" + availableESkillsNow[4*enemyLuckyNum] + "</strong>, and enemy's attack missed...";
 			} else{
 				var finalTrueDamage = (parseInt(enemyDmg) + parseInt(dmg))/2;
 				var finalDamage = parseInt(finalTrueDamage*200/(200+charDef+charAD));
-				document.getElementById("enemyAct").innerHTML = "round" + (round-1) + ". Enemy used the skill: <strong>" + availableESkillsNow[4*enemyLuckyNum] + "</strong>, damage: (" + enemyDmg + "+" + dmg + ")/2=" + finalDamage;
+				if(parry){
+					finalDamage = parseInt(finalDamage/2);
+					document.getElementById("ifParry").innerHTML = "You parried half of the damage!";
+				}
+				document.getElementById("enemyAct").innerHTML = "Enemy round" + (round-1) + ": Enemy used the skill: <strong>" + availableESkillsNow[4*enemyLuckyNum] + "</strong>, damage: " + finalDamage;
 				charHp = charHp-finalDamage;
 				document.getElementById("chp").innerHTML = charHp + "/" + charMhp;
 				if(charHp <= 0){
@@ -313,7 +340,7 @@ function enemyMove(){
 				}
 			}
 		} else if(type == "Heal"){
-			document.getElementById("enemyAct").innerHTML = "round" + round +". Enemy used the skill: <strong>" + availableESkillsNow[4*enemyLuckyNum] + "</strong>, heal: " + dmg;
+			document.getElementById("enemyAct").innerHTML = "Enemy round" + (round-1) +": Enemy used the skill: <strong>" + availableESkillsNow[4*enemyLuckyNum] + "</strong>, heal: " + dmg;
 			enemyHp = enemyHp + parseInt(dmg);
 			if(enemyHp > enemyMhp){
 				enemyHp = enemyMhp;
@@ -324,11 +351,37 @@ function enemyMove(){
 		document.getElementById("emp").innerHTML = enemyMp;
 }
 
+function getSkillTable(){
+	if($('#skillTable tr > td:contains("Name")').length > 0){
+		$("#yourSkills").html("");
+		$("#skillTable tr").remove();
+	} else{
+		$("#yourSkills").html("Available Skills:");
+		$('#skillTable > tbody').append("<tr><td>Name</td><td>Damage</td><td>Mana cost</td><td>Type</td></tr>");
+		for(var i=0;i<numOfSkills;i++){
+			var word = "<tr><td><button input type='button' onclick = 'useSkill(yourSkills[4*" + i + "])'>" +yourSkills[4*i] + "</button></td><td>" + yourSkills[4*i+1] + "</td><td>" + yourSkills[4*i+2] + "</td><td>" + yourSkills[4*i+3] + "</td></tr>";
+			$('#skillTable > tbody').append(word);
+		}
+	}
+}
+
+function defend(){
+	$("#yourSkills").html("");
+	$("#skillTable tr").remove();
+	document.getElementById("playerAct").innerHTML = "Your round" + round +": You chose to defend yourself.";
+	round = round + 1;
+	enemyMove(true);
+}
+
+function getItemTable(){
+}
+
 
 // RUN GAME
 function runGame(){
 	round = 1;
-	document.getElementById("forTest").innerHTML = "";
+	document.getElementById("playerAct").innerHTML = "";
+	document.getElementById("ifParry").innerHTML = "";
 	document.getElementById("enemyAct").innerHTML = "";
 	
 	getEnemy(function(returnedData){ //anonymous callback function
@@ -386,16 +439,11 @@ function runGame(){
 	numOfESkills = enemySkills.length/4;
 	numOfSkills = yourSkills.length/4;
 	
-	document.getElementById("intro").innerHTML = "You are " + char + " the " + charProf + " and your lv is " + lv + "<br>";
-	document.getElementById("intro2").innerHTML = "Enemy found!!";
+	document.getElementById("intro").innerHTML = "You are " + char + " the " + charProf + " and your lv is " + lv + ".<br>Enemy found!!";
 
-	$('#charTable > tbody').html("<tr><td>Your Character</td><td>hp</td><td>mp</td><td>lvl</td><td>profession</td></tr><tr><td>" + char + "</td><td id = 'chp'>" + charHp + "/" + charMhp + "</td><td id = 'cmp'>" + charMp + "/" + charMmp + "</td><td>" + lv + "</td><td>" + charProf + "</td></tr>");
+	$('#charTable > tbody').html("<tr><td>Character</td><td>hp</td><td>mp</td><td>lvl</td><td>profession</td></tr><tr><td>" + char + "</td><td id = 'chp'>" + charHp + "/" + charMhp + "</td><td id = 'cmp'>" + charMp + "/" + charMmp + "</td><td>" + lv + "</td><td>" + charProf + "</td></tr>");
 	
-	$('#skillTable > tbody').append("<tr><td>Name</td><td>Damage</td><td>Mana cost</td><td>Type</td></tr>");
-	for(var i=0;i<numOfSkills;i++){
-		var word = "<tr><td><button input type='button' onclick = 'useSkill(yourSkills[4*" + i + "])'>" +yourSkills[4*i] + "</button></td><td>" + yourSkills[4*i+1] + "</td><td>" + yourSkills[4*i+2] + "</td><td>" + yourSkills[4*i+3] + "</td></tr>";
-		$('#skillTable > tbody').append(word);
-	}
+	
 }
 
 runGame();

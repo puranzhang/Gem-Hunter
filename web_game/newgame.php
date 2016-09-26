@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Guanyu's garden</title>
+	<title>Guanyu's Cabinet</title>
 	<script type="text/javascript" src="jquery.js"></script>
 	<script type="text/javascript" src="cookieFunctions.js"></script>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" >
@@ -9,7 +9,11 @@
 	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-black.css">
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
-	<link href="basic.css" rel="stylesheet"/>
+	<style>
+		body {
+		  background-color: #C6D7F2;
+		}
+	</style>
 	
 	<?php
 	session_start();
@@ -66,8 +70,8 @@
 			setCookie("charA",armor);
 			setCookie("charM",money);
 			
+			$('#attributeTable > tbody').html("<tr><td>Name: </td><td>" + cName + "</td></tr><tr><td>Hp: </td><td>" + hp + "/" + maxHp + "</td></tr><tr><td>Mp: </td><td>" + mp + "/" + maxMp + "</td></tr><tr><td>Basic Defence: </td><td>" + defence + "</td></tr><tr><td>Exp: </td><td>" + exp + "/" + parseInt(20 * Math.pow(1.1, lvl) + 100) + "</td></tr><tr><td>Profession: </td><td>" + profession + "</td></tr><tr><td>Weapon: </td><td id = 'weap'>" + weapon + "</td></tr><tr><td>Armor: </td><td id = 'armo'>" + armor + "</td></tr><tr><td>Money: </td><td>" + money + "</td></tr>");
 			
-			$('#info').html("<b>name: </b>"+cName+"<br><b> user_id: </b>"+user_id+"<br><b> hp: </b>"+hp+"/"+maxHp+"<br><b> mp: </b>"+mp+"/"+maxMp+"<br><b> basic defence: </b>"+defence+"<br><b> exp: </b>"+exp+"<br><b> lvl: </b>"+lvl+"<br><b> profession: </b>"+profession+"<br><b> weapon: </b><b id = 'weap'>" + weapon +"</b><br><b> armor: </b><b id = 'armo'>" + armor + "</b><br><b> money: </b>" + money);
 			}
 		});
 		
@@ -231,22 +235,26 @@
 
 <body>
 <p id = "welcome" style="color:red;">This is your super powerful champion!</p>
+
 <div class="w3-row w3-border">
   <div class="w3-third w3-container " style="text-align: right;">
-<img src = "GameImage/champion.jpg" name = "pic" alt = "champion" style="width:430px;height:400px;">
- </div>
-
-
-<div class="w3-third w3-container" style="text-align: left;">
-<div id="info">this element will be accessed by jquery and this text replaced</div>
-</div>
-<div class="w3-third w3-container" style="text-align: left;">
-<button input type="button" onclick="findEnemy()">Find enemies</button><br><br>
-<button input id="showSkill" type="button" onclick="fetchSkills()">Show your skills</button><br><br>
-<button input id="showWeapon" type="button" onclick="changeWeapon(function(returnedData){availableWeapons = returnedData;});">Show your weapons</button><br><br>
-<button input id="showArmor" type="button" onclick="changeArmor(function(returnedData){availableArmors = returnedData;});">Show your armors</button><br><br>
-<button input type="button" onclick="Back()">Log out</button>
-</div>
+	<img src = "GameImage/champion.jpg" name = "pic" alt = "champion" style="width:430px;height:400px;">
+  </div>
+  <div class="w3-third w3-container" style="text-align: left;">
+	<div id="info">
+	<table id = "attributeTable" style="width:70%; text-align: left;">
+	<tbody>
+	</tbody>
+	</table>
+	</div>
+  </div>
+  <div class="w3-third w3-container" style="text-align: left;">
+	<button input type="button" onclick="findEnemy()">Find enemies</button><br><br>
+	<button input id="showSkill" type="button" onclick="fetchSkills()">Show your skills</button><br><br>
+	<button input id="showWeapon" type="button" onclick="changeWeapon(function(returnedData){availableWeapons = returnedData;});">Show your weapons</button><br><br>
+	<button input id="showArmor" type="button" onclick="changeArmor(function(returnedData){availableArmors = returnedData;});">Show your armors</button><br><br>
+	<button input type="button" onclick="Back()">Log out</button>
+  </div>
 
 
 </div>
