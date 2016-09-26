@@ -70,7 +70,7 @@
 			setCookie("charA",armor);
 			setCookie("charM",money);
 			
-			$('#attributeTable > tbody').html("<tr><td>Name: </td><td>" + cName + "</td></tr><tr><td>Hp: </td><td>" + hp + "/" + maxHp + "</td></tr><tr><td>Mp: </td><td>" + mp + "/" + maxMp + "</td></tr><tr><td>Basic Defence: </td><td>" + defence + "</td></tr><tr><td>Exp: </td><td>" + exp + "/" + parseInt(20 * Math.pow(1.1, lvl) + 100) + "</td></tr><tr><td>Profession: </td><td>" + profession + "</td></tr><tr><td>Weapon: </td><td id = 'weap'>" + weapon + "</td></tr><tr><td>Armor: </td><td id = 'armo'>" + armor + "</td></tr><tr><td>Money: </td><td>" + money + "</td></tr>");
+			$('#attributeTable > tbody').html("<tr><td>Name: </td><td>" + cName + "</td></tr><tr><td>Level: </td><td>" + lvl + "</td></tr><tr><td>Hp: </td><td>" + hp + "/" + maxHp + "</td></tr><tr><td>Mp: </td><td>" + mp + "/" + maxMp + "</td></tr><tr><td>Basic Defence: </td><td>" + defence + "</td></tr><tr><td>Exp: </td><td>" + exp + "/" + parseInt(20 * Math.pow(1.1, lvl) + 100) + "</td></tr><tr><td>Profession: </td><td>" + profession + "</td></tr><tr><td>Weapon: </td><td id = 'weap'>" + weapon + "</td></tr><tr><td>Armor: </td><td id = 'armo'>" + armor + "</td></tr><tr><td>Money: </td><td>" + money + "</td></tr>");
 			
 			}
 		});
