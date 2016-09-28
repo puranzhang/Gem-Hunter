@@ -271,7 +271,17 @@ function useSkill(skill){
 			} else{
 				var finalTrueDamage = (parseInt(charDmg) + parseInt(dmg))/2;
 				var finalDamage = parseInt(finalTrueDamage*200/(200+enemyDef+enemyAD));
-				document.getElementById("playerAct").innerHTML = "Your round" + round +": You used the skill: <strong>" + skill + "</strong>, damage: (" + charDmg + "+" + dmg + ")/2=" + finalDamage + " enemyA: " + enemyDef + " + " + enemyAD;
+				
+				var enemyParryNeed = Math.floor(Math.random()*100);
+				var enemyParryLv = parseInt(30+enemyLv);
+				var eParry = false;
+				if(finalDamage > Math.min(enemyMhp/3, enemyHp) && enemyParryLv >= enemyParryNeed){
+					finalDamage = parseInt(finalDamage/2);
+					eParry = true;
+					document.getElementById("ifParry").innerHTML = "Enemy parried half of the damage!";
+					document.getElementById("enemyAct").innerHTML = "Enemy round" + round + ": Enemy chose to defend.";
+				}			
+				document.getElementById("playerAct").innerHTML = "Your round" + round +": You used the skill: <strong>" + skill + "</strong>, damage: " + finalDamage + " enemyA: " + enemyDef + " + " + enemyAD;
 				enemyHp = parseInt(enemyHp)-finalDamage;
 				document.getElementById("ehp").innerHTML = enemyHp;
 				if((enemyHp) <= 0){
@@ -280,7 +290,9 @@ function useSkill(skill){
 					charMp = charMp-mana_req;
 					document.getElementById("cmp").innerHTML = charMp + "/" + charMmp;	
 					round = round + 1;
-					enemyMove(false);
+					if(!eParry){
+						enemyMove(false);
+					}
 				}
 			}
 		} else if(type == "Heal"){
@@ -302,7 +314,7 @@ function useSkill(skill){
 }
 
 function enemyMove(parry){	
-		// Not an efficient way. Better way: find available skills first.
+		
 		var availableESkillsNow = [];
 		var countOfAvailables = 0;
 		for(var i = 0; i < numOfESkills; i ++){
