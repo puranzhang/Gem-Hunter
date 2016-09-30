@@ -8,7 +8,7 @@ $armorName = mysql_real_escape_string($armorName);
 
 
 
-$query = "SELECT ar_name, defence FROM Armor WHERE ar_name = '$armorName'";
+$query = "SELECT name, defence FROM Armor WHERE name = '$armorName'";
 $query = mysql_query($query);
 
 $rows = mysql_fetch_row($query);

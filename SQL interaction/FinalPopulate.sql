@@ -9,132 +9,166 @@ insert into Profession
 
 
 insert into Weapon 
-    VALUES ('Bow', 16, 1, 0.25, 'Archer','001');
+    VALUES ('Bow', 16, 1, 0.25, 'Archer','001','');
 insert into Weapon 
-    VALUES ('Iron Bow', 18, 10, 0.4, 'Archer','002');
+    VALUES ('Iron Bow', 18, 10, 0.4, 'Archer','002','');
 insert into Weapon 
-    VALUES ('Gold Bow', 22, 20, 0.55, 'Archer','003');
+    VALUES ('Gold Bow', 22, 20, 0.55, 'Archer','003','');
 insert into Weapon 
-    VALUES ('Diamond Bow', 26, 30, 0.7, 'Archer','004');
+    VALUES ('Diamond Bow', 26, 30, 0.7, 'Archer','004','');
 insert into Weapon 
-    VALUES ('Cubid', 40, 40, 0.5, 'Archer','005');
+    VALUES ('Cubid', 40, 40, 0.5, 'Archer','005','');
 insert into Weapon 
-    VALUES ('Apolo', 30, 50, 0.95, 'Archer','006');
+    VALUES ('Apolo', 30, 50, 0.95, 'Archer','006','');
+
 
 insert into Weapon 
-    VALUES ('Advanced Bow', 17, 5, 0.25, 'Archer','025');
+    VALUES ('Dagger', 23, 1, 0.6, 'Thief','007','');
+insert into Weapon 
+    VALUES ('Silver Dagger', 23, 10, 0.9, 'Thief','008','');
+insert into Weapon 
+    VALUES ('Chain Attacker', 28, 20, 0.75, 'Thief','009','');
+insert into Weapon 
+    VALUES ('Scimitar', 32, 30, 0.8, 'Thief','010','');
+insert into Weapon 
+    VALUES ('Pistol', 34, 40, 0.9, 'Thief','011','');
+insert into Weapon 
+    VALUES ('Incinerator', 37, 50, 0.99, 'Thief','012','');
 
 insert into Weapon 
-    VALUES ('Dagger', 23, 1, 0.6, 'Thief','007');
+    VALUES ('Handguard', 28, 1, 0.25, 'Fighter','013','');
 insert into Weapon 
-    VALUES ('Silver Dagger', 23, 10, 0.9, 'Thief','008');
+    VALUES ('Iron Sword', 33, 10, 0.25, 'Fighter','014','');
 insert into Weapon 
-    VALUES ('Chain Attacker', 28, 20, 0.75, 'Thief','009');
+    VALUES ('Great Sword', 45, 20, 0.25, 'Fighter','015','');
 insert into Weapon 
-    VALUES ('Scimitar', 32, 30, 0.8, 'Thief','010');
+    VALUES ('Double Swords', 46, 30, 0.33, 'Fighter','016','');
 insert into Weapon 
-    VALUES ('Pistol', 34, 40, 0.9, 'Thief','011');
+    VALUES ('Excalibur', 50, 40, 0.44, 'Fighter','017','');
 insert into Weapon 
-    VALUES ('Incinerator', 37, 50, 0.99, 'Thief','012');
+    VALUES ('Nothing', 70, 50, 0.44, 'Fighter','018','');
 
 insert into Weapon 
-    VALUES ('Handguard', 28, 1, 0.25, 'Fighter','013');
+    VALUES ('Wand', 21, 1, 1, 'Magician','019','');
 insert into Weapon 
-    VALUES ('Iron Sword', 33, 10, 0.25, 'Fighter','014');
+    VALUES ('Iron Wand', 25, 10, 0.6, 'Magician','020','');
 insert into Weapon 
-    VALUES ('Great Sword', 45, 20, 0.25, 'Fighter','015');
+    VALUES ('Wand and Sword', 30, 20, 0.6, 'Magician','021','');
 insert into Weapon 
-    VALUES ('Double Swords', 46, 30, 0.33, 'Fighter','016');
+    VALUES ('War Staff', 35, 30, 0.8, 'Magician','022','');
 insert into Weapon 
-    VALUES ('Excalibur', 50, 40, 0.44, 'Fighter','017');
+    VALUES ('Ether Wand', 32, 40, 0.9, 'Magician','023','');
 insert into Weapon 
-    VALUES ('Nothing', 70, 50, 0.44, 'Fighter','018');
-
-insert into Weapon 
-    VALUES ('Wand', 21, 1, 1, 'Magician','019');
-insert into Weapon 
-    VALUES ('Iron Wand', 25, 10, 0.6, 'Magician','020');
-insert into Weapon 
-    VALUES ('Wand and Sword', 30, 20, 0.6, 'Magician','021');
-insert into Weapon 
-    VALUES ('War Staff', 35, 30, 0.8, 'Magician','022');
-insert into Weapon 
-    VALUES ('Ether Wand', 32, 40, 0.9, 'Magician','023');
-insert into Weapon 
-    VALUES ('The Grail', 35, 50, 1, 'Magician','024');
+    VALUES ('The Grail', 35, 50, 1, 'Magician','024','');
 
 insert into Armor 
-    VALUES ('Ragged Cloth', 1, 1, null, '101');
+    VALUES ('Ragged Cloth', 1, 1, null, '101','');
 
 insert into Armor 
-    VALUES ('Cloth', 5, 10, 'Archer', '102');
+    VALUES ('Cloth', 5, 10, 'Archer', '102','');
 insert into Armor 
-    VALUES ('Light Steel Armor', 7, 20, 'Archer', '103');
+    VALUES ('Light Steel Armor', 7, 20, 'Archer', '103','');
 insert into Armor 
-    VALUES ('Steel Armor', 10, 30, 'Archer', '104');
+    VALUES ('Steel Armor', 10, 30, 'Archer', '104','');
 insert into Armor 
-    VALUES ('Archer Advanced Armor', 15, 40, 'Archer', '105');
+    VALUES ('Archer Advanced Armor', 15, 40, 'Archer', '105','');
 insert into Armor 
-    VALUES ('Archer Ultimate Set', 20, 50, 'Archer', '106');
+    VALUES ('Archer Ultimate Set', 20, 50, 'Archer', '106','');
 
 insert into Armor 
-    VALUES ('Light Cloth', 3, 10, 'Thief', '107');
+    VALUES ('Light Cloth', 3, 10, 'Thief', '107','');
 insert into Armor 
-    VALUES ('Battle Suit', 5, 20, 'Thief', '108');
+    VALUES ('Battle Suit', 5, 20, 'Thief', '108','');
 insert into Armor 
-    VALUES ('Thief Armor', 8, 30, 'Thief', '109');
+    VALUES ('Thief Armor', 8, 30, 'Thief', '109','');
 insert into Armor 
-    VALUES ('Ninja Suit', 10, 40, 'Thief', '110');
+    VALUES ('Ninja Suit', 10, 40, 'Thief', '110','');
 insert into Armor 
-    VALUES ('Ninja Suit Ultra', 15, 50, 'Thief', '111');
+    VALUES ('Ninja Suit Ultra', 15, 50, 'Thief', '111','');
+
+insert into Item
+    VALUES ('Small Health Potion',30,'Hp','701','');
+insert into Item
+    VALUES ('Medium Health Potion',60,'Hp','702','');
+insert into Item
+    VALUES ('Large Health Potion',100,'Hp','703','');
+
+insert into Item
+    VALUES ('Small Mana Potion',20,'Mp','711','');
+insert into Item
+    VALUES ('Medium Mana Potion',40,'Mp','712','');
+insert into Item
+    VALUES ('Large Mana Potion',75,'Mp','713','');
 
 
 insert into Game_User 
     VALUES ('11111111', '11111111');
 insert into Game_Char 
     VALUES ('Guanyu', '11111111', 100, 100, 100, 100, 5, 0, 1, 'Magician', 'Wand', 'Ragged Cloth',100);
-insert into Item 
+insert into Inventory 
     VALUES ('Guanyu', '019', 1, 'W');
-insert into Item 
+insert into Inventory 
     VALUES ('Guanyu', '101', 1, 'A');
 
 insert into Game_User 
     VALUES ('22222222', '22222222');
 insert into Game_Char 
-    VALUES ('Puran', '22222222', 100, 100, 100, 100, 5, 0, 9, 'Magician', 'Wand', 'Ragged Cloth',100);
-insert into Item 
+    VALUES ('Puran', '22222222', 100, 100, 100, 100, 5, 0, 19, 'Magician', 'Iron Wand', 'Ragged Cloth',100);
+insert into Inventory 
     VALUES ('Puran', '019', 1, 'W');
-insert into Item 
+insert into Inventory 
+    VALUES ('Puran', '020', 1, 'W');
+insert into Inventory 
     VALUES ('Puran', '101', 1, 'A');
+insert into Inventory 
+    VALUES ('Puran', '701', 50, 'I');
+insert into Inventory 
+    VALUES ('Puran', '702', 60, 'I');
+insert into Inventory 
+    VALUES ('Puran', '703', 70, 'I');
+insert into Inventory 
+    VALUES ('Puran', '711', 50, 'I');
+insert into Inventory 
+    VALUES ('Puran', '712', 60, 'I');
+insert into Inventory 
+    VALUES ('Puran', '713', 70, 'I');
 
 insert into Game_User 
     VALUES ('33333333', '33333333');
 insert into Game_Char 
     VALUES ('Kyong', '33333333', 100, 100, 100, 100, 5, 0, 40, 'Fighter', 'Excalibur', 'Ragged Cloth',100);
-insert into Item 
+insert into Inventory 
+    VALUES ('Kyong', '013', 1, 'W');
+insert into Inventory 
+    VALUES ('Kyong', '014', 1, 'W');
+insert into Inventory 
+    VALUES ('Kyong', '015', 1, 'W');
+insert into Inventory 
+    VALUES ('Kyong', '016', 1, 'W');
+insert into Inventory 
     VALUES ('Kyong', '017', 1, 'W');
-insert into Item 
+insert into Inventory 
     VALUES ('Kyong', '101', 1, 'A');
 
 insert into Game_User 
     VALUES ('44444444', '44444444');
 insert into Game_Char 
     VALUES ('Alex', '44444444', 100, 100, 100, 100, 5, 0, 50, 'Archer', 'Apolo', 'Ragged Cloth',100);
-insert into Item 
+insert into Inventory 
     VALUES ('Alex', '001', 1, 'W');
-insert into Item 
+insert into Inventory 
     VALUES ('Alex', '002', 1, 'W');
-insert into Item 
+insert into Inventory 
     VALUES ('Alex', '003', 1, 'W');
-insert into Item 
+insert into Inventory 
     VALUES ('Alex', '004', 1, 'W');
-insert into Item 
+insert into Inventory 
     VALUES ('Alex', '005', 1, 'W');
-insert into Item 
+insert into Inventory 
     VALUES ('Alex', '006', 1, 'W');
-insert into Item 
+insert into Inventory 
     VALUES ('Alex', '101', 1, 'A');
-insert into Item 
+insert into Inventory 
     VALUES ('Alex', '102', 1, 'A');
 
 

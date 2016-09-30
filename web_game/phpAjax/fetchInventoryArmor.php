@@ -6,7 +6,7 @@ mysql_select_db('gameguanyu',$conn);
 $char = $_GET['cN'];
 $char = mysql_real_escape_string($char);
 
-$query = "SELECT ar_name,defence,lvl_req FROM Armor WHERE item_no IN (SELECT item_no FROM Item WHERE char_name = '$char' AND type = 'A')";
+$query = "SELECT name,defence,lvl_req FROM Armor WHERE item_no IN (SELECT item_no FROM Inventory WHERE char_name = '$char' AND type = 'A')";
 $query = mysql_query($query);
 
 $rows = Array();

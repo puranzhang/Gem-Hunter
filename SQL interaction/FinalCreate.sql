@@ -1,14 +1,3 @@
-drop table Skill cascade constraints;
-drop table Completed_By cascade constraints;
-drop table Needs_To_Complete cascade constraints;
-drop table Game_Char cascade constraints;
-drop table Weapon cascade constraints;
-drop table Profession cascade constraints;
-drop table Task cascade constraints;
-drop table Game_User cascade constraints;
-drop table Item cascade constraints;
-drop table Armor cascade constraints;
-
 create table Game_User (
     id char(8) primary key,
     pw varchar(16) not null check(LENGTH(pw) >= 8)
@@ -23,16 +12,6 @@ create table Profession (
     name varchar(12) primary key
 );
 
-create table Armor (
-    ar_name varchar(32) primary key,
-    defence varchar(32),
-    lvl_req int not null check(lvl_req >= 0),
-    profession varchar(12),
-    item_no char(3),
-
-    foreign key (profession) references Profession
-);
-
 create table Weapon (
     name varchar(32) primary key,
     damage int not null check(damage > 0),
@@ -40,8 +19,28 @@ create table Weapon (
     accuracy float not null check(accuracy > 0 and accuracy <= 1),
     profession varchar(12) not null,
     item_no char(3),
+    description varchar(256),
 
     foreign key (profession) references Profession
+);
+
+create table Armor (
+    name varchar(32) primary key,
+    defence varchar(32),
+    lvl_req int not null check(lvl_req >= 0),
+    profession varchar(12),
+    item_no char(3),
+    description varchar(256),
+
+    foreign key (profession) references Profession
+);
+
+create table Item (
+    name varchar(32) primary key,
+    value int not null check(value >= 0),
+    type varchar(6) not null check(type = 'Hp' or type = 'Mp'),
+    item_no char(3),
+    description varchar(256)
 );
 
 create table Game_Char (
@@ -62,7 +61,8 @@ create table Game_Char (
     primary key (name, user_id),
     foreign key (user_id) references Game_User,
     foreign key (profession) references Profession,
-    foreign key (weapon) references Weapon
+    foreign key (weapon) references Weapon,
+    foreign key (armor) references Armor
 );
 
 create table Needs_To_Complete (
@@ -99,7 +99,7 @@ create table Skill (
     foreign key (profession) references Profession
 );
 
-create table Item (
+create table Inventory (
     char_name varchar(32),
     item_no char(3),
     amount int,

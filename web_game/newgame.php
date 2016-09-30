@@ -89,7 +89,10 @@
 			}else if($('#eventTable tr > td:contains("Defence")').length > 0){
 				$("#eventTable tr").remove();
 				$('#showArmor').html("Show your armors");
-			}	
+			}else if($('#eventTable tr > td:contains("Amount")').length > 0){
+				$("#eventTable tr").remove();
+				$('#showInventory').html("Show your inventory");
+			}		
 			$.ajax({                                      
 			      url: 'phpAjax/fetchSkills.php',                  //the script to call to get data       
 			      data: {prof:profession,lv:lvl},                        //you can insert url argumnets here to pass to api.php
@@ -156,9 +159,12 @@
 			}else if($('#eventTable tr > td:contains("Defence")').length > 0){
 				$("#eventTable tr").remove();
 				$('#showArmor').html("Show your armors");
+			}else if($('#eventTable tr > td:contains("Amount")').length > 0){
+				$("#eventTable tr").remove();
+				$('#showInventory').html("Show your inventory");
 			}		
 			$.ajax({                                      
-			      url: 'phpAjax/fetchWeaponsFromItem.php',                  //the script to call to get data       
+			      url: 'phpAjax/fetchInventoryWeapon.php',                  //the script to call to get data       
 			      data: {cN:cName},                        //you can insert url argumnets here to pass to api.php
 			                                       //for example "id=5&parent=6"
 			      dataType: 'json',                //data format      
@@ -195,9 +201,12 @@
 			}else if($('#eventTable tr > td:contains("Accuracy")').length > 0){
 				$("#eventTable tr").remove();
 				$('#showWeapon').html("Show your weapons");
-			}			
+			}else if($('#eventTable tr > td:contains("Amount")').length > 0){
+				$("#eventTable tr").remove();
+				$('#showInventory').html("Show your inventory");
+			}				
 			$.ajax({                                      
-			      url: 'phpAjax/fetchArmorsFromItem.php',                  //the script to call to get data       
+			      url: 'phpAjax/fetchInventoryArmor.php',                  //the script to call to get data       
 			      data: {cN:cName},                        //you can insert url argumnets here to pass to api.php
 			                                       //for example "id=5&parent=6"
 			      dataType: 'json',                //data format      
@@ -219,6 +228,52 @@
 			
 			$('#showArmor').html("Hide your armors");
 		} 
+	}
+	
+	function showInventory(callback){
+		if($('#eventTable tr > td:contains("Amount")').length > 0){
+			$("#eventTable tr").remove();
+			$('#showInventory').html("Show your inventory");
+		}else{	
+			if($('#eventTable tr > td:contains("Mana cost")').length > 0){
+				$("#eventTable tr").remove();
+				$('#showSkill').html("Show your skills");
+			}else if($('#eventTable tr > td:contains("Accuracy")').length > 0){
+				$("#eventTable tr").remove();
+				$('#showWeapon').html("Show your weapons");
+			}else if($('#eventTable tr > td:contains("Defence")').length > 0){
+				$("#eventTable tr").remove();
+				$('#showArmor').html("Show your armors");
+			}			
+			$.ajax({                                      
+			      url: 'phpAjax/openInventory.php',                  //the script to call to get data       
+			      data: {cN:cName},                        //you can insert url argumnets here to pass to api.php
+			                                       //for example "id=5&parent=6"
+			      dataType: 'json',                //data format      
+			      success: function(data)          //on recieve of reply
+			      {
+			        callback(data);
+			        var result = data;
+				var length = result.length/3;
+					$('#eventTable > tbody').append("<tr><td>Name</td><td>Type</td><td>Amount</td><td>Description</td><td> </td></tr>");
+					for(var i=0;i<length;i++){
+						{
+							$('#eventTable > tbody').append("<tr><td>" + result[3*i] + "</td><td>" + result[3*i+1] + "</td><td>" + result[3*i+2] +"</td><td><button input type='button' onclick = 'description(availableItems[3*" + i + "])'>Show Description</button></td><td><button input type='button' onclick = 'removeItem(availableItems[3*" + i + "])'>Discard</button></td></tr>");
+						}	
+					}
+				}
+			});
+			
+			$('#showInventory').html("Hide your inventory");
+		} 
+	}
+	
+	function description(targetI){
+	
+	}
+	
+	function removeItem(targetI){
+	
 	}
 	
 	function findEnemy(){
@@ -253,6 +308,7 @@
 	<button input id="showSkill" type="button" onclick="fetchSkills()">Show your skills</button><br><br>
 	<button input id="showWeapon" type="button" onclick="changeWeapon(function(returnedData){availableWeapons = returnedData;});">Show your weapons</button><br><br>
 	<button input id="showArmor" type="button" onclick="changeArmor(function(returnedData){availableArmors = returnedData;});">Show your armors</button><br><br>
+	<button input id="showInventory" type="button" onclick="showInventory(function(returnedData){availableItems = returnedData;});">Open your inventory</button><br><br>
 	<button input type="button" onclick="Back()">Log out</button>
   </div>
 
