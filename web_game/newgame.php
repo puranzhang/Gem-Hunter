@@ -7,12 +7,38 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" >
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-black.css">
-	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
 	<style>
 		body {
 		  background-color: #C6D7F2;
 		}
+		table {
+		  table-layout: fixed;
+		  width: 60%;
+		}
+		td.i {
+		  position: relative;
+		  height: 4vh;
+		}
+		span{
+		    background:#F8F8F8;
+		    border: 5px solid #DFDFDF;
+		    color: #717171;
+		    font-size: 12px;
+		    width:300px;
+		    height: 50px;
+		    letter-spacing: 1px;
+		    position: relative;
+		    text-align: left;
+		    top: -30px;
+		    display:none;
+		}
+		p:hover span{
+		    display:block;
+		}
+		
+		td:hover span{
+		    display:block;
+		}	
 	</style>
 	
 	<?php
@@ -230,6 +256,7 @@
 		} 
 	}
 	
+	
 	function showInventory(callback){
 		if($('#eventTable tr > td:contains("Amount")').length > 0){
 			$("#eventTable tr").remove();
@@ -254,11 +281,11 @@
 			      {
 			        callback(data);
 			        var result = data;
-				var length = result.length/3;
+				var length = result.length/4;
 					$('#eventTable > tbody').append("<tr><td>Name</td><td>Type</td><td>Amount</td><td>Description</td><td> </td></tr>");
 					for(var i=0;i<length;i++){
 						{
-							$('#eventTable > tbody').append("<tr><td>" + result[3*i] + "</td><td>" + result[3*i+1] + "</td><td>" + result[3*i+2] +"</td><td><button input type='button' onclick = 'description(availableItems[3*" + i + "])'>Show Description</button></td><td><button input type='button' onclick = 'removeItem(availableItems[3*" + i + "])'>Discard</button></td></tr>");
+							$('#eventTable > tbody').append("<tr><td class='i' style='width:60%'>" + result[4*i] + "<span>" + result[4*i+3] + "</span></td><td>" + result[4*i+1] + "</td><td>" + result[4*i+2] +"</td><td><button input type='button' onclick = 'description(availableItems[4*" + i + "])'>Show Description</button></td><td><button input type='button' onclick = 'removeItem(availableItems[4*" + i + "])'>Discard</button></td></tr>");
 						}	
 					}
 				}
@@ -308,18 +335,15 @@
 	<button input id="showSkill" type="button" onclick="fetchSkills()">Show your skills</button><br><br>
 	<button input id="showWeapon" type="button" onclick="changeWeapon(function(returnedData){availableWeapons = returnedData;});">Show your weapons</button><br><br>
 	<button input id="showArmor" type="button" onclick="changeArmor(function(returnedData){availableArmors = returnedData;});">Show your armors</button><br><br>
-	<button input id="showInventory" type="button" onclick="showInventory(function(returnedData){availableItems = returnedData;});">Open your inventory</button><br><br>
+	<button input id="showInventory" type="button" onclick="showInventory(function(returnedData){availableItems = returnedData;});">Show your inventory</button><br><br>
 	<button input type="button" onclick="Back()">Log out</button>
   </div>
-
-
 </div>
 
-<table id = "eventTable" style="width:40%; text-align: left;">
+<table id = "eventTable" style="text-align: left;">
 <tbody>
 </tbody>
 </table>
-
 
 </body>
 </html>
