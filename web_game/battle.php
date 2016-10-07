@@ -41,8 +41,8 @@
 	<button input type = "button" onclick = "getItemTable()">Item</button><br>
   </div>
   <div class="w3-third w3-container " style="width:80% text-align: left;">
-	<p id = "yourSkills"></p>
-	<table id = "skillTable" style="width:40% text-align: left;">
+	<p id = "notice"></p>
+	<table id = "battleTable" style="width:40% text-align: left;">
 	<tbody>
 	</tbody>
 	</table>
@@ -53,7 +53,6 @@
 <p id = "playerAct"></p>
 <p id = "ifParry"></p>
 <p id = "enemyAct"></p>
-
 <p id = "getWeapon"></p>
 
 <script>
@@ -97,6 +96,7 @@ var enemyArmorInfo;
 var enemyInfo;
 var yourSkills;
 var enemySkills;
+var yourItems;
 
 var enemyName;
 var enemyHp;
@@ -121,6 +121,7 @@ var enemyAD;
 
 var numOfESkills;
 var numOfSkills;
+var numOfItems;
 
 // functions needed to be improved
 
@@ -137,7 +138,7 @@ function saveCharInfo(char,charId,charHp,charMhp,charMp,charMmp,charDef,charExp,
 // Need to modify
 function backOrContinue(){
     if (confirm("Are you going to find another enemy?") == true) {
-    	$("#skillTable tr").remove();
+    	$("#battleTable tr").remove();
 	runGame();
     } else {
     	document.cookie = "charId = " + charId;
@@ -305,16 +306,14 @@ function useSkill(skill){
 			charMp = charMp-mana_req;
 			document.getElementById("cmp").innerHTML = charMp + "/" + charMmp;	
 			round = round + 1;
-			enemyMove(false);
-			
+			enemyMove(false);	
 		}
 	}
-	$("#yourSkills").html("");
-	$("#skillTable tr").remove();
+	$("#notice").html("");
+	$("#battleTable tr").remove();
 }
 
-function enemyMove(parry){	
-		
+function enemyMove(parry){
 		var availableESkillsNow = [];
 		var countOfAvailables = 0;
 		for(var i = 0; i < numOfESkills; i ++){
@@ -363,30 +362,66 @@ function enemyMove(parry){
 		document.getElementById("emp").innerHTML = enemyMp;
 }
 
+function useItem(item){
+
+}
+
 function getSkillTable(){
-	if($('#skillTable tr > td:contains("Name")').length > 0){
-		$("#yourSkills").html("");
-		$("#skillTable tr").remove();
-	} else{
-		$("#yourSkills").html("Available Skills:");
-		$('#skillTable > tbody').append("<tr><td>Name</td><td>Damage</td><td>Mana cost</td><td>Type</td></tr>");
+	if($('#battleTable tr > td:contains("Mana cost")').length > 0){
+		$("#notice").html("");
+		$("#battleTable tr").remove();
+	}else{ 
+		if($('#battleTable tr > td:contains("Value")').length > 0){
+			$("#battleTable tr").remove();
+		}
+		$("#notice").html("Available Skills:");
+		$('#battleTable > tbody').append("<tr><td>Name</td><td>Damage</td><td>Mana cost</td><td>Type</td></tr>");
 		for(var i=0;i<numOfSkills;i++){
 			var word = "<tr><td><button input type='button' onclick = 'useSkill(yourSkills[4*" + i + "])'>" +yourSkills[4*i] + "</button></td><td>" + yourSkills[4*i+1] + "</td><td>" + yourSkills[4*i+2] + "</td><td>" + yourSkills[4*i+3] + "</td></tr>";
-			$('#skillTable > tbody').append(word);
-		}
+			$('#battleTable > tbody').append(word);
+		}		
 	}
 }
 
 function defend(){
-	$("#yourSkills").html("");
-	$("#skillTable tr").remove();
+	$("#notice").html("");
+	$("#battleTable tr").remove();
 	document.getElementById("playerAct").innerHTML = "Your round" + round +": You chose to defend yourself.";
 	round = round + 1;
 	enemyMove(true);
 }
 
-function getItemTable(){
+
+function availableItems(char,callback){     
+	$.ajax({                                      
+	      url: 'phpAjax/fetchItems.php',                  //the script to call to get data       
+	      data: {'cN':char},                        //you can insert url argumnets here to pass to api.php
+	      async: false,                             
+	      dataType: 'json',                //data format      
+	      success: function(data)          //on recieve of reply
+	      {	     		
+		callback(data);
+	      }
+	});
 }
+
+function getItemTable(){
+	if($('#battleTable tr > td:contains("Value")').length > 0){
+		$("#notice").html("");
+		$("#battleTable tr").remove();
+	}else{ 
+		if($('#battleTable tr > td:contains("Mana cost")').length > 0){
+			$("#battleTable tr").remove();
+		}
+		$("#notice").html("Available Items:");
+		$('#battleTable > tbody').append("<tr><td>Name</td><td>Value</td><td>Type</td><td>amount</td></tr>");
+		for(var i=0;i<numOfItems;i++){
+			var word = "<tr><td><button input type='button' onclick = 'useItem(yourItems[4*" + i + "])'>" +yourItems[4*i] + "</button></td><td>" + yourItems[4*i+1] + "</td><td>" + yourItems[4*i+2] + "</td><td>" + yourItems[4*i+3] + "</td></tr>";
+			$('#battleTable > tbody').append(word);
+		}
+	}
+}  
+
 
 
 // RUN GAME
@@ -396,9 +431,7 @@ function runGame(){
 	document.getElementById("ifParry").innerHTML = "";
 	document.getElementById("enemyAct").innerHTML = "";
 	
-	getEnemy(function(returnedData){ //anonymous callback function
-	    enemyInfo = returnedData;
-	});
+	getEnemy(function(returnedData){enemyInfo = returnedData;});
 	
 	// Attributes of Enemy
 	enemyName = enemyInfo[0];
@@ -412,44 +445,32 @@ function runGame(){
 	enemyW = enemyInfo[6];
 	enemyA = enemyInfo[7];
 	
-	fetchWeaponInfo(charW,function(returnedData){ //anonymous callback function
-	    charWeaponInfo = returnedData;
-	});
+	fetchWeaponInfo(charW,function(returnedData){charWeaponInfo = returnedData;});
+	fetchWeaponInfo(enemyW,function(returnedData){enemyWeaponInfo = returnedData;});
 	
 	charDmg = parseInt(charWeaponInfo[1]);
 	charAcc = parseFloat(charWeaponInfo[3]);
 	charTyp = charWeaponInfo[4];
-	
-	fetchArmorInfo(charA,function(returnedData){ //anonymous callback function
-	    charArmorInfo = returnedData;
-	});
-	
-	charAD = parseInt(charArmorInfo[1]);
-	
-	fetchWeaponInfo(enemyW,function(returnedData){ //anonymous callback function
-	    enemyWeaponInfo = returnedData;
-	});
-
 	enemyDmg = parseInt(enemyWeaponInfo[1]);
 	enemyAcc = parseFloat(enemyWeaponInfo[3]);
 	enemyTyp = enemyWeaponInfo[4];
 	
-	fetchArmorInfo(enemyA,function(returnedData){ //anonymous callback function
-	    enemyArmorInfo = returnedData;
-	});
+	fetchArmorInfo(charA,function(returnedData){charArmorInfo = returnedData;});
+	fetchArmorInfo(enemyA,function(returnedData){enemyArmorInfo = returnedData;});
 	
+	charAD = parseInt(charArmorInfo[1]);
 	enemyAD = parseInt(enemyArmorInfo[1]);
 	
-	availableSkills(charProf, lv, function(returnedData){ //anonymous callback function
-	    yourSkills = returnedData;
-	});
+	availableSkills(charProf, lv, function(returnedData){yourSkills = returnedData;});
+	availableSkills(enemyProf, enemyLv, function(returnedData){enemySkills = returnedData;});
 	
-	availableSkills(enemyProf, enemyLv, function(returnedData){
-	    enemySkills = returnedData;
-	});
+	availableItems(char,function(returnedData){yourItems = returnedData;});
 	
 	numOfESkills = enemySkills.length/4;
 	numOfSkills = yourSkills.length/4;
+	numOfItems = yourItems.length/4;
+	
+	
 	
 	document.getElementById("intro").innerHTML = "You are " + char + " the " + charProf + " and your lv is " + lv + ".<br>Enemy found!!";
 

@@ -105,5 +105,6 @@ create table Inventory (
     amount int,
     type varchar(32),
 
+    primary key (char_name, item_no),
     foreign key (char_name) references Game_Char
 );

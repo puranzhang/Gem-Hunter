@@ -87,9 +87,9 @@ insert into Armor
     VALUES ('Ninja Suit Ultra', 15, 50, 'Thief', '111','');
 
 insert into Item
-    VALUES ('Small Health Potion',30,'Hp','701','');
+    VALUES ('Small Health Potion',30,'Hp','701','A small potion that restore 30 health.');
 insert into Item
-    VALUES ('Medium Health Potion',60,'Hp','702','');
+    VALUES ('Medium Health Potion',60,'Hp','702','AAAAAAAAAAA bbbbbbbbbbbbc ccccccccccccccc dddddddddddddddddd.');
 insert into Item
     VALUES ('Large Health Potion',100,'Hp','703','');
 

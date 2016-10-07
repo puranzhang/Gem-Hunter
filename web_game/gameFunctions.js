@@ -51,6 +51,8 @@ function availableSkills(charProf, lv, callback){
 	});
 }
 
+
+
 function fetchWeaponName(charProf, lv, callback){
 	$.ajax({                                      
 	      url: 'phpAjax/fetchWeaponName.php',                  //the script to call to get data       
