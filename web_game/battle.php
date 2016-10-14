@@ -151,6 +151,8 @@ function win(){
 	document.getElementById("playerAct").innerHTML = "";
 	document.getElementById("ifParry").innerHTML = "";
 	document.getElementById("enemyAct").innerHTML = "";
+	var reward = Math.floor(Math.random()*100);
+	var reward2 = Math.floor(Math.random()*100);
 	if(lv == 50){
 		message = 1;
 		if(charHp < charMhp*0.9){
@@ -199,12 +201,48 @@ function win(){
 	} else if(message == 2){
 		alert("YOU WIN!! \n" + "LEVEL UP!! You are now LV " + (lv+1) + "!! You are also fully cured. \n" + "Your earned " + bonusMoney + " coins!");
 	} else{
-		alert("YOU WIN!! \n" + "You gain " + expUp + " exp, current exp: " + charExp + "/" + levelNeeded + " You also recovered 10% health and mana. \n" + "Your earned " + bonusMoney + " coins!");
+		alert("YOU WIN!! \n" + "You gain " + expUp + " exp, current exp: " + charExp + "/" + levelNeeded + ".\n You also recovered 10% health and mana. \n" + "Your earned " + bonusMoney + " coins!");
+	}
+	
+	if(reward > 95){
+		if(reward2 > 50){
+			alert("You find a Large Health Potion!");
+			gainReward(char,703,"I");
+		} else{
+			alert("You find a Large Mana Potion!");
+			gainReward(char,713,"I");
+		}
+	} else if(reward > 85){
+		if(reward2 > 50){
+			alert("You find a Medium Health Potion!");
+			gainReward(char,702,"I");
+		} else{
+			alert("You find a Medium Mana Potion!");
+			gainReward(char,712,"I");
+		}
+	} else if(reward > 60){
+		if(reward2 > 50){
+			alert("You find a Small Health Potion!");
+			gainReward(char,701,"I");
+		} else{
+			alert("You find a Small Mana Potion!");
+			gainReward(char,711,"I");
+		}
 	}
 	
 	saveCharInfo(char,charId,charHp,charMhp,charMp,charMmp,charDef,charExp,lv,charW,charA,charM);
 
 	backOrContinue();
+}
+
+function gainReward(char,item_no,type){
+	$.ajax({                                      
+	      url: 'phpAjax/gainReward.php',    
+	      data: {'cN':char,'item':item_no,'type':type}, 
+	      success: function(data)
+	      {	     
+	      }
+	});
 }
 
 function lose(){
@@ -362,8 +400,40 @@ function enemyMove(parry){
 		document.getElementById("emp").innerHTML = enemyMp;
 }
 
-function useItem(item){
-
+function useItem(char,item){
+	var value;
+	var type;
+	$.ajax({                                      
+	      url: 'phpAjax/useItem.php',     
+	      data: {'cN':char,'target':item},
+	      async: false,                             
+	      dataType: 'json', 
+	      success: function(data)
+	      {	     		
+		value = parseInt(data[0]);
+		type = data[1];
+		
+		if(type == 'Hp'){
+			charHp = charHp + value;
+			if(charHp > charMhp){
+				charHp = charMhp;
+			}
+			document.getElementById("chp").innerHTML = charHp + "/" + charMhp;
+		} else if(type == 'Mp'){
+			charMp = charMp + value;
+			
+			if(charMp > charMmp){
+				charMp = charMmp;
+			}
+			document.getElementById("cmp").innerHTML = charMp + "/" + charMmp;
+		}
+	      }
+	});
+	$("#notice").html("");
+	$("#battleTable tr").remove();
+	document.getElementById("playerAct").innerHTML = "Your round" + round +": You use " + item + " and restore " + value + " " + type +"!";
+	round = round + 1;
+	enemyMove(true);
 }
 
 function getSkillTable(){
@@ -394,18 +464,23 @@ function defend(){
 
 function availableItems(char,callback){     
 	$.ajax({                                      
-	      url: 'phpAjax/fetchItems.php',                  //the script to call to get data       
-	      data: {'cN':char},                        //you can insert url argumnets here to pass to api.php
+	      url: 'phpAjax/fetchItems.php',     
+	      data: {'cN':char},
 	      async: false,                             
-	      dataType: 'json',                //data format      
-	      success: function(data)          //on recieve of reply
+	      dataType: 'json', 
+	      success: function(data)
 	      {	     		
 		callback(data);
+		result = data;
+		
 	      }
 	});
 }
 
 function getItemTable(){
+	availableItems(char, function(returnedData){yourItems = returnedData;});
+	numOfItems = yourItems.length/4;
+	
 	if($('#battleTable tr > td:contains("Value")').length > 0){
 		$("#notice").html("");
 		$("#battleTable tr").remove();
@@ -416,7 +491,7 @@ function getItemTable(){
 		$("#notice").html("Available Items:");
 		$('#battleTable > tbody').append("<tr><td>Name</td><td>Value</td><td>Type</td><td>amount</td></tr>");
 		for(var i=0;i<numOfItems;i++){
-			var word = "<tr><td><button input type='button' onclick = 'useItem(yourItems[4*" + i + "])'>" +yourItems[4*i] + "</button></td><td>" + yourItems[4*i+1] + "</td><td>" + yourItems[4*i+2] + "</td><td>" + yourItems[4*i+3] + "</td></tr>";
+			var word = "<tr><td><button input type='button' onclick = 'useItem(char,yourItems[4*" + i + "])'>" +yourItems[4*i] + "</button></td><td>" + yourItems[4*i+1] + "</td><td>" + yourItems[4*i+2] + "</td><td>" + yourItems[4*i+3] + "</td></tr>";
 			$('#battleTable > tbody').append(word);
 		}
 	}
@@ -464,18 +539,16 @@ function runGame(){
 	availableSkills(charProf, lv, function(returnedData){yourSkills = returnedData;});
 	availableSkills(enemyProf, enemyLv, function(returnedData){enemySkills = returnedData;});
 	
-	availableItems(char,function(returnedData){yourItems = returnedData;});
 	
 	numOfESkills = enemySkills.length/4;
 	numOfSkills = yourSkills.length/4;
-	numOfItems = yourItems.length/4;
+	
 	
 	
 	
 	document.getElementById("intro").innerHTML = "You are " + char + " the " + charProf + " and your lv is " + lv + ".<br>Enemy found!!";
 
 	$('#charTable > tbody').html("<tr><td>Character</td><td>hp</td><td>mp</td><td>lvl</td><td>profession</td></tr><tr><td>" + char + "</td><td id = 'chp'>" + charHp + "/" + charMhp + "</td><td id = 'cmp'>" + charMp + "/" + charMmp + "</td><td>" + lv + "</td><td>" + charProf + "</td></tr>");
-	
 	
 }
 
