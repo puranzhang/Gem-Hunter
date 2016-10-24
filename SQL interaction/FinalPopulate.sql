@@ -9,15 +9,15 @@ insert into Profession
 
 
 insert into Weapon 
-    VALUES ('Bow', 16, 1, 0.25, 'Archer','001','');
+    VALUES ('Bow', 16, 1, 0.25, 'Archer','001','A really simple wooden toy bow.');
 insert into Weapon 
-    VALUES ('Iron Bow', 18, 10, 0.4, 'Archer','002','');
+    VALUES ('Iron Bow', 18, 10, 0.4, 'Archer','002','A normal bow used by most archers.');
 insert into Weapon 
-    VALUES ('Gold Bow', 22, 20, 0.55, 'Archer','003','');
+    VALUES ('Gold Bow', 22, 20, 0.55, 'Archer','003','Bow used by nobles. Decorated with gold.');
 insert into Weapon 
-    VALUES ('Diamond Bow', 26, 30, 0.7, 'Archer','004','');
+    VALUES ('Diamond Bow', 26, 30, 0.7, 'Archer','004','Fantastic bows with enchantment of strength. Also expensive because of the enchanting diamond.');
 insert into Weapon 
-    VALUES ('Cubid', 40, 40, 0.5, 'Archer','005','');
+    VALUES ('Cubid', 40, 40, 0.5, 'Archer','005','A extremely powerful and rare bow. The only weakness is its accuracy.');
 insert into Weapon 
     VALUES ('Apolo', 30, 50, 0.95, 'Archer','006','');
 
