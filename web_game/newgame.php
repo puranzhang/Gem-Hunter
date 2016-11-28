@@ -319,8 +319,41 @@
 <p id = "welcome" style="color:red;">This is your super powerful champion!</p>
 
 <div class="w3-row w3-border">
-  <div class="w3-third w3-container " style="text-align: right;">
-	<img src = "GameImage/champion.jpg" name = "pic" alt = "champion" style="width:430px;height:400px;">
+  <div class="w3-quarter w3-container " id = "theChar" style="text-align: center;">
+  	<script>
+  	$.ajax({                                    
+		      url: 'phpAjax/fetchInfo.php',                  //the script to call to get data       
+		      data: {id:userId},                        //you can insert url argumnets here to pass to api.php
+		                                       //for example "id=5&parent=6"
+		      dataType: 'json',                //data format      
+		      success: function(data)          //on recieve of reply
+		      {
+		        	var img = new Image();
+				var div = document.getElementById('theChar');	
+				img.onload = function() {
+					div.appendChild(img);
+				};
+				img.style = 'width:130px;height:150px';
+				var charProf = getCookie("charProf");
+			  	if(charProf == "Fighter"){
+					img.src = 'GameImage/characters/ftr1_fr1.gif';
+					//document.write("I'm a fighter!");
+			  	} else if(charProf == "Archer"){
+			  		img.src = 'GameImage/characters/trk1_fr1.gif';
+			  		//document.write("I look weird but I'm an archer!");
+			  	} else if(charProf == "Thief"){
+			  		img.src = 'GameImage/characters/thf1_fr1.gif';
+			  		//document.write("I'm a thief!");
+			  	} else if(charProf == "Magician"){
+			  		img.src = 'GameImage/characters/amg1_fr1.gif';
+			  		//document.write("I'm a magician!");
+			  	}
+			  	//document.write("<br>");	
+		        
+			}
+		});
+	
+	</script>
   </div>
   <div class="w3-third w3-container" style="text-align: left;">
 	<div id="info">
