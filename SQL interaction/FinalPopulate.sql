@@ -106,7 +106,7 @@ insert into Item
 insert into Game_User 
     VALUES ('11111111', '11111111');
 insert into Game_Char 
-    VALUES ('Guanyu', '11111111', 100, 100, 100, 100, 5, 0, 1, 'Magician', 'Wand', 'Ragged Cloth',100);
+    VALUES ('Guanyu', '11111111', 180, 180, 60, 60, 2, 0, 1, 'Magician', 'Wand', 'Ragged Cloth',100);
 insert into Inventory 
     VALUES ('Guanyu', '019', 1, 'W');
 insert into Inventory 
@@ -115,7 +115,7 @@ insert into Inventory
 insert into Game_User 
     VALUES ('22222222', '22222222');
 insert into Game_Char 
-    VALUES ('Puran', '22222222', 100, 100, 100, 100, 5, 0, 19, 'Magician', 'Iron Wand', 'Ragged Cloth',100);
+    VALUES ('Puran', '22222222', 468, 468, 204, 204, 2, 0, 19, 'Magician', 'Iron Wand', 'Ragged Cloth',100);
 insert into Inventory 
     VALUES ('Puran', '019', 1, 'W');
 insert into Inventory 
@@ -365,6 +365,6 @@ insert into Skill
 insert into Skill 
     VALUES ('Ether Attack', 30, 9, 'Attack', 40, 'Magician');
 insert into Skill 
-    VALUES ('Healing Mantra', 40, 20, 'Attack', 45, 'Magician');
+    VALUES ('Healing Mantra', 40, 20, 'Heal', 45, 'Magician');
 insert into Skill 
     VALUES ('Typhoon', 76, 40, 'Attack', 50, 'Magician');
