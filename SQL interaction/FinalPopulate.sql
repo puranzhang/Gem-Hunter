@@ -63,6 +63,8 @@ insert into Weapon
 
 insert into Armor 
     VALUES ('Ragged Cloth', 1, 1, null, '101','');
+insert into Armor 
+    VALUES ('Basic Armor', 5, 1, null, '112','');
 
 insert into Armor 
     VALUES ('Cloth', 5, 10, 'Archer', '102','');

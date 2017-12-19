@@ -319,8 +319,9 @@ function useSkill(skill){
 					eParry = true;
 					document.getElementById("ifParry").innerHTML = "Enemy parried half of the damage!";
 					document.getElementById("enemyAct").innerHTML = "Enemy round" + round + ": Enemy chose to defend.";
-				}			
-				document.getElementById("playerAct").innerHTML = "Your round" + round +": You used the skill: <strong>" + skill + "</strong>, damage: " + finalDamage + " enemyA: " + enemyDef + " + " + enemyAD;
+				}		
+				var enemyFinalDefence = enemyDef+enemyAD;
+				document.getElementById("playerAct").innerHTML = "Your round" + round +": You used the skill: <strong>" + skill + "</strong>, damage: " + finalDamage + " enemy Defence: " + enemyFinalDefence;
 				enemyHp = parseInt(enemyHp)-finalDamage;
 				document.getElementById("ehp").innerHTML = enemyHp;
 				if((enemyHp) <= 0){
@@ -535,6 +536,10 @@ function runGame(){
 	
 	charAD = parseInt(charArmorInfo[1]);
 	enemyAD = parseInt(enemyArmorInfo[1]);
+	if(isNaN(enemyAD)){
+		enemyAD = 0;
+	}
+	
 	
 	availableSkills(charProf, lv, function(returnedData){yourSkills = returnedData;});
 	availableSkills(enemyProf, enemyLv, function(returnedData){enemySkills = returnedData;});
