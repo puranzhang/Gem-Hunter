@@ -308,7 +308,7 @@
 	}
 	
 	function Back(){
-		location = 'login.html';
+		location = 'rpg.html';
 	}
 	
 	fetchInfo();

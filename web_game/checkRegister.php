@@ -77,7 +77,7 @@ if($user_r != null || $char_r != null){
     mysql_query($char_update);
 
     //kick to login
-    header('Location: login.html');
+    header('Location: rpg.html');
 }
 ?>
 

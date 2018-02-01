@@ -1,3 +1,4 @@
+// fetch the enemy by the charName and lv
 function getEnemy(callback){
 	$.ajax({                                      
 	      url: 'phpAjax/fetchEnemy.php',                  //the script to call to get data       
